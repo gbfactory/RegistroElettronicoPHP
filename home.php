@@ -1,6 +1,6 @@
 <?php include './components/header.php'; 
 
-    //$riepilogo = $argo->oggiScuola('2019-12-10'); 
+    //$riepilogo = $argo->oggiScuola('2020-01-31'); 
     $riepilogo = $argo->oggiScuola(date('Y-m-d')); 
     
 ?>
@@ -22,24 +22,30 @@
                 <blockquote>
                     <?php 
 
-                        if ($riepilogo[$x]['tipo'] == 'PRO') {
+                        $tipo = $riepilogo[$x]['tipo'];
+
+                        // Promemoria
+                        if ($tipo == 'PRO') {
 
                             echo $riepilogo[$x]['dati']['desAnnotazioni'] . '<br>';
                             echo '<i>' . $riepilogo[$x]['dati']['desMittente'] . '</i>';
 
-                        } else if ($riepilogo[$x]['tipo'] == 'COM') {
+                        // Compiti assegnati
+                        } else if ($tipo == 'COM') {
 
                             echo '<b>' . $riepilogo[$x]['dati']['desMateria'] . '</b> <br>';
                             echo $riepilogo[$x]['dati']['desCompiti'] . '<br>';
                             echo '<i>' . $riepilogo[$x]['dati']['docente'] . '</i>';
 
-                        } else if ($riepilogo[$x]['tipo'] == 'ARG') {
+                        // Argomenti lezione
+                        } else if ($tipo == 'ARG') {
 
                             echo '<b>' . $riepilogo[$x]['dati']['desMateria'] . '</b> <br>';
                             echo $riepilogo[$x]['dati']['desArgomento'] . '<br>';
                             echo '<i>' . $riepilogo[$x]['dati']['docente'] . '</i>';
 
-                        } else if ($riepilogo[$x]['tipo'] == 'VOT') {
+                        // Voto
+                        } else if ($tipo == 'VOT') {
 
 
                             $codProva = $riepilogo[$x]['dati']['codVotoPratico'];
@@ -93,8 +99,18 @@
                                     </span>
                                 </div>
                             </div>
-
-                    <?php } ?>
+                        <?php 
+                        
+                        // Bacheca    
+                        } else if ($tipo == 'BAC') {
+                            echo '<b>' . $riepilogo[$x]['dati']['desOggetto'] . '</b> <br>';
+                            echo $riepilogo[$x]['dati']['desMessaggio'];
+                            
+                        // Note
+                        } else if ($tipo == 'NOT') {
+                            echo $riepilogo[$x]['dati']['desNota'] . '<br>';
+                            echo '<i>' . $riepilogo[$x]['dati']['docente'] . '</i>';
+                        }  ?>
 
                 </blockquote>
             </div>
