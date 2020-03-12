@@ -6,14 +6,33 @@ $compiti = $argo->compiti();
 <main>
 
     <div class="container">
-        <h3>Compiti Assegnati</h3>
+        <h3 class="header">Compiti Assegnati</h3>
+
+        <hr>
 
         <div class="row">
             <div class="col s12">
                 <ul class="collection">
                 <?php for ($x = 0; $x < count($compiti); $x++) { ?>
                         <li class="collection-item avatar">
-                            <i class="material-icons circle amber lighten-2">book</i>
+
+                            <?php
+                            
+                            $dataCompiti = $compiti[$x]['datGiorno'];
+                            $oggi = date('Y-m-d');
+
+                            // Colore compiti
+                            if ($dataCompiti > $oggi) {
+                                $color = 'yellow';
+                            } else if ($dataCompiti < $oggi) {
+                                $color = 'green';
+                            } else if ($dataCompiti == $oggi) {
+                                $color = 'red';
+                            }
+
+                            ?>
+
+                            <i class="material-icons circle <?= $color ?>">book</i>
                             <span class="title"><?= $compiti[$x]['desMateria'] ?></span>
                                 <?php
                                     $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
@@ -27,10 +46,17 @@ $compiti = $argo->compiti();
                                         echo('<a href="http://www.euganeolearning.cloud/moodle/" class="secondary-content tooltipped" data-tooltip="Vai a Moodle"><i class="material-icons">web</i></a>');
                                     }
 
+                                    // Data
+                                    $datCompitiSplit = explode('-', $compiti[$x]['datCompiti']);
+                                    $datCompiti = $datCompitiSplit[2] . '/' . $datCompitiSplit[1] . '/' . $datCompitiSplit[0];
+
+                                    $datGiornoSplit = explode('-', $compiti[$x]['datGiorno']);
+                                    $datGiorno = $datGiornoSplit[2] . '/' . $datGiornoSplit[1] . '/' . $datCompitiSplit[0];
+
                                     if ($compiti[$x]['datGiorno'] == $compiti[$x]['datCompiti']) {
-                                        echo('<p>Assegnati il ' . $compiti[$x]['datGiorno'] . '</p>');
+                                        echo('<p>Assegnati il <b>' . $datGiorno . '</b></p>');
                                     } else {
-                                        echo('<p>Assegnati il ' . $compiti[$x]['datGiorno'] . ' per il ' . $compiti[$x]['datCompiti'] . '</p>');
+                                        echo('<p>Assegnati il <b>' . $datGiorno . '</b> per il <b>' . $datCompiti . '</b></p>');
                                     }
                                 ?>
                             <p><?= preg_replace($reg_exUrl, '<a href="' . $url[0] . '">' . $url[0] . '</a> ', $desCompiti) ?> <br> <?= $compiti[$x]['docente'] ?></p>
