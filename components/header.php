@@ -31,37 +31,20 @@ $headerArgo = $argo->schede();
     <title>Registro Elettronico</title>
     <meta name="description" content="Interfaccia registro elettronico Argo ScuolaNext">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
 
-    <style>
-        header,
-        main,
-        footer {
-            padding-left: 300px;
-        }
-
-        @media only screen and (max-width : 992px) {
-
-            header,
-            main,
-            footer {
-                padding-left: 0;
-            }
-        }
-    </style>
-
     <nav>
         <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <div class="nav-wrapper container">
-            <ul class="right hide-on-med-and-down">
-                <li><a href="#"><i class="material-icons">info_outline</i></a></li>
-                <li><a href="#"><i class="material-icons">code</i></a></li>
+            <ul class="right">
+                <li><a href="info.html"><i class="material-icons">info_outline</i></a></li>
+                <li><a href="https://github.com/gb-factory/RegistroElettronico"><i class="material-icons">code</i></a></li>
                 <li><a href="logout.php" class="waves-effect waves-light btn"><i class="material-icons right">person</i> Esci</a></li>
             </ul>
         </div>
@@ -78,7 +61,7 @@ $headerArgo = $argo->schede();
         <li><a class="waves-effect" href="home.php">Riepilogo</a></li>
         <li>
             <div class="divider"></div>
-        </li> 
+        </li>
         <li><a class="subheader">Alunno</a></li>
         <li><a class="waves-effect" href="datiAnagrafici.php">Dati Anagrafici</a></li>
         <li><a class="waves-effect" href="votiRegistro.php">Valutazioni</a></li>
