@@ -45,6 +45,26 @@ $scrutinio = $argo->votiScrutinio();
                 }
             }
 
+            function coloreGrafico($voto) {
+                if ($voto <= 1) {
+                    return '183, 28, 28';
+                } else if (($voto >= 1) && ($voto < 5)) {
+                    return '244, 67, 54';
+                } else if (($voto >= 5) && ($voto < 6)) {
+                    return '230, 81, 0';
+                } else if (($voto >= 6) && ($voto < 7)) {
+                    return '205, 220, 57';
+                } else if (($voto >= 7) && ($voto < 8)) {
+                    return '175, 180, 43';
+                } else if (($voto >= 8) && ($voto < 9)) {
+                    return '139, 195, 74';
+                } else if (($voto >= 9) && ($voto < 10)) {
+                    return '76, 175, 80';
+                } else if ($voto >= 10) {
+                    return '56, 142, 60';
+                }
+            }
+
             function tipoProva($cod) {
                 if ($cod == 'S') {
                     return 'Scritto';
@@ -249,8 +269,8 @@ $scrutinio = $argo->votiScrutinio();
                                 <?= $mediaTot . ',' . (10 - $mediaTot) ?>
                             ],
                             backgroundColor: [
-                                'rgb(255, 159, 64)',
-                                'rgb(255, 205, 86)',
+                                'rgb(<?= coloreGrafico($mediaTot) ?>)',
+                                'rgb(161, 161, 161)',
                             ]
                         }],
                         labels: [
@@ -265,8 +285,8 @@ $scrutinio = $argo->votiScrutinio();
                                 <?= $mediaTri . ',' . (10 - $mediaTri) ?>
                             ],
                             backgroundColor: [
-                                'rgb(255, 159, 64)',
-                                'rgb(255, 205, 86)',
+                                'rgb(<?= coloreGrafico($mediaTri) ?>)',
+                                'rgb(161, 161, 161)',
                             ]
                         }],
                         labels: [
@@ -281,8 +301,8 @@ $scrutinio = $argo->votiScrutinio();
                                 <?= $mediaPen . ',' . (10 - $mediaPen) ?>
                             ],
                             backgroundColor: [
-                                'rgb(255, 159, 64)',
-                                'rgb(255, 205, 86)',
+                                'rgb(<?= coloreGrafico($mediaPen) ?>)',
+                                'rgb(161, 161, 161)',
                             ]
                         }],
                         labels: [
