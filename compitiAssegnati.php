@@ -2,6 +2,11 @@
 
 $compiti = $argo->compiti();
 
+// https://stackoverflow.com/questions/5341168/best-way-to-make-links-clickable-in-block-of-text
+function make_links_clickable($text){
+    return preg_replace('!(((f|ht)tp(s)?://)[-a-zA-Zа-яА-Я()0-9@:%_+.~#?&;//=]+)!i', '<a href="$1">$1</a>', $text);
+}
+
 ?>
 <main>
 
@@ -35,16 +40,6 @@ $compiti = $argo->compiti();
                             <i class="material-icons circle <?= $color ?>">book</i>
                             <span class="title"><?= $compiti[$x]['desMateria'] ?></span>
                                 <?php
-                                    $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
-                                    $desCompiti = $compiti[$x]['desCompiti'];
-
-                                    if (preg_match($reg_exUrl, $desCompiti, $url)) {
-                                        echo('<a href="' . $url[0] . '" class="secondary-content tooltipped" data-tooltip="Vai al Link"><i class="material-icons">link</i></a>');
-                                    }
-
-                                    if (strpos(strtolower($desCompiti), 'moodle')) {
-                                        echo('<a href="http://www.euganeolearning.cloud/moodle/" class="secondary-content tooltipped" data-tooltip="Vai a Moodle"><i class="material-icons">web</i></a>');
-                                    }
 
                                     // Data
                                     $datCompitiSplit = explode('-', $compiti[$x]['datCompiti']);
@@ -59,7 +54,9 @@ $compiti = $argo->compiti();
                                         echo('<p>Assegnati il <b>' . $datGiorno . '</b> per il <b>' . $datCompiti . '</b></p>');
                                     }
                                 ?>
-                            <p><?= preg_replace($reg_exUrl, '<a href="' . $url[0] . '">' . $url[0] . '</a> ', $desCompiti) ?> <br> <?= $compiti[$x]['docente'] ?></p>
+                            <p>
+                                <?= make_links_clickable($compiti[$x]['desCompiti']) ?> <br> <?= $compiti[$x]['docente'] ?>
+                            </p>
                         </li>
                     <?php } ?>
                 </ul>
