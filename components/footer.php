@@ -1,25 +1,20 @@
-<footer class="page-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col l6 s12">
-                <h5 class="white-text">INFORMAZIONI</h5>
-                <p class="grey-text text-lighten-4">Registro elettronico con sincronizzazione dati da Argo Scuola Next</p>
-            </div>
-            <div class="col l6 s12">
-                <h5 class="white-text">ATTENZIONE</h5>
-                <p class="grey-text text-lighten-4">Questo non è il registro ufficiale Argo, per utilizzare il registro ufficiale recarsi a questo link: <a href="https://www.argofamiglia.it/">https://www.argofamiglia.it/</a></p>
+<script>
+    $(document).ready(function() {
+        $('.sidenav').sidenav();
+    });
+</script>
 
-            </div>
+<script>
+    $(document).ready(function() {
+        $('.tabs').tabs();
+    });
+</script>
 
-        </div>
-    </div>
-    <div class="footer-copyright">
-        <div class="container">
-            © 2020 GB Factory Scuola
-            <a class="grey-text text-lighten-4 right" href="https://gbfactory.net/">gbfactory.net</a>
-        </div>
-    </div>
-</footer>
+<script>
+    $(document).ready(function() {
+        $('.tooltipped').tooltip();
+    });
+</script>
 
 <script src="./assets/js/main.js"></script>
 
