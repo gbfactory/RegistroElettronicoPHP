@@ -24,6 +24,13 @@ $argoLink = 'http://www.' . $codice . '.scuolanext.info/';
 
 $headerArgo = $argo->schede();
 
+// Data leggibile
+function dataLeggibile($data) {
+    $dataSplit = explode('-', $data);
+    return $dataSplit[2] . '/' . $dataSplit[1] . '/' . $dataSplit[0];    
+}
+
+
 ?>
 
 <html>
