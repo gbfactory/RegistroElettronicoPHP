@@ -1,67 +1,49 @@
-<?php include './components/header.php'; 
+<?php include './components/header.php';
 
 $argomenti = $argo->argomenti();
 
 ?>
 <main>
 
-    <div class="container">
-        <h3>Argomenti Lezione</h3>
+<div class="container">
+    <h3 class="header">Argomenti Lezioni</h3>
 
-        <div class="row">
-            <div class="col s12">
+    <hr>
 
-                <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
-                <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <div class="row">
+        <div class="col s12">
 
-                <table id="argomenti" class="display">
-                    <thead>
-                        <tr>
-                            <th>MATERIA</th>
-                            <th>DATA</th>
-                            <th>ARGOMENTI</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php for ($x = 0; $x < count($argomenti); $x++) { ?>
-                            <tr>
-                                <td><?= $argomenti[$x]['desMateria'] ?></td>
-                                <td><?= $argomenti[$x]['datGiorno'] ?></td>
-                                <td><?= $argomenti[$x]['desArgomento'] ?></td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+            <input type="text" id="argCerca" placeholder="Cerca argomento...">
 
-                <script>
-                    $(document).ready(function() {
-                        $('#argomenti').DataTable({
-                            "paging": false,
-                            "columnDefs": [
-                                { width: '30%', targets: 0 },
-                                { width: '10%', targets: 1 },
-                                { width: '60%', targets: 2 }
-                            ],
-                            "language": {
-                                "emptyTable":     "Non ci sono informazioni disponibili",
-                                "info":           "Stai visualizzando da _START_ a _END_ di _TOTAL_ argomenti",
-                                "infoEmpty":      "Stai visualizzando 0 argomenti",
-                                "infoFiltered":   "(filtrato da _MAX_ argomenti totali)",
-                                "loadingRecords": "Caricamento...",
-                                "processing":     "Elaborazione...",
-                                "search":         "Cerca:",
-                                "zeroRecords":    "Non ci sono risultati"
-                            }
-                        });
-                    } );
-                </script>
+            <ul class="collection">
+                <?php for ($x = 0; $x < count($argomenti); $x++) { ?>
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle blue darken-2">reorder</i>
 
-            </div>
+                        <span class="title"><b><?= $argomenti[$x]['desMateria'] ?> - <?= dataLeggibile($argomenti[$x]['datGiorno']) ?></b></span>
+
+                        <p><?= linkCliccabili($argomenti[$x]['desArgomento']) ?></p>
+
+                    </li>
+                <?php } ?>
+            </ul>
         </div>
-
     </div>
-</main>
 
+    <script>
+        // https://stackoverflow.com/questions/52592173/search-for-an-item-in-a-list-using-jquery-filter/52592294
+        $("#argCerca").on("keyup", function() {
+            var value = this.value.toLowerCase().trim();
+            $(".collection li").show().filter(function() {
+                return $(this).text().toLowerCase().trim().indexOf(value) == -1;
+            }).hide();
+        });
+    </script>
+
+    <?php //print('<pre> ' . print_r($argomenti, true) . '</pre>'); ?>
+
+</div>
+</main>
 
 
 <?php include './components/footer.php'; ?>
