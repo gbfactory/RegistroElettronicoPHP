@@ -353,18 +353,30 @@ $scrutinio = $argo->votiScrutinio();
                 ===================================-->
             <div id="valutazioni" class="col s12">
                 <ul class="collection">
+
+                <style>
+                    .nonfamedia {
+                        position: absolute;
+                        left: 23px;
+                        top: 60px;
+                    }     
+                </style>
+
                     <?php for ($x = 0; $x < count($voti); $x++) { ?>
                         <li class="collection-item avatar">
                             <i class="circle <?= coloreVoto($voti[$x]['decValore']) ?>"><?= $voti[$x]['codVoto'] ?></i>
                             <span class="title"><?= $voti[$x]['desMateria'] ?></span>
-                            <p><?= $voti[$x]['datGiorno'] ?> - <?= tipoProva($codProva = $voti[$x]['codVotoPratico']) ?></p>
+                            <p><?= dataLeggibile($voti[$x]['datGiorno']) ?> - <?= tipoProva($codProva = $voti[$x]['codVotoPratico']) ?></p>
                             <p>
                                 <?php
                                 if ($voti[$x]['desProva'] != '') {
-                                    echo ('Descrizione: ' . $voti[$x]['desProva']) . '<br>';
+                                    echo ('<b>Descrizione:</b> ' . $voti[$x]['desProva']) . '<br>';
                                 }
                                 if ($voti[$x]['desCommento'] != '') {
-                                    echo ('Commento: ' . $voti[$x]['desCommento']) . '<br>';
+                                    echo ('<b>Commento:</b> ' . $voti[$x]['desCommento']) . '<br>';
+                                    if (substr($voti[$x]['desCommento'], -14) == '(non fa media)') {
+                                        echo '<i class="nonfamedia material-icons tooltipped" data-position="right" data-tooltip="Non fa media">warning</i>';
+                                    }
                                 }
                                 echo ($voti[$x]['docente']);
                                 ?>
