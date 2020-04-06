@@ -19,6 +19,12 @@ $memo = $argo->promemoria();
         <script src="./assets/fullcalendar/core/main.js"></script>
         <script src="./assets/fullcalendar/daygrid/main.js"></script>
 
+        <style>
+           .fc-day-grid-event .fc-content{
+                white-space: normal !important;
+            }
+        </style>
+
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var calendarEl = document.getElementById('calendar');
@@ -26,12 +32,14 @@ $memo = $argo->promemoria();
                 var calendar = new FullCalendar.Calendar(calendarEl, {
                     plugins: ['dayGrid'],
                     defaultView: 'dayGridWeek',
+                    contentHeight: 'auto',
+                    locale: 'it',
                     events: [
                         <?php
-                            for ($x = 0; $x < 30; $x++) {
+                            for ($x = 0; $x < count($memo); $x++) {
                                 
                                 echo ("{");
-                                echo ("title: '" . trim(preg_replace('/\s\s+/', ' ', addslashes($memo[$x]['desAnnotazioni']))) . "',");
+                                echo ("title: '" . str_replace("'", '"', json_encode($memo[$x]['desAnnotazioni'])) . "',");
                                 echo ("start: '" . $memo[$x]['datGiorno'] . "'");
                                 echo ("},");
 
@@ -71,7 +79,7 @@ $memo = $argo->promemoria();
                             ?>
 
                             <i class="material-icons circle <?= $color ?>">book</i>
-                            <span class="title">Promemoria per il <b> <?= $memo[$x]['datGiorno'] ?> </b></span>
+                            <span class="title">Promemoria per il <b> <?= dataLeggibile($memo[$x]['datGiorno']) ?> </b></span>
                             <p><?= $memo[$x]['desAnnotazioni'] ?></p>
                             <p><i><?= $memo[$x]['desMittente'] ?></i></p>
 
