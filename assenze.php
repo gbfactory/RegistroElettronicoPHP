@@ -1,4 +1,4 @@
-<?php include './components/header.php'; 
+<?php include './components/header.php';
 
 $argoAssenze = $argo->assenze();
 
@@ -10,29 +10,28 @@ $argoAssenze = $argo->assenze();
 
         <hr>
 
-        <?php 
+        <?php
 
-            //print( '<pre> ' . print_r($argoAssenze, true) . '</pre>');
+        //print( '<pre> ' . print_r($argoAssenze, true) . '</pre>');
 
-            // Definizione arrays
-            $assenze = [];
-            $ingressi = [];
-            $uscite = [];
+        // Definizione arrays
+        $assenze = [];
+        $ingressi = [];
+        $uscite = [];
 
-            // Classificazione voti
-            for ($x = 0; $x < count($argoAssenze); $x++) {
+        // Classificazione voti
+        for ($x = 0; $x < count($argoAssenze); $x++) {
 
-                $codEvento = $argoAssenze[$x]['codEvento'];
+            $codEvento = $argoAssenze[$x]['codEvento'];
 
-                if ($codEvento == 'A') {
-                    array_push($assenze, $argoAssenze[$x]);
-                } else if ($codEvento == 'I') {
-                    array_push($ingressi, $argoAssenze[$x]);
-                } else if ($codEvento == 'U') {
-                    array_push($uscite, $argoAssenze[$x]);
-                }
-
-            };
+            if ($codEvento == 'A') {
+                array_push($assenze, $argoAssenze[$x]);
+            } else if ($codEvento == 'I') {
+                array_push($ingressi, $argoAssenze[$x]);
+            } else if ($codEvento == 'U') {
+                array_push($uscite, $argoAssenze[$x]);
+            }
+        };
 
         ?>
 
@@ -60,37 +59,34 @@ $argoAssenze = $argo->assenze();
                         var calendarEl = document.getElementById('calendar');
 
                         var calendar = new FullCalendar.Calendar(calendarEl, {
-                            plugins: [ 'dayGrid' ],
+                            plugins: ['dayGrid'],
 
                             events: [
-                                <?php   
-                                    for ($x = 0; $x < count($argoAssenze); $x++) {
+                                <?php
+                                for ($x = 0; $x < count($argoAssenze); $x++) {
 
-                                        $codEvento = $argoAssenze[$x]['codEvento'];
-                        
-                                        if ($codEvento == 'A') {
+                                    $codEvento = $argoAssenze[$x]['codEvento'];
 
-                                            echo("{");
-                                                echo("title: 'Assenza',");
-                                                echo("start: '" . $argoAssenze[$x]['datAssenza'] . "'");
-                                            echo("},");
+                                    if ($codEvento == 'A') {
 
-                                        } else if ($codEvento == 'I') {
+                                        echo ("{");
+                                        echo ("title: 'Assenza',");
+                                        echo ("start: '" . $argoAssenze[$x]['datAssenza'] . "'");
+                                        echo ("},");
+                                    } else if ($codEvento == 'I') {
 
-                                            echo("{");
-                                                echo("title: 'Ingresso " . $argoAssenze[$x]['numOra'] . "° ora',");
-                                                echo("start: '" . $argoAssenze[$x]['datAssenza'] . "'");
-                                            echo("},");
+                                        echo ("{");
+                                        echo ("title: 'Ingresso " . $argoAssenze[$x]['numOra'] . "° ora',");
+                                        echo ("start: '" . $argoAssenze[$x]['datAssenza'] . "'");
+                                        echo ("},");
+                                    } else if ($codEvento == 'U') {
 
-                                        } else if ($codEvento == 'U') {
-
-                                            echo("{");
-                                                echo("title: 'Uscita " . $argoAssenze[$x]['numOra'] . "° ora',");
-                                                echo("start: '" . $argoAssenze[$x]['datAssenza'] . "'");
-                                            echo("},");
-
-                                        }
-                                    };
+                                        echo ("{");
+                                        echo ("title: 'Uscita " . $argoAssenze[$x]['numOra'] . "° ora',");
+                                        echo ("start: '" . $argoAssenze[$x]['datAssenza'] . "'");
+                                        echo ("},");
+                                    }
+                                };
                                 ?>
                             ]
 
@@ -107,17 +103,17 @@ $argoAssenze = $argo->assenze();
 
             <div id="assenze" class="col s12">
                 <ul class="collection">
-                <?php for ($x = 0; $x < count($assenze); $x++) { ?>
+                    <?php for ($x = 0; $x < count($assenze); $x++) { ?>
                         <li class="collection-item avatar">
-                            <i class="circle material-icons">close</i>
-                            <span class="title">Assenza del <b><?= $assenze[$x]['datAssenza'] ?></b></span>
+                            <i class="circle material-icons red darken-4">close</i>
+                            <span class="title">Assenza del <b><?= dataLeggibile($assenze[$x]['datAssenza']) ?></b></span>
                             <p>Registrata da <?= $assenze[$x]['registrataDa'] ?></p>
                             <?php
-                                if ($assenze[$x]['giustificataDa']) {
-                                    echo('<p>Giustificata da ' . $assenze[$x]['giustificataDa'] . ' il ' . $assenze[$x]['datGiustificazione']);
-                                } else {
-                                    echo('<a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>'); 
-                                }
+                            if (isset($assenze[$x]['giustificataDa'])) {
+                                echo ('<p>Giustificata da ' . $assenze[$x]['giustificataDa'] . ' il ' . dataLeggibile($assenze[$x]['datGiustificazione']));
+                            } else {
+                                echo ('<a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>');
+                            }
                             ?>
                         </li>
                     <?php } ?>
@@ -126,13 +122,13 @@ $argoAssenze = $argo->assenze();
 
             <div id="ingressi" class="col s12">
                 <ul class="collection">
-                <?php for ($x = 0; $x < count($ingressi); $x++) { ?>
+                    <?php for ($x = 0; $x < count($ingressi); $x++) { ?>
                         <li class="collection-item avatar">
-                            <i class="circle material-icons">subdirectory_arrow_right</i>
-                            <span class="title">Ingresso in <?= $ingressi[$x]['numOra'] ?> ora il <b><?= $ingressi[$x]['datAssenza'] ?></b></span>
+                            <i class="circle material-icons green darken-3">subdirectory_arrow_right</i>
+                            <span class="title">Ingresso in <?= $ingressi[$x]['numOra'] ?> ora il <b><?= dataLeggibile($ingressi[$x]['datAssenza']) ?></b></span>
                             <p>Ingresso alle ore <?= substr($ingressi[$x]['oraAssenza'], -5) ?> segnato da <?= $ingressi[$x]['registrataDa'] ?></p>
                             <?php
-                                /*if ($ingressi[$x]['giustificataDa']) {
+                            /*if ($ingressi[$x]['giustificataDa']) {
                                     echo('<p>Giustificato da ' . $ingressi[$x]['giustificataDa'] . ' il ' . $ingressi[$x]['datGiustificazione']);
                                 } else {
                                     echo('<a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>'); 
@@ -145,13 +141,13 @@ $argoAssenze = $argo->assenze();
 
             <div id="uscite" class="col s12">
                 <ul class="collection">
-                <?php for ($x = 0; $x < count($uscite); $x++) { ?>
+                    <?php for ($x = 0; $x < count($uscite); $x++) { ?>
                         <li class="collection-item avatar">
-                            <i class="circle material-icons">subdirectory_arrow_left</i>
-                            <span class="title">Uscita in <?= $uscite[$x]['numOra'] ?> ora il <b><?= $uscite[$x]['datAssenza'] ?></b></span>
+                            <i class="circle material-icons orange darken-4">subdirectory_arrow_left</i>
+                            <span class="title">Uscita in <?= $uscite[$x]['numOra'] ?> ora il <b><?= dataLeggibile($uscite[$x]['datAssenza']) ?></b></span>
                             <p>Uscita alle ore <?= substr($uscite[$x]['oraAssenza'], -5) ?> segnata da <?= $uscite[$x]['registrataDa'] ?></p>
                             <?php
-                                /*if ($uscite[$x]['giustificataDa']) {
+                            /*if ($uscite[$x]['giustificataDa']) {
                                     echo('<p>Giustificata da ' . $uscite[$x]['giustificataDa'] . ' il ' . $uscite[$x]['datGiustificazione']);
                                 } else {
                                     echo('<a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>'); 
