@@ -60,7 +60,7 @@ $argoAssenze = $argo->assenze();
 
                         var calendar = new FullCalendar.Calendar(calendarEl, {
                             plugins: ['dayGrid'],
-
+                            locale: 'it',
                             events: [
                                 <?php
                                 for ($x = 0; $x < count($argoAssenze); $x++) {
