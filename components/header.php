@@ -103,9 +103,13 @@ function linkCliccabili($text){
             <li>
                 <div class="divider"></div>
             </li>
+
+            <?php if ($headerArgo[0]['desSede'] == "ITI (S.A. IIS EUGANEO )") { ?>
             <li><a class="subheader">IIS Euganeo</a></li>
             <li><a class="waves-effect" href="news.php">News</a></li>
             <li><a class="waves-effect" href="circolari.php">Circolari</a></li>
+            <?php } ?>
+
         </ul>
 
     </header>
