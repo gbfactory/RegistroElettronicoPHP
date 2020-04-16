@@ -164,28 +164,44 @@ $scrutinio = $argo->votiScrutinio();
                     </div>
                 </div>
 
-                <!--<div class="row">
-                    <div class="col s6 m4 l3">
-                        <div class="card-panel hoverable">
-                            <b>Media Pentamestre</b>
+                <hr>
+
+                <?php
+                
+                for ($i = 0; $i < count($materie); $i++) {
+
+                    ${"sommavoti" . $i} = 0;
+                    ${"numvoti" . $i} = 0;
+
+                    for ($j = 0; $j < count($voti); $j++) {
+
+                        if ($voti[$j]['desMateria'] == $materie[$i]) {
+
+                            ${"sommavoti" . $i} += $voti[$j]['decValore'];
+                            ${"numvoti" . $i} ++;
+
+                        }
+
+                    }
+
+                }
+            
+                ?>
+
+                <div class="row">
+
+                    <?php for ($i = 0; $i < count($materie); $i++) { ?>
+
+                        <div class="col s12 m4 l4">
+                            <div class="card-panel hoverable">
+                                <b><?= $materie[$i] ?></b>
+                                <p>Media: <?= round(${"sommavoti" . $i} / ${"numvoti" . $i}, 2) ?></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col s6 m4 l3">
-                        <div class="card-panel hoverable">
-                            <b>Media Pentamestre</b>
-                        </div>
-                    </div>
-                    <div class="col s6 m4 l3">
-                        <div class="card-panel hoverable">
-                            <b>Media Pentamestre</b>
-                        </div>
-                    </div>
-                    <div class="col s6 m4 l3">
-                        <div class="card-panel hoverable">
-                            <b>Media Pentamestre</b>
-                        </div>
-                    </div>
-                </div>-->
+
+                    <?php } ?>
+
+                </div>
 
                 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.5/chartjs-plugin-annotation.js"></script>
