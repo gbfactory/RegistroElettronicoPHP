@@ -1,7 +1,25 @@
 <?php include './components/header.php';
 
 //$riepilogo = $argo->oggiScuola('2020-01-31'); 
-$riepilogo = $argo->oggiScuola(date('Y-m-d'));
+
+if (isset($_GET['date'])) {
+    $date = $_GET['date'];
+
+
+    $datejs = explode('-', $date);
+    $datejsanno = $datejs[0];
+    $datejsmese = $datejs[1] - 1;
+    $datejsgiorno = $datejs[2];
+
+} else {
+    $date = date('Y-m-d');
+
+    $datejsanno = date('Y');
+    $datejsmese = date('m') - 1;
+    $datejsgiorno = date('d');
+}
+
+$riepilogo = $argo->oggiScuola($date);
 
 ?>
 
@@ -13,31 +31,40 @@ $riepilogo = $argo->oggiScuola(date('Y-m-d'));
 
         <h3 class="header">Riepilogo giornaliero</h3>
 
-        <h6><?php
+        <h6>
+        <a class="right-align btn-floating waves-effect waves-light red datepicker"><i class="material-icons">date_range</i></a>
+        <?php
 
-            // Codice date da https://www.mrwebmaster.it/php/data-oggi-italiano_11815.html
+            if (isset($_GET['date'])) {
+                echo "Riepilogo del " . dataLeggibile($_GET['date']);
+            } else {
+                // Codice date da https://www.mrwebmaster.it/php/data-oggi-italiano_11815.html
 
-            // definisco due array arbitrarie
-            $giorni = array("Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato");
-            $mesi = array("Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre");
+                // definisco due array arbitrarie
+                $giorni = array("Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato");
+                $mesi = array("Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre");
 
-            // giorno della settimana in italiano
-            $numero_giorno_settimana = date("w");
-            $nome_giorno = $giorni[$numero_giorno_settimana];
+                // giorno della settimana in italiano
+                $numero_giorno_settimana = date("w");
+                $nome_giorno = $giorni[$numero_giorno_settimana];
 
-            // giorno del mese
-            $numero_giorno_mese = date("j");
+                // giorno del mese
+                $numero_giorno_mese = date("j");
 
-            // nome del mese in italiano
-            $numero_mese = date("n");
-            $nome_mese = $mesi[$numero_mese - 1];
+                // nome del mese in italiano
+                $numero_mese = date("n");
+                $nome_mese = $mesi[$numero_mese - 1];
 
-            // numero dell'anno
-            $anno = date("Y");
+                // numero dell'anno
+                $anno = date("Y");
 
-            // Stampo a video
-            echo "Oggi è " . $nome_giorno . " " . $numero_giorno_mese . " " . $nome_mese . " " . $anno;
-            ?></h6>
+                // Stampo a video
+                echo "Oggi è " . $nome_giorno . " " . $numero_giorno_mese . " " . $nome_mese . " " . $anno;
+            }
+        ?>
+        </h6>
+
+        
 
         <hr>
 
@@ -52,21 +79,21 @@ $riepilogo = $argo->oggiScuola(date('Y-m-d'));
                     // Promemoria
                     if ($tipo == 'PRO') {
 
-                        echo $riepilogo[$x]['dati']['desAnnotazioni'] . '<br>';
+                        echo linkCliccabili($riepilogo[$x]['dati']['desAnnotazioni']) . '<br>';
                         echo '<i>' . $riepilogo[$x]['dati']['desMittente'] . '</i>';
 
                         // Compiti assegnati
                     } else if ($tipo == 'COM') {
 
                         echo '<b>' . $riepilogo[$x]['dati']['desMateria'] . '</b> <br>';
-                        echo $riepilogo[$x]['dati']['desCompiti'] . '<br>';
+                        echo linkCliccabili($riepilogo[$x]['dati']['desCompiti']) . '<br>';
                         echo '<i>' . $riepilogo[$x]['dati']['docente'] . '</i>';
 
                         // Argomenti lezione
                     } else if ($tipo == 'ARG') {
 
                         echo '<b>' . $riepilogo[$x]['dati']['desMateria'] . '</b> <br>';
-                        echo $riepilogo[$x]['dati']['desArgomento'] . '<br>';
+                        echo linkCliccabili($riepilogo[$x]['dati']['desArgomento']) . '<br>';
                         echo '<i>' . $riepilogo[$x]['dati']['docente'] . '</i>';
 
                         // Voto
@@ -140,6 +167,80 @@ $riepilogo = $argo->oggiScuola(date('Y-m-d'));
                 </blockquote>
             </div>
         <?php } ?>
+
+        <script>
+            $(document).ready(function(){
+
+                $('.datepicker').datepicker({
+                    'autoClose': true,
+                    'format': 'dd/mm/yyyy',
+                    'defaultDate': new Date(<?= $datejsanno ?>, <?= $datejsmese ?>, <?= $datejsgiorno ?>),
+                    // TODO: prendere le date automaticamente da schede di argoapi
+                    'minDate': new Date(2019, 8, 1),
+                    'maxDate': new Date(2020, 5, 30),
+                    'setDefaultDate': true,
+                    'onClose': function(){
+                        var pickerval = $('.datepicker').val();
+                        var date = pickerval.split('/');
+                        var newDate = date[2] + '-' + date[1] + '-' + date[0];
+                        console.log(newDate);
+                        window.location.href = '?date=' + newDate
+                    },
+                    'i18n': {
+                        'cancel': 'Annulla',
+                        'clear': 'Cancella',
+                        'done': 'Seleziona',
+                        'months': [
+                            'Gennaio',
+                            'Febbraio',
+                            'Marzo',
+                            'Aprile',
+                            'Maggio',
+                            'Giugno',
+                            'Luglio',
+                            'Agosto',
+                            'Settembre',
+                            'Ottobre',
+                            'Novembre',
+                            'Dicembre'
+                        ],
+                        'monthsShort': [
+                            'Gen',
+                            'Feb',
+                            'Mar',
+                            'Apr',
+                            'Mag',
+                            'Giu',
+                            'Lug',
+                            'Ago',
+                            'Set',
+                            'Ott',
+                            'Nov',
+                            'Dic'
+                        ],
+                        'weekdays': [
+                            'Lunedì',
+                            'Martedì',
+                            'Mercoledì',
+                            'Giovedì',
+                            'Venerdì',
+                            'Sabato',
+                            'Domenica'
+                        ],
+                        'weekdaysShort': [
+                            'Lun',
+                            'Mar',
+                            'Mer',
+                            'Gio',
+                            'Ven',
+                            'Sab',
+                            'Dom'
+                        ],
+                        'weekdaysAbbrev': ['L', 'M', 'M', 'G', 'V', 'S', 'D']
+                    }
+                });
+            });
+        </script>
 
     </div>
 </main>
