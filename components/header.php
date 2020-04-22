@@ -59,13 +59,6 @@ function linkCliccabili($text){
 
         <nav>
             <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <div class="nav-wrapper container">
-                <ul class="right">
-                    <!-- <li><a href="info.html"><i class="material-icons">info_outline</i></a></li> -->
-                    <li><a href="https://github.com/gb-factory/RegistroElettronico"><i class="material-icons">code</i></a></li>
-                    <li><a href="logout.php" class="waves-effect waves-light btn"><i class="material-icons right">person</i> Esci</a></li>
-                </ul>
-            </div>
         </nav>
 
         <ul id="slide-out" class="sidenav sidenav-fixed">
@@ -106,9 +99,19 @@ function linkCliccabili($text){
 
             <?php if ($headerArgo[0]['desSede'] == "ITI (S.A. IIS EUGANEO )") { ?>
             <li><a class="subheader">IIS Euganeo</a></li>
-            <li><a class="waves-effect" href="news.php">News</a></li>
+            <!-- <li><a class="waves-effect" href="news.php">News</a></li> -->
             <li><a class="waves-effect" href="circolari.php">Circolari</a></li>
             <?php } ?>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a class="subheader">Informazioni</a></li>
+            <!-- <li><a class="waves-effect" href="info.html">Informazioni</a></li>
+            <li><a class="waves-effect" href="opzioni.php">Opzioni</a></li>
+            <li><a class="waves-effect" href="password.php">Cambio Password</a></li>
+            <li><a class="waves-effect red" href="logout.php">Logout</a></li> -->
+            <!-- <li><a class="waves-effect" href="https://github.com/gb-factory/RegistroElettronico">GitHub</a></li> -->
+            <li><a href="logout.php" class="waves-effect waves-light btn"><i class="material-icons right">person</i> Logout</a></li>
 
         </ul>
 
