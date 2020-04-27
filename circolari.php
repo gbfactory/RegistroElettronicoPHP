@@ -12,7 +12,9 @@
 
         <div class="row">
 
-        <div class="lds-dual-ring" id="loader"></div>
+        <div class="progress">
+            <div class="indeterminate"></div>
+        </div>
 
             <ul class="collapsible" id="circolari">
             </ul>
