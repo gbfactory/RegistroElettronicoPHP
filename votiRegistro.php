@@ -8,7 +8,6 @@ $scrutinio = $argo->votiScrutinio();
 
     <div class="container">
         <h3 class="header">Valutazioni</h3>
-
         <hr>
 
         <?php //print('<pre> ' . print_r($voti, true) . '</pre>'); ?>
@@ -172,6 +171,7 @@ $scrutinio = $argo->votiScrutinio();
 
                     ${"sommavoti" . $i} = 0;
                     ${"numvoti" . $i} = 0;
+                    ${"listavoti" . $i} = [];
 
                     for ($j = 0; $j < count($voti); $j++) {
 
@@ -179,6 +179,7 @@ $scrutinio = $argo->votiScrutinio();
 
                             ${"sommavoti" . $i} += $voti[$j]['decValore'];
                             ${"numvoti" . $i} ++;
+                           array_push( ${"listavoti" . $i}, $voti[$j] );
 
                         }
 
@@ -189,17 +190,31 @@ $scrutinio = $argo->votiScrutinio();
                 ?>
 
                 <div class="row">
+                    <div class="col s12">
+                        <ul class="collapsible">
+                            <?php for ($i = 0; $i < count($materie); $i++) { 
+                                $media = round(${"sommavoti" . $i} / ${"numvoti" . $i}, 2);
+                                ?>
+                                <li>
+                                    <div class="collapsible-header" tabindex="0" style="background: linear-gradient(90deg, rgba(0,0,0,0) 50%, rgba(<?= coloreGrafico($media) ?> ,1) 100%);">
+                                        <b><?= $materie[$i] ?></b> 
+                                        <span class="badge <?php if ($media < 6) { echo 'text-white'; } ?>">MEDIA: <b><?= $media ?></b></span>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <?php for ($j = 0; $j < count(${"listavoti" . $i}); $j++) { ?>
+                                            <a class="btn-floating <?= coloreVoto(${"listavoti" . $i}[$j]['decValore']) ?>">
+                                                <i><?=${"listavoti" . $i}[$j]['codVoto'] ?></i>
+                                            </a>
+                                            <script>
+                                            </script>
+                                        <?php } ?>
+                                    </div>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
 
-                    <?php for ($i = 0; $i < count($materie); $i++) { ?>
 
-                        <div class="col s12 m4 l4">
-                            <div class="card-panel hoverable">
-                                <b><?= $materie[$i] ?></b>
-                                <p>Media: <?= round(${"sommavoti" . $i} / ${"numvoti" . $i}, 2) ?></p>
-                            </div>
-                        </div>
-
-                    <?php } ?>
 
                 </div>
 
@@ -368,14 +383,14 @@ $scrutinio = $argo->votiScrutinio();
                 VALUTAZIONI
                 ===================================-->
             <div id="valutazioni" class="col s12">
-                <ul class="collection">
 
+                <ul class="collection">
                 <style>
                     .nonfamedia {
                         position: absolute;
                         left: 23px;
                         top: 60px;
-                    }     
+                    }
                 </style>
 
                     <?php for ($x = 0; $x < count($voti); $x++) { ?>
