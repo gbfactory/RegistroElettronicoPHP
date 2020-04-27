@@ -18,28 +18,18 @@ header, main, footer {
     margin-bottom: -20px;
 }
 
-/* Loader pagina circolari - https://loading.io/css/ */
-.lds-dual-ring {
-    display: inline-block;
-    width: 80px;
-    height: 80px;
+/* Riepilogo */
+.riepilogo-titolo {
+    background-color: #e0e0e0;
+    border-radius: 3px;
+    padding: 5px;
 }
-.lds-dual-ring:after {
-    content: " ";
-    display: block;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
-    border-radius: 50%;
-    border: 6px solid #404142;
-    border-color: #404142 transparent #404142 transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
+
+.promemoria-header {
+    background-color: #eeeeee;
+    border-radius: 3px;
 }
-@keyframes lds-dual-ring {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+
+.promemoria-header > blockquote {
+    padding: 10px;
 }
