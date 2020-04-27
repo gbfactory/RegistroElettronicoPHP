@@ -10,14 +10,13 @@ $memo = $argo->promemoria();
 
         <hr>
 
-        <?php //print('<pre> ' . print_r($memo, true) . '</pre>'); 
-        ?>
+        <?php //print('<pre> ' . print_r($memo, true) . '</pre>'); ?>
 
-        <link href="./assets/fullcalendar/core/main.css" rel="stylesheet">
-        <link href="./assets/fullcalendar/daygrid/main.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.css" rel="stylesheet">
 
-        <script src="./assets/fullcalendar/core/main.js"></script>
-        <script src="./assets/fullcalendar/daygrid/main.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.js"></script>
 
         <style>
            .fc-day-grid-event .fc-content{
@@ -25,13 +24,31 @@ $memo = $argo->promemoria();
             }
         </style>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var calendarEl = document.getElementById('calendar');
+        <div class="row valign-wrapper">
+            <div class="col s4">
+                <h5 class="left-align" id="cal-date">DATA</h5>
+            </div>
+            <div class="col s4 center-align">
+                <a class="waves-effect waves-light btn" id="cal-week">SETTIMANA</a>
+                <a class="waves-effect waves-light btn" id="cal-day">GIORNO</a>
+            </div>
+            <div class="col s4 right-align">
+                <!-- <a class="waves-effect waves-light btn">OGGI</a> -->
+                <a class="waves-effect waves-light btn" id="cal-left"><i class="material-icons">chevron_left</i></a>
+                <a class="waves-effect waves-light btn" id="cal-now"><i class="material-icons">event</i></a>
+                <a class="waves-effect waves-light btn" id="cal-right"><i class="material-icons">chevron_right</i></a>
+            </div>
+        </div>
 
-                var calendar = new FullCalendar.Calendar(calendarEl, {
+        <div id="calendar"></div>
+        
+        <script>
+            $(document).ready(function () {
+
+                var calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
                     plugins: ['dayGrid'],
                     defaultView: 'dayGridWeek',
+                    header: false,
                     contentHeight: 'auto',
                     locale: 'it',
                     events: [
@@ -51,10 +68,45 @@ $memo = $argo->promemoria();
 
                 calendar.render();
 
+                $('#cal-date').html(calendar.view.title);
+
+                if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                    calendar.changeView('dayGridDay');
+                    $('#cal-date').html(calendar.view.title);
+                }
+                
+                $('#cal-week').click(function() {
+                    calendar.changeView('dayGridWeek');
+                    $('#cal-date').html(calendar.view.title);
+                });
+
+                $('#cal-day').click(function() {
+                    calendar.changeView('dayGridDay');
+                    $('#cal-date').html(calendar.view.title);
+                });
+
+                $('#cal-left').click(function() {
+                    calendar.prev();
+                    $('#cal-date').html(calendar.view.title);
+                });
+
+                $('#cal-right').click(function() {
+                    calendar.next();
+                    $('#cal-date').html(calendar.view.title);
+                });
+
+                $('#cal-now').click(function() {
+                    calendar.today();
+                    $('#cal-date').html(calendar.view.title);
+                });
+
             });
+
         </script>
 
-        <div id="calendar"></div>
+
+        <h5>Tutti i promemoria</h5>
+        <hr>
 
         <div class="row">
             <div class="col s12">
@@ -80,7 +132,7 @@ $memo = $argo->promemoria();
 
                             <i class="material-icons circle <?= $color ?>">book</i>
                             <span class="title">Promemoria per il <b> <?= dataLeggibile($memo[$x]['datGiorno']) ?> </b></span>
-                            <p><?= $memo[$x]['desAnnotazioni'] ?></p>
+                            <p><?= linkCliccabili($memo[$x]['desAnnotazioni']) ?></p>
                             <p><i><?= $memo[$x]['desMittente'] ?></i></p>
 
                         </li>
