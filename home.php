@@ -69,8 +69,8 @@ $riepilogo = $argo->oggiScuola($date);
         <hr>
 
         <?php for ($x = 0; $x < count($riepilogo); $x++) { ?>
-            <div>
-                <p class="riepilogo-titolo grey lighten-2"><b><?php echo $riepilogo[$x]['titolo'] ?></b></p>
+            <div class="promemoria-header">
+                <p class="riepilogo-titolo"><b><?php echo $riepilogo[$x]['titolo'] ?></b></p>
                 <blockquote>
                     <?php
 
