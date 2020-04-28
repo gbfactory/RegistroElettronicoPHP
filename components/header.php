@@ -44,16 +44,40 @@ function linkCliccabili($text){
 <head>
     <meta charset="utf-8">
     <title>Registro Elettronico</title>
-    <link rel="shortcut icon" href="https://i.imgur.com/ZK42PKi.png" />
+    <link rel="shortcut icon" href="./assets/img/diary.png" />
     <meta name="description" content="Interfaccia registro elettronico Argo ScuolaNext">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
     <link rel="stylesheet" href="./assets/css/style.css">
+    <!-- <link rel="stylesheet" href="./assets/css/dark.css"> -->
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    
 </head>
 
 <body>
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Sei sicuro di voler uscire?</h4>
+            <a class="waves-effect waves-light btn red darken-1 white-text" href="./logout.php">esci</a>
+            <a class="waves-effect waves-light btn light-green darken-1 white-text" id="annulla">annulla</a>
+        </div>
+    </div>
+
+    <script>
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            $('#modal1').addClass('bottom-sheet');
+        }
+
+        $('#annulla').click(function() {
+            $('#modal1').modal('close');
+        })
+    </script>
 
     <header>
 
@@ -105,13 +129,11 @@ function linkCliccabili($text){
             <li>
                 <div class="divider"></div>
             </li>
-            <li><a class="subheader">Informazioni</a></li>
-            <!-- <li><a class="waves-effect" href="info.html">Informazioni</a></li>
-            <li><a class="waves-effect" href="opzioni.php">Opzioni</a></li>
-            <li><a class="waves-effect" href="password.php">Cambio Password</a></li>
-            <li><a class="waves-effect red" href="logout.php">Logout</a></li> -->
-            <!-- <li><a class="waves-effect" href="https://github.com/gb-factory/RegistroElettronico">GitHub</a></li> -->
-            <li><a href="logout.php" class="waves-effect waves-light btn"><i class="material-icons right">person</i> Logout</a></li>
+            <li><a class="subheader">About</a></li>
+            <li><a class="waves-effect red darken-1 white-text modal-trigger" href="#modal1">Logout</a></li>
+
+            <!-- <li><a class="waves-effect red darken-1 white-text" href="logout.php">Logout</a></li> -->
+            <!-- <li><a href="logout.php" class="btn waves-effect waves-light red darken-1"><i class="material-icons right">person</i> Logout</a></li> -->
 
         </ul>
 
