@@ -13,16 +13,24 @@ header, main, footer {
     font-weight: 300;
 }
 
-.riepilogo-titolo {
-    width: 100%;
-    margin-bottom: -20px;
-}
 
 /* Riepilogo */
 .riepilogo-titolo {
-    background-color: #e0e0e0;
+    width: 100%;
+    margin-bottom: -20px;
     border-radius: 3px;
     padding: 5px;
+    background-color: #e0e0e0;
+    position: relative;
+}
+
+.riepilogo-titolo a {
+    position: absolute;
+    right: 10px;
+}
+
+.riepilogo-titolo a i {
+    color: #000;
 }
 
 .promemoria-header {
@@ -32,4 +40,5 @@ header, main, footer {
 
 .promemoria-header > blockquote {
     padding: 10px;
+    overflow: hidden;
 }
