@@ -48,17 +48,16 @@ $argoAssenze = $argo->assenze();
 
             <div id="riepilogo" class="col s12">
 
-                <link href="./assets/fullcalendar/core/main.css" rel="stylesheet">
-                <link href="./assets/fullcalendar/daygrid/main.css" rel="stylesheet">
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.css" rel="stylesheet">
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.css" rel="stylesheet">
 
-                <script src="./assets/fullcalendar/core/main.js"></script>
-                <script src="./assets/fullcalendar/daygrid/main.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.js"></script>
 
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
-                        var calendarEl = document.getElementById('calendar');
-
-                        var calendar = new FullCalendar.Calendar(calendarEl, {
+                        
+                        var calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
                             plugins: ['dayGrid'],
                             locale: 'it',
                             events: [
