@@ -5,4 +5,5 @@ $(document).ready(function() {
     $('.tabs').tabs();
     $('.tooltipped').tooltip();
     $('.collapsible').collapsible();
+    $('.modal').modal();
 });
