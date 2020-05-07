@@ -18,12 +18,6 @@ $memo = $argo->promemoria();
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.js"></script>
 
-        <style>
-           .fc-day-grid-event .fc-content{
-                white-space: normal !important;
-            }
-        </style>
-
         <div class="row valign-wrapper">
             <div class="col s4">
                 <h5 class="left-align" id="cal-date">DATA</h5>
@@ -51,6 +45,7 @@ $memo = $argo->promemoria();
                     header: false,
                     contentHeight: 'auto',
                     locale: 'it',
+                    firstDay: 1,
                     events: [
                         <?php
                             for ($x = 0; $x < count($memo); $x++) {
