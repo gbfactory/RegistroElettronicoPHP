@@ -42,3 +42,16 @@ header, main, footer {
     padding: 10px;
     overflow: hidden;
 }
+
+/* Fullcalendar customization */
+.fc-content {
+    padding: 10px;
+}
+
+.fc-day-grid-event .fc-content{
+    white-space: normal !important;
+}
+
+/* .fc-unthemed td.fc-today {
+    background: #f8e71c !important;
+} */
