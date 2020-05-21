@@ -10,7 +10,8 @@ $scrutinio = $argo->votiScrutinio();
         <h3 class="header">Valutazioni</h3>
         <hr>
 
-        <?php //print('<pre> ' . print_r($voti, true) . '</pre>'); ?>
+        <?php //print('<pre> ' . print_r($voti, true) . '</pre>'); 
+        ?>
 
         <div class="row">
 
@@ -24,7 +25,8 @@ $scrutinio = $argo->votiScrutinio();
 
             <?php
 
-            function coloreVoto($voto) {
+            function coloreVoto($voto)
+            {
                 if ($voto <= 1) {
                     return 'red darken-4';
                 } else if (($voto >= 1) && ($voto < 5)) {
@@ -44,7 +46,8 @@ $scrutinio = $argo->votiScrutinio();
                 }
             }
 
-            function coloreGrafico($voto) {
+            function coloreGrafico($voto)
+            {
                 if ($voto <= 1) {
                     return '183, 28, 28';
                 } else if (($voto >= 1) && ($voto < 5)) {
@@ -64,7 +67,8 @@ $scrutinio = $argo->votiScrutinio();
                 }
             }
 
-            function tipoProva($cod) {
+            function tipoProva($cod)
+            {
                 if ($cod == 'S') {
                     return 'Scritto';
                 } else if ($cod == 'N') {
@@ -77,53 +81,51 @@ $scrutinio = $argo->votiScrutinio();
             ?>
 
             <?php
-                $materie = [];
+            $materie = [];
 
-                $votiTotSomma = 0;
-                $votiTriSomma = 0;
-                $votiPenSomma = 0;
+            $votiTotSomma = 0;
+            $votiTriSomma = 0;
+            $votiPenSomma = 0;
 
-                $votiTotCount = count($voti);
-                $votiTriCount = 0;
-                $votiPenCount = 0;
+            $votiTotCount = count($voti);
+            $votiTriCount = 0;
+            $votiPenCount = 0;
 
-                for ($x = 0; $x < count($voti); $x++) {
+            for ($x = 0; $x < count($voti); $x++) {
 
-                    $materia = $voti[$x]['desMateria'];
-                    $voto = $voti[$x]['decValore'];
-                    $data = strtotime($voti[$x]['datGiorno']);
-                        
-                    // Array materie
-                    if (!in_array($materia, $materie)) {
-                        array_push($materie, $materia);
-                    }
+                $materia = $voti[$x]['desMateria'];
+                $voto = $voti[$x]['decValore'];
+                $data = strtotime($voti[$x]['datGiorno']);
 
-                    if ($voto != 0) {
-
-                        // Media totale
-                        $votiTotSomma += $voto;
-
-                        // Media trimetre
-                        $dataTri = strtotime('2019-12-31');
-                        $dataPen = strtotime('2020-01-01');
-
-                        if ($data <= $dataTri) {
-                            $votiTriSomma += $voto;
-                            $votiTriCount++;
-                        } else if ($data >= $dataPen) {
-                            $votiPenSomma += $voto;
-                            $votiPenCount++;
-                        }
-
-                    }
-                        
+                // Array materie
+                if (!in_array($materia, $materie)) {
+                    array_push($materie, $materia);
                 }
 
-                $mediaTot = round($votiTotSomma / $votiTotCount, 2);
-                $mediaTri = round($votiTriSomma / $votiTriCount, 2);
-                $mediaPen = round($votiPenSomma / $votiPenCount, 2);
+                if ($voto != 0) {
 
-                /*print('<pre> ' . print_r($materie, true) . '</pre>');
+                    // Media totale
+                    $votiTotSomma += $voto;
+
+                    // Media trimetre
+                    $dataTri = strtotime('2019-12-31');
+                    $dataPen = strtotime('2020-01-01');
+
+                    if ($data <= $dataTri) {
+                        $votiTriSomma += $voto;
+                        $votiTriCount++;
+                    } else if ($data >= $dataPen) {
+                        $votiPenSomma += $voto;
+                        $votiPenCount++;
+                    }
+                }
+            }
+
+            $mediaTot = round($votiTotSomma / $votiTotCount, 2);
+            $mediaTri = round($votiTriSomma / $votiTriCount, 2);
+            $mediaPen = round($votiPenSomma / $votiPenCount, 2);
+
+            /*print('<pre> ' . print_r($materie, true) . '</pre>');
                 echo($mediaTot . '<br>' . $mediaTri . '<br>' . $mediaPen);*/
 
             ?>
@@ -166,48 +168,100 @@ $scrutinio = $argo->votiScrutinio();
                 <hr>
 
                 <?php
-                
+
                 for ($i = 0; $i < count($materie); $i++) {
 
-                    ${"sommavoti" . $i} = 0;
-                    ${"numvoti" . $i} = 0;
-                    ${"listavoti" . $i} = [];
+                    // ${"sommavoti" . $i} = 0;
+                    // ${"numvoti" . $i} = 0;
+                    // ${"listavoti" . $i} = [];
+
+                    ${"sommaVoti1" . $i} = 0;
+                    ${"numVoti1" . $i} = 0;
+                    ${"listaVoti1" . $i} = [];
+
+                    ${"sommaVoti2" . $i} = 0;
+                    ${"numVoti2" . $i} = 0;
+                    ${"listaVoti2" . $i} = [];
 
                     for ($j = 0; $j < count($voti); $j++) {
 
                         if ($voti[$j]['desMateria'] == $materie[$i]) {
 
-                            ${"sommavoti" . $i} += $voti[$j]['decValore'];
-                            ${"numvoti" . $i} ++;
-                           array_push( ${"listavoti" . $i}, $voti[$j] );
+                            if (strtotime($voti[$j]['datGiorno']) <= strtotime('2019-12-31')) {
+                                ${"sommaVoti1" . $i} += $voti[$j]['decValore'];
+                                ${"numVoti1" . $i}++;
+                                array_push(${"listaVoti1" . $i}, $voti[$j]);
+                            } else if (strtotime($voti[$j]['datGiorno']) >= strtotime('2020-01-01')) {
+                                ${"sommaVoti2" . $i} += $voti[$j]['decValore'];
+                                ${"numVoti2" . $i}++;
+                                array_push(${"listaVoti2" . $i}, $voti[$j]);
+                            }
+
+                            // ${"sommavoti" . $i} += $voti[$j]['decValore'];
+                            // ${"numvoti" . $i} ++;
+                            // array_push( ${"listavoti" . $i}, $voti[$j] );
 
                         }
-
                     }
-
                 }
-            
+
                 ?>
 
                 <div class="row">
                     <div class="col s12">
                         <ul class="collapsible">
-                            <?php for ($i = 0; $i < count($materie); $i++) { 
-                                $media = round(${"sommavoti" . $i} / ${"numvoti" . $i}, 2);
-                                ?>
+                            <?php
+
+                            for ($i = 0; $i < count($materie); $i++) {
+
+                                $sommaVoti = ${"sommaVoti1" . $i} + ${"sommaVoti2" . $i};
+                                $numVoti = ${"numVoti1" . $i} + ${"numVoti2" . $i};
+                                $media = round($sommaVoti / $numVoti, 2);
+
+                            ?>
                                 <li>
                                     <div class="collapsible-header" tabindex="0" style="background: linear-gradient(90deg, rgba(0,0,0,0) 50%, rgba(<?= coloreGrafico($media) ?> ,1) 100%);">
-                                        <b><?= $materie[$i] ?></b> 
-                                        <span class="badge <?php if ($media < 6) { echo 'text-white'; } ?>">MEDIA: <b><?= $media ?></b></span>
+                                        <b><?= $materie[$i] ?></b>
+                                        <span class="badge <?php if ($media < 6) {
+                                                                echo 'text-white';
+                                                            } ?>">MEDIA: <b><?= $media ?></b></span>
                                     </div>
                                     <div class="collapsible-body">
-                                        <?php for ($j = 0; $j < count(${"listavoti" . $i}); $j++) { ?>
-                                            <a class="btn-floating <?= coloreVoto(${"listavoti" . $i}[$j]['decValore']) ?>">
-                                                <i><?=${"listavoti" . $i}[$j]['codVoto'] ?></i>
-                                            </a>
-                                            <script>
-                                            </script>
-                                        <?php } ?>
+                                        <div class="row">
+
+                                            <!-- SECONDO PERIODO -->
+                                            <div class="col s6">
+                                                <!-- media -->
+                                                <?php $media2 = ${"sommaVoti2" . $i} / ${"numVoti2" . $i}; ?>
+                                                <b>Secondo Periodo (Media: <?= round($media2, 2) ?>)</b> <br>
+
+                                                <!-- lista voti -->
+                                                <?php for ($j = 0; $j < count(${"listaVoti2" . $i}); $j++) { ?>
+                                                    <a class="btn-floating <?= coloreVoto(${"listaVoti2" . $i}[$j]['decValore']) ?>">
+                                                        <i><?= ${"listaVoti2" . $i}[$j]['codVoto'] ?></i>
+                                                    </a>
+                                                <?php } ?>
+
+                                            </div>
+
+                                            <!-- PRIMO PERIODO -->
+                                            <div class="col s6">
+                                                <!-- media -->
+                                                <?php $media1 = ${"sommaVoti1" . $i} / ${"numVoti1" . $i}; ?>
+                                                <b>Primo Periodo (Media: <?= round($media1, 2) ?>)</b> <br>
+
+                                                <!-- lista voti -->
+                                                <?php for ($j = 0; $j < count(${"listaVoti1" . $i}); $j++) { ?>
+                                                    <a class="btn-floating <?= coloreVoto(${"listaVoti1" . $i}[$j]['decValore']) ?>">
+                                                        <i><?= ${"listaVoti1" . $i}[$j]['codVoto'] ?></i>
+                                                    </a>
+                                                <?php } ?>
+
+                                            </div>
+
+
+                                        </div>
+
                                     </div>
                                 </li>
                             <?php } ?>
@@ -226,29 +280,27 @@ $scrutinio = $argo->votiScrutinio();
                     var canvasAndamento = document.getElementById('canvasAndamentoScolastico').getContext('2d');
 
                     var dataAndamento = {
-                        datasets: [
-                            {
-                                data: [
-                                    <?php
-                                        for ($x = 0; $x < count($voti); $x++) {
-                                            if ($voti[$x]['decValore'] != 0) {
-                                                echo ($voti[$x]['decValore'] . ',');
-                                            }
-                                        }
-                                    ?>
-                                ],
-                                fill: false,
-                                backgroundColor: 'rgb(255, 159, 64)',
-                                borderColor: 'rgb(255, 205, 86)'
-                            }
-                        ],
-                        labels: [
-                            <?php
+                        datasets: [{
+                            data: [
+                                <?php
                                 for ($x = 0; $x < count($voti); $x++) {
                                     if ($voti[$x]['decValore'] != 0) {
-                                        echo ("'" . $voti[$x]['desMateria'] . "',");
+                                        echo ($voti[$x]['decValore'] . ',');
                                     }
                                 }
+                                ?>
+                            ],
+                            fill: false,
+                            backgroundColor: 'rgb(255, 159, 64)',
+                            borderColor: 'rgb(255, 205, 86)'
+                        }],
+                        labels: [
+                            <?php
+                            for ($x = 0; $x < count($voti); $x++) {
+                                if ($voti[$x]['decValore'] != 0) {
+                                    echo ("'" . $voti[$x]['desMateria'] . "',");
+                                }
+                            }
                             ?>
                         ]
                     };
@@ -374,8 +426,6 @@ $scrutinio = $argo->votiScrutinio();
                             }
                         }
                     });
-
-
                 </script>
 
             </div>
@@ -385,13 +435,13 @@ $scrutinio = $argo->votiScrutinio();
             <div id="valutazioni" class="col s12">
 
                 <ul class="collection">
-                <style>
-                    .nonfamedia {
-                        position: absolute;
-                        left: 23px;
-                        top: 60px;
-                    }
-                </style>
+                    <style>
+                        .nonfamedia {
+                            position: absolute;
+                            left: 23px;
+                            top: 60px;
+                        }
+                    </style>
 
                     <?php for ($x = 0; $x < count($voti); $x++) { ?>
                         <li class="collection-item avatar">
