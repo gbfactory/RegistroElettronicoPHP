@@ -187,15 +187,19 @@ $scrutinio = $argo->votiScrutinio();
 
                         if ($voti[$j]['desMateria'] == $materie[$i]) {
 
-                            if (strtotime($voti[$j]['datGiorno']) <= strtotime('2019-12-31')) {
-                                ${"sommaVoti1" . $i} += $voti[$j]['decValore'];
-                                ${"numVoti1" . $i}++;
-                                array_push(${"listaVoti1" . $i}, $voti[$j]);
-                            } else if (strtotime($voti[$j]['datGiorno']) >= strtotime('2020-01-01')) {
-                                ${"sommaVoti2" . $i} += $voti[$j]['decValore'];
-                                ${"numVoti2" . $i}++;
-                                array_push(${"listaVoti2" . $i}, $voti[$j]);
+                            if ($voti[$j]['decValore'] != 0) {
+                                if (strtotime($voti[$j]['datGiorno']) <= strtotime('2019-12-31')) {
+                                    ${"sommaVoti1" . $i} += $voti[$j]['decValore'];
+                                    ${"numVoti1" . $i}++;
+                                    array_push(${"listaVoti1" . $i}, $voti[$j]);
+                                } else if (strtotime($voti[$j]['datGiorno']) >= strtotime('2020-01-01')) {
+                                    ${"sommaVoti2" . $i} += $voti[$j]['decValore'];
+                                    ${"numVoti2" . $i}++;
+                                    array_push(${"listaVoti2" . $i}, $voti[$j]);
+                                }
                             }
+
+                            
 
                             // ${"sommavoti" . $i} += $voti[$j]['decValore'];
                             // ${"numvoti" . $i} ++;
