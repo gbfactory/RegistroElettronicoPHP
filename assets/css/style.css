@@ -13,6 +13,9 @@ header, main, footer {
     font-weight: 300;
 }
 
+.tabs.custom .col.s3 {
+    width: 33.3%;
+}
 
 /* Riepilogo */
 .riepilogo-titolo {
