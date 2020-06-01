@@ -30,12 +30,10 @@ function dataLeggibile($data) {
     return $dataSplit[2] . '/' . $dataSplit[1] . '/' . $dataSplit[0];    
 }
 
-// Link cliccabili
-// https://stackoverflow.com/questions/5341168/best-way-to-make-links-clickable-in-block-of-text
+// Link cliccabili https://stackoverflow.com/questions/5341168/best-way-to-make-links-clickable-in-block-of-text
 function linkCliccabili($text){
     return preg_replace('!(((f|ht)tp(s)?://)[-a-zA-Zа-яА-Я()0-9@:%_+.~#?&;//=]+)!i', '<a href="$1">$1</a>', $text);
 }
-
 
 ?>
 
@@ -53,7 +51,6 @@ function linkCliccabili($text){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <link rel="stylesheet" href="./assets/css/style.css">
-    <!-- <link rel="stylesheet" href="./assets/css/dark.css"> -->
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     
@@ -61,6 +58,7 @@ function linkCliccabili($text){
 
 <body>
 
+    <!-- Logout modal -->
     <div id="modal1" class="modal">
         <div class="modal-content">
             <h4>Sei sicuro di voler uscire?</h4>
@@ -86,54 +84,54 @@ function linkCliccabili($text){
         </nav>
 
         <ul id="slide-out" class="sidenav sidenav-fixed">
+
             <li>
                 <div class="user-view">
                     <div class="background grey darken-1"></div>
-                    <a href="datiAnagrafici.php"><span class="white-text name"><?= $headerArgo[0]['alunno']['desCognome'] ?> <?= $headerArgo[0]['alunno']['desNome'] ?></span></a>
-                    <a href="datiAnagrafici.php"><span class="white-text email"><?= $headerArgo[0]['desDenominazione'] ?><?= $headerArgo[0]['desCorso'] ?> <?= $headerArgo[0]['desSede'] ?></span></a>
+                    <a href="anagrafica.php"><span class="white-text name"><?= $headerArgo[0]['alunno']['desCognome'] ?> <?= $headerArgo[0]['alunno']['desNome'] ?></span></a>
+                    <a href="anagrafica.php"><span class="white-text email"><?= $headerArgo[0]['desDenominazione'] ?><?= $headerArgo[0]['desCorso'] ?> <?= $headerArgo[0]['desSede'] ?></span></a>
                 </div>
             </li>
+
             <li><a class="waves-effect" href="home.php">Riepilogo</a></li>
-            <li>
-                <div class="divider"></div>
-            </li>
+
+            <li><div class="divider"></div></li>
+
             <li><a class="subheader">Alunno</a></li>
-            <li><a class="waves-effect" href="datiAnagrafici.php">Dati Anagrafici</a></li>
-            <li><a class="waves-effect" href="votiRegistro.php">Valutazioni</a></li>
+            <li><a class="waves-effect" href="anagrafica.php">Dati Anagrafici</a></li>
+            <li><a class="waves-effect" href="voti.php">Valutazioni</a></li>
             <li><a class="waves-effect" href="assenze.php">Assenze</a></li>
-            <li><a class="waves-effect" href="noteDisciplinari.php">Note Disciplinari</a></li>
-            <li>
-                <div class="divider"></div>
-            </li>
+            <li><a class="waves-effect" href="note.php">Note Disciplinari</a></li>
+
+            <li><div class="divider"></div></li>
+
             <li><a class="subheader">Classe</a></li>
-            <li><a class="waves-effect" href="compitiAssegnati.php">Compiti Assegnati</a></li>
-            <li><a class="waves-effect" href="argomentiLezione.php">Argomenti Lezione</a></li>
+            <li><a class="waves-effect" href="compiti.php">Compiti Assegnati</a></li>
+            <li><a class="waves-effect" href="argomenti.php">Argomenti Lezione</a></li>
             <li><a class="waves-effect" href="promemoria.php">Promemoria</a></li>
             <li><a class="waves-effect" href="orario.php">Orario Scolastico</a></li>
-            <li><a class="waves-effect" href="docentiClasse.php">Docenti Classe</a></li>
-            <li>
-                <div class="divider"></div>
-            </li>
+            <li><a class="waves-effect" href="docenti.php">Docenti Classe</a></li>
+
+            <li><div class="divider"></div></li>
+
             <li><a class="subheader">Documenti</a></li>
             <li><a class="waves-effect" href="bacheca.php">Bacheca</a></li>
             <li><a class="waves-effect" href="documenti.php">Bacheca Alunno</a></li>
-            <li>
-                <div class="divider"></div>
-            </li>
 
+            <li><div class="divider"></div></li>
+
+            <!-- Sezione custom per IIS Euganeo -->
             <?php if ($headerArgo[0]['desSede'] == "ITI (S.A. IIS EUGANEO )") { ?>
-            <li><a class="subheader">IIS Euganeo</a></li>
-            <!-- <li><a class="waves-effect" href="news.php">News</a></li> -->
-            <li><a class="waves-effect" href="circolari.php">Circolari</a></li>
+                <li><a class="subheader">IIS Euganeo</a></li>
+                <!-- <li><a class="waves-effect" href="news.php">News</a></li> -->
+                <li><a class="waves-effect" href="circolari.php">Circolari</a></li>
             <?php } ?>
-            <li>
-                <div class="divider"></div>
-            </li>
-            <li><a class="subheader">About</a></li>
-            <li><a class="waves-effect red darken-1 white-text modal-trigger" href="#modal1">Logout</a></li>
 
-            <!-- <li><a class="waves-effect red darken-1 white-text" href="logout.php">Logout</a></li> -->
-            <!-- <li><a href="logout.php" class="btn waves-effect waves-light red darken-1"><i class="material-icons right">person</i> Logout</a></li> -->
+            <li><div class="divider"></div></li>
+            <!-- /End sezione IIS Euganeo -->
+
+            <li><a class="waves-effect" href="app.html">App</a></li>
+            <li><a class="waves-effect red darken-1 white-text modal-trigger" href="#modal1">Logout</a></li>
 
         </ul>
 
