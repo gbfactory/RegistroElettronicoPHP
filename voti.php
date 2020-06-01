@@ -15,10 +15,10 @@ $scrutinio = $argo->votiScrutinio();
         <div class="row">
 
             <div class="col s12" style="margin-bottom: 1rem;">
-                <ul class="tabs custom">
-                    <li class="tab col s3"><a class="active" href="#riepilogo" onclick="$('.header').html('Riepilogo Valutazioni')">RIEPILOGO</a></li>
-                    <li class="tab col s3"><a href="#valutazioni" onclick="$('.header').html('Voti Giornalieri')">VALUTAZIONI</a></li>
-                    <li class="tab col s3"><a href="#scrutinio" onclick="$('.header').html('Voti Scrutinio')">SCRUTINIO</a></li>
+                <ul class="tabs">
+                    <li class="tab col s4"><a class="active" href="#riepilogo" onclick="$('.header').html('Riepilogo Valutazioni')">RIEPILOGO</a></li>
+                    <li class="tab col s4"><a href="#valutazioni" onclick="$('.header').html('Voti Giornalieri')">VALUTAZIONI</a></li>
+                    <li class="tab col s4"><a href="#scrutinio" onclick="$('.header').html('Voti Scrutinio')">SCRUTINIO</a></li>
                 </ul>
             </div>
 
