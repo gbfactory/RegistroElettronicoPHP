@@ -7,16 +7,15 @@ $scrutinio = $argo->votiScrutinio();
 <main>
 
     <div class="container">
-        <h3 class="header">Valutazioni</h3>
-        <hr>
 
-        <?php //print('<pre> ' . print_r($voti, true) . '</pre>'); 
-        ?>
+        <h3 class="header">Valutazioni</h3>
+
+        <hr>
 
         <div class="row">
 
             <div class="col s12" style="margin-bottom: 1rem;">
-                <ul class="tabs">
+                <ul class="tabs custom">
                     <li class="tab col s3"><a class="active" href="#riepilogo" onclick="$('.header').html('Riepilogo Valutazioni')">RIEPILOGO</a></li>
                     <li class="tab col s3"><a href="#valutazioni" onclick="$('.header').html('Voti Giornalieri')">VALUTAZIONI</a></li>
                     <li class="tab col s3"><a href="#scrutinio" onclick="$('.header').html('Voti Scrutinio')">SCRUTINIO</a></li>
@@ -25,8 +24,7 @@ $scrutinio = $argo->votiScrutinio();
 
             <?php
 
-            function coloreVoto($voto)
-            {
+            function coloreVoto($voto) {
                 if ($voto <= 1) {
                     return 'red darken-4';
                 } else if (($voto >= 1) && ($voto < 5)) {
@@ -46,8 +44,7 @@ $scrutinio = $argo->votiScrutinio();
                 }
             }
 
-            function coloreGrafico($voto)
-            {
+            function coloreGrafico($voto) {
                 if ($voto <= 1) {
                     return '183, 28, 28';
                 } else if (($voto >= 1) && ($voto < 5)) {
@@ -67,8 +64,7 @@ $scrutinio = $argo->votiScrutinio();
                 }
             }
 
-            function tipoProva($cod)
-            {
+            function tipoProva($cod) {
                 if ($cod == 'S') {
                     return 'Scritto';
                 } else if ($cod == 'N') {
@@ -125,9 +121,6 @@ $scrutinio = $argo->votiScrutinio();
             $mediaTri = round($votiTriSomma / $votiTriCount, 2);
             $mediaPen = round($votiPenSomma / $votiPenCount, 2);
 
-            /*print('<pre> ' . print_r($materie, true) . '</pre>');
-                echo($mediaTot . '<br>' . $mediaTri . '<br>' . $mediaPen);*/
-
             ?>
 
             <!--===================================
@@ -171,10 +164,6 @@ $scrutinio = $argo->votiScrutinio();
 
                 for ($i = 0; $i < count($materie); $i++) {
 
-                    // ${"sommavoti" . $i} = 0;
-                    // ${"numvoti" . $i} = 0;
-                    // ${"listavoti" . $i} = [];
-
                     ${"sommaVoti1" . $i} = 0;
                     ${"numVoti1" . $i} = 0;
                     ${"listaVoti1" . $i} = [];
@@ -198,12 +187,6 @@ $scrutinio = $argo->votiScrutinio();
                                     array_push(${"listaVoti2" . $i}, $voti[$j]);
                                 }
                             }
-
-                            
-
-                            // ${"sommavoti" . $i} += $voti[$j]['decValore'];
-                            // ${"numvoti" . $i} ++;
-                            // array_push( ${"listavoti" . $i}, $voti[$j] );
 
                         }
                     }
@@ -271,8 +254,6 @@ $scrutinio = $argo->votiScrutinio();
                             <?php } ?>
                         </ul>
                     </div>
-
-
 
                 </div>
 
@@ -490,7 +471,5 @@ $scrutinio = $argo->votiScrutinio();
 
     </div>
 </main>
-
-
 
 <?php include './components/footer.php'; ?>
