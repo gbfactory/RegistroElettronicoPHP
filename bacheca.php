@@ -17,9 +17,9 @@ $bacheca = $argo->bacheca();
                         <li class="collection-item avatar">
                             <i class="material-icons circle">date_range</i>
 
-                            <span class="title"><b><?= $bacheca[$x]['datGiorno'] ?> - <?= $bacheca[$x]['desOggetto'] ?></b></span>
+                            <span class="title"><b><?= dataLeggibile($bacheca[$x]['datGiorno']) ?> - <?= $bacheca[$x]['desOggetto'] ?></b></span>
 
-                            <p><b>Messaggio:</b> <?= $bacheca[$x]['desMessaggio'] ?></p>
+                            <p><?= $bacheca[$x]['desMessaggio'] ?></p>
 
                             <?php if ($bacheca[$x]['desUrl']) { ?>
                                 <p><b>Url:</b> <a href="<?= $bacheca[$x]['desUrl'] ?>"><?= $bacheca[$x]['desUrl'] ?></a></p>
@@ -29,11 +29,45 @@ $bacheca = $argo->bacheca();
                                 <p><b>Allegati:</b> <a href=""><?= $bacheca[$x]['allegati'][0]['desFile'] ?></a></p>
                             <?php } ?>
 
-                            <?php if ($bacheca[$x]['dataConfermaPresaVisione']) { ?>
-                                <p><b>Presa visione:</b> Conferma in data <?= $bacheca[$x]['dataConfermaPresaVisione'] ?> </p>
-                            <?php } else { ?>
-                                <p><b>Presa visione:</b> <a href="<?= $argoLink ?>">Non confermata</a></p>
-                            <?php } ?>
+                            <?php if ($bacheca[$x]['richiediPv'] == 1) {
+                                if ($bacheca[$x]['dataConfermaPresaVisione']) { ?>
+                                    <p><b>Presa visione:</b> Confermata in data <?= $bacheca[$x]['dataConfermaPresaVisione'] ?> </p>
+                                <?php } else { ?>
+                                    <p><b>Presa visione:</b> <a href="<?= $argoLink ?>">Non confermata</a></p>
+                                <?php }
+                            } ?>
+
+                            <?php if ($bacheca[$x]['richiediAd'] == 1) {
+                                if ($bacheca[$x]['adesione'] != 1) { ?>
+                                    <p><b>Adesione:</b> Non confermata 
+                                    
+                                    <?php
+                                    if ($bacheca[$x]['datScadenzaAdesione'] != "") {
+                                        echo '(Confermabile entro il ' . dataLeggibile($bacheca[$x]['datScadenzaAdesione']) . ')';
+                                    }
+                                    ?>    
+                                
+                                    </p>
+
+                                <?php } else { ?>
+                                    <p><b>Adesione:</b> Confermata in data <?= $bacheca[$x]['dataConfermaAdesione'] ?>
+                                    
+                                    <?php
+                                    if ($bacheca[$x]['adesioneModificabile'] == 1) {
+                                        echo '(Adesione modificabile';
+                                        if ($bacheca[$x]['datScadenzaAdesione'] != "") {
+                                            echo ' entro il ' . dataLeggibile($bacheca[$x]['datScadenzaAdesione']);
+                                        }
+                                        echo ')';
+                                    }
+                                    ?>
+
+                                     </p>
+
+                                <?php }
+                            }
+                            
+                            ?>
                         </li>
                     <?php } ?>
                 </ul>
