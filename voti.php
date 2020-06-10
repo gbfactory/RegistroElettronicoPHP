@@ -420,18 +420,14 @@ $scrutinio = $argo->votiScrutinio();
             <div id="valutazioni" class="col s12">
 
                 <ul class="collection">
-                    <style>
-                        .nonfamedia {
-                            position: absolute;
-                            left: 23px;
-                            top: 60px;
-                        }
-                    </style>
-
                     <?php for ($x = 0; $x < count($voti); $x++) { ?>
                         <li class="collection-item avatar">
                             <i class="circle <?= coloreVoto($voti[$x]['decValore']) ?>"><?= $voti[$x]['codVoto'] ?></i>
-                            <span class="title"><?= $voti[$x]['desMateria'] ?></span>
+                            <span class="title"><?= $voti[$x]['desMateria'] ?>
+                                <?php if (substr($voti[$x]['desCommento'], -14) == '(non fa media)') {
+                                    echo '<b>(Non fa media)</b>';
+                                }?>
+                            </span>
                             <p><?= dataLeggibile($voti[$x]['datGiorno']) ?> - <?= tipoProva($codProva = $voti[$x]['codVotoPratico']) ?></p>
                             <p>
                                 <?php
@@ -440,9 +436,6 @@ $scrutinio = $argo->votiScrutinio();
                                 }
                                 if ($voti[$x]['desCommento'] != '') {
                                     echo ('<b>Commento:</b> ' . $voti[$x]['desCommento']) . '<br>';
-                                    if (substr($voti[$x]['desCommento'], -14) == '(non fa media)') {
-                                        echo '<i class="nonfamedia material-icons tooltipped" data-position="right" data-tooltip="Non fa media">warning</i>';
-                                    }
                                 }
                                 echo ($voti[$x]['docente']);
                                 ?>
@@ -455,16 +448,66 @@ $scrutinio = $argo->votiScrutinio();
                 SCRUTINIO
                 ===================================-->
             <div id="scrutinio" class="col s12">
-                <ul class="collection">
-                    <?php for ($x = 0; $x < count($scrutinio); $x++) { ?>
-                        <li class="collection-item avatar">
-                            <i class="circle <?= coloreVoto($scrutinio[$x]['votoOrale']['codVoto']) ?>"><?= $scrutinio[$x]['votoOrale']['codVoto'] ?></i>
-                            <span class="title"><?= $scrutinio[$x]['desMateria'] ?> </b></span>
-                            <p><?= 'Giudizio sintetico: ' . $scrutinio[$x]['giudizioSintetico'] ?></p>
+                <div class="row">
+                    <div class="col s6">
 
-                        </li>
-                    <?php } ?>
-                </ul>
+                        <ul class="collection with-header">
+                            <?php //print('<pre> ' . print_r($scrutinio, true) . '</pre>'); ?>
+
+                            <?php
+                            // Divisione periodi
+                            $primoPeriodo = [];
+                            $secondoPeriodo = [];
+
+                            $default = $scrutinio[0]['prgPeriodo'];
+
+                            for ($i=0; $i < count($scrutinio); $i++) { 
+
+                                if ($scrutinio[$i]['prgPeriodo'] == $default) {
+                                    array_push($primoPeriodo, $scrutinio[$i]);
+                                } else {
+                                    array_push($secondoPeriodo, $scrutinio[$i]);
+                                }
+
+                            }
+                            ?>
+
+                            <li class="collection-header"><h5>Primo Trimestre</h5></li>
+                            <?php for ($x = 0; $x < count($primoPeriodo); $x++) { ?>
+                                <li class="collection-item avatar">
+                                    <i class="circle <?= coloreVoto($primoPeriodo[$x]['votoOrale']['codVoto']) ?>"><?= $primoPeriodo[$x]['votoOrale']['codVoto'] ?></i>
+                                    <span class="title"><?= $primoPeriodo[$x]['desMateria'] ?> </b></span>
+                                    <?php if ($primoPeriodo[$x]['assenze'] != "") { ?>
+                                        <p><b>Assenze: </b> <?= $primoPeriodo[$x]['assenze'] ?></p>
+                                    <?php } ?>
+                                    <?php if ($primoPeriodo[$x]['giudizioSintetico'] != "") { ?>
+                                        <p><b>Giudizio: </b><?= $primoPeriodo[$x]['giudizioSintetico'] ?></p>
+                                    <?php } ?>
+                                </li>
+                            <?php } ?>
+                        </ul>
+
+                    </div>
+                    <div class="col s6">
+
+                        <ul class="collection with-header">
+                            <li class="collection-header"><h5>Scrutinio Finale</h5></li>
+                            <?php for ($x = 0; $x < count($secondoPeriodo); $x++) { ?>
+                                <li class="collection-item avatar">
+                                    <i class="circle <?= coloreVoto($secondoPeriodo[$x]['votoOrale']['codVoto']) ?>"><?= $secondoPeriodo[$x]['votoOrale']['codVoto'] ?></i>
+                                    <span class="title"><?= $secondoPeriodo[$x]['desMateria'] ?> </b></span>
+                                    <?php if ($secondoPeriodo[$x]['assenze'] != "") { ?>
+                                        <p><b>Assenze: </b> <?= $secondoPeriodo[$x]['assenze'] ?></p>
+                                    <?php } ?>
+                                    <?php if ($secondoPeriodo[$x]['giudizioSintetico'] != "") { ?>
+                                        <p><b>Giudizio: </b><?= $secondoPeriodo[$x]['giudizioSintetico'] ?></p>
+                                    <?php } ?>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    
+                    </div>
+                </div>
             </div>
 
         </div>
