@@ -119,17 +119,7 @@ function linkCliccabili($text){
             <li><a class="waves-effect" href="documenti.php">Bacheca Alunno</a></li>
 
             <li><div class="divider"></div></li>
-
-            <!-- Sezione custom per IIS Euganeo -->
-            <?php if ($headerArgo[0]['desSede'] == "ITI (S.A. IIS EUGANEO )") { ?>
-                <li><a class="subheader">IIS Euganeo</a></li>
-                <!-- <li><a class="waves-effect" href="news.php">News</a></li> -->
-                <li><a class="waves-effect" href="circolari.php">Circolari</a></li>
-            <?php } ?>
-
-            <li><div class="divider"></div></li>
-            <!-- /End sezione IIS Euganeo -->
-
+            
             <li><a class="waves-effect" href="app.html">App</a></li>
             <li><a class="waves-effect red darken-1 white-text modal-trigger" href="#modal1">Logout</a></li>
 
