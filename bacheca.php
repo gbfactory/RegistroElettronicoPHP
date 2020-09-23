@@ -25,9 +25,11 @@ $bacheca = $argo->bacheca();
                                 <p><b>Url:</b> <a href="<?= $bacheca[$x]['desUrl'] ?>"><?= $bacheca[$x]['desUrl'] ?></a></p>
                             <?php } ?>
 
-                            <?php if (isset($bacheca[$x]['allegati'][0])) { ?>
-                                <p><b>Allegati:</b> <a href=""><?= $bacheca[$x]['allegati'][0]['desFile'] ?></a></p>
-                            <?php } ?>
+                            <?php if (isset($bacheca[$x]['allegati'][0])) {
+                                for($i = 0; $i < count($bacheca[$x]['allegati']); $i++) { ?>
+                                    <p><b>Allegato:</b> <a><?= $bacheca[$x]['allegati'][$i]['desFile'] ?></a></p>
+                            <?php }
+                            } ?>
 
                             <?php if ($bacheca[$x]['richiediPv'] == 1) {
                                 if ($bacheca[$x]['dataConfermaPresaVisione']) { ?>
