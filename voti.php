@@ -64,16 +64,6 @@ $scrutinio = $argo->votiScrutinio();
                 }
             }
 
-            function tipoProva($cod) {
-                if ($cod == 'S') {
-                    return 'Scritto';
-                } else if ($cod == 'N') {
-                    return 'Orale';
-                } else if ($cod == 'P') {
-                    return 'Pratico';
-                }
-            }
-
             ?>
 
             <?php
