@@ -2,7 +2,7 @@
 
 $(document).ready(function() {
     $('.sidenav').sidenav();
-    $('.tabs').tabs();
+    // $('.tabs').tabs();
     $('.tooltipped').tooltip();
     $('.collapsible').collapsible();
     $('.modal').modal();

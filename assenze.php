@@ -163,6 +163,10 @@ $argoAssenze = $argo->assenze();
     </div>
 </main>
 
-
+<script>
+    $(document).ready(function() {
+        $('.tabs').tabs();
+    });
+</script>
 
 <?php include './components/footer.php'; ?>
