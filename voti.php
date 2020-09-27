@@ -1,7 +1,7 @@
 <?php include './components/header.php';
 
 $voti = $argo->votiGiornalieri();
-$scrutinio = $argo->votiScrutinio();
+$schede = $argo->schede();
 
 ?>
 <main>
@@ -77,6 +77,9 @@ $scrutinio = $argo->votiScrutinio();
             $votiTriCount = 0;
             $votiPenCount = 0;
 
+            $annoInizio = $schede[0]['annoScolastico']['datInizio'];
+            $annoFine = $schede[0]['annoScolastico']['datFine'];
+
             for ($x = 0; $x < count($voti); $x++) {
 
                 $materia = $voti[$x]['desMateria'];
@@ -94,8 +97,8 @@ $scrutinio = $argo->votiScrutinio();
                     $votiTotSomma += $voto;
 
                     // Media trimetre
-                    $dataTri = strtotime('2019-12-31');
-                    $dataPen = strtotime('2020-01-01');
+                    $dataTri = strtotime(explode('-', $annoInizio)[0] . '-12-31');
+                    $dataPen = strtotime(explode('-', $annoFine)[0] . '-01-01');
 
                     if ($data <= $dataTri) {
                         $votiTriSomma += $voto;
