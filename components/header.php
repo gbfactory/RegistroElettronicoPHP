@@ -51,6 +51,7 @@ function linkCliccabili($text){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/dark.css">
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     
@@ -87,7 +88,7 @@ function linkCliccabili($text){
 
             <li>
                 <div class="user-view">
-                    <div class="background grey darken-1"></div>
+                    <div class="background"></div>
                     <a href="anagrafica.php"><span class="white-text name"><?= $headerArgo[0]['alunno']['desCognome'] ?> <?= $headerArgo[0]['alunno']['desNome'] ?></span></a>
                     <a href="anagrafica.php"><span class="white-text email"><?= $headerArgo[0]['desDenominazione'] ?><?= $headerArgo[0]['desCorso'] ?> <?= $headerArgo[0]['desSede'] ?></span></a>
                 </div>
@@ -120,7 +121,6 @@ function linkCliccabili($text){
 
             <li><div class="divider"></div></li>
             
-            <li><a class="waves-effect" href="app.html">App</a></li>
             <li><a class="waves-effect red darken-1 white-text modal-trigger" href="#modal1">Logout</a></li>
 
         </ul>
