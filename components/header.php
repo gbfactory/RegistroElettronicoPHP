@@ -51,7 +51,7 @@ function linkCliccabili($text){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/dark.css">
+    <link rel="stylesheet" href="./assets/css/dark.css" id="darkcss" title="dark" disabled>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     
@@ -82,6 +82,27 @@ function linkCliccabili($text){
 
         <nav>
             <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+            <div class="container switch right-align">
+                <label>
+                🌕
+                <input type="checkbox" id="themetoggle">
+                <span class="lever"></span>
+                🌑
+                </label>
+            </div>
+
+            <script>
+                $('#themetoggle').click(function() {
+                    let cssDark = $('#darkcss');
+
+                    if (cssDark.is('[disabled=""]')) {
+                        document.getElementById("darkcss").disabled=false;
+                    } else {
+                        document.getElementById("darkcss").disabled=true;
+                    }
+                });
+            </script>
         </nav>
 
         <ul id="slide-out" class="sidenav sidenav-fixed">
