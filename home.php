@@ -188,13 +188,14 @@ $riepilogo = $argo->oggiScuola($date);
                     'format': 'dd/mm/yyyy',
                     'defaultDate': new Date(<?= $datejsanno ?>, <?= $datejsmese ?>, <?= $datejsgiorno ?>),
                     // TODO: prendere le date automaticamente da schede di argoapi
-                    'minDate': new Date(2019, 8, 1),
-                    'maxDate': new Date(2020, 5, 30),
+                    'minDate': new Date(2020, 8, 1),
+                    'maxDate': new Date(2021, 5, 30),
                     'setDefaultDate': true,
                     'onClose': function(){
                         var pickerval = $('.datepicker').val();
                         var date = pickerval.split('/');
                         var newDate = date[2] + '-' + date[1] + '-' + date[0];
+                        if (newDate == "<?= $datejsanno ?>-<?= $datejsmese + 1 ?>-<?= $datejsgiorno ?>") return;
                         console.log(newDate);
                         window.location.href = '?date=' + newDate
                     },
