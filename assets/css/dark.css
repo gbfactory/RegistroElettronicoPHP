@@ -1,0 +1,84 @@
+body {
+    background-color: #181818;
+    color: #ffffff;
+}
+
+a {
+    color: #3ea6ff;
+}
+
+input {
+    color: #ffffff;
+}
+
+hr {
+    height: 3px;
+    background-color: #ffffff1a;
+    border: none;
+    border-radius: 4px;
+}
+
+.divider {
+    background-color: #ffffff1a;
+}
+
+tr {
+    border-color: #ffffff1a;
+}
+
+.user-view .background {
+    background-color: #0f0f0f;
+}
+
+.sidenav {
+    background-color: #212121;
+}
+
+.sidenav li>a {
+    color: #ffffff;
+}
+
+.sidenav .subheader {
+    color: #aaaaaa;
+}
+
+.collection {
+    border-color: transparent;
+}
+
+.collection .collection-item {
+    background-color: transparent;
+    border-color: #ffffff1a;
+    padding: 20px 20px;
+}
+
+.collection.with-header .collection-header {
+    background-color: #0f0f0f;
+    border-color: #ffffff1a;
+    border-width: 2px;
+}
+
+.modal {
+    background-color: #303030;
+}
+
+.promemoria-header {
+    background-color: #212121;
+}
+
+.riepilogo-titolo {
+    background-color: #303030;
+}
+
+.promemoria-header i {
+    color: #aaaaaa;
+}
+
+.fc-unthemed td.fc-today {
+    color: #000000;
+}
+
+.tabs {
+    background-color: transparent;
+}
+
