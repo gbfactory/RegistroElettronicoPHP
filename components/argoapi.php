@@ -229,7 +229,8 @@ class argoUser {
 			throw new Exception("Errore");
 		}
 	}
-	
+    
+    // Bacheca alunno
 	public function bachecaalunno() {
 		$header = array("x-auth-token: ".$this->authToken, "x-cod-min: ".$this->codMin, "x-prg-alunno: ".$this->prgAlunno, "x-prg-scheda: ".$this->prgScheda, "x-prg-scuola: ".$this->prgScuola);
 		$curl = $this->curl("bachecaalunno", $header);
@@ -238,6 +239,18 @@ class argoUser {
 		} else {
 			throw new Exception("Errore");
 		}
-	}
+    }
+    
+    // Documenti docente
+    public function condivisionefile($docente) {
+		$header = array("x-auth-token: ".$this->authToken, "x-cod-min: ".$this->codMin, "x-prg-alunno: ".$this->prgAlunno, "x-prg-scheda: ".$this->prgScheda, "x-prg-scuola: ".$this->prgScuola);
+        $query = array("prgAnagrafe" => $docente);
+        $curl = $this->curl("condivisionefile", $header, $query);
+		if ($curl['httpcode']==200) {
+			return json_decode($curl['output'], true)['dati'];
+		} else {
+			throw new Exception("Errore");
+		}
+    }
 
 }
