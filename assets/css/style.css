@@ -17,6 +17,10 @@ header, main, footer {
     width: 33.3%;
 }
 
+.user-view .background {
+    background-color: #757575;
+}
+
 /* Riepilogo */
 .riepilogo-titolo {
     width: 100%;

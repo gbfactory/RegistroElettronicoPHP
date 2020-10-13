@@ -91,18 +91,6 @@ function linkCliccabili($text){
                 🌑
                 </label>
             </div>
-
-            <script>
-                $('#themetoggle').click(function() {
-                    let cssDark = $('#darkcss');
-
-                    if (cssDark.is('[disabled=""]')) {
-                        document.getElementById("darkcss").disabled=false;
-                    } else {
-                        document.getElementById("darkcss").disabled=true;
-                    }
-                });
-            </script>
         </nav>
 
         <ul id="slide-out" class="sidenav sidenav-fixed">
