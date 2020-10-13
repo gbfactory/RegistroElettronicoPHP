@@ -54,7 +54,7 @@ function linkCliccabili($text){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/dark.css" id="darkcss" title="dark" disabled>
+    <link rel="stylesheet" href="./assets/css/dark.css">
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     
@@ -89,7 +89,7 @@ function linkCliccabili($text){
             <div class="container switch right-align">
                 <label>
                 🌕
-                <input type="checkbox" id="themetoggle">
+                <input type="checkbox" id="theme-switch">
                 <span class="lever"></span>
                 🌑
                 </label>
