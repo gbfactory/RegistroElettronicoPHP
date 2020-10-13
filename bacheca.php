@@ -36,7 +36,7 @@ $bacheca = $argo->bacheca();
                                 if ($bacheca[$x]['dataConfermaPresaVisione']) { ?>
                                     <p><b>Presa visione:</b> Confermata in data <?= $bacheca[$x]['dataConfermaPresaVisione'] ?> </p>
                                 <?php } else { ?>
-                                    <p><b>Presa visione:</b> <a href="<?= $argoLink ?>">Non confermata</a></p>
+                                    <p><b>Presa visione:</b> <a class="pv" id="pv<?= $bacheca[$x]['prgMessaggio'] ?>" onclick="presaVisione(<?= $bacheca[$x]['prgMessaggio'] ?>)">Non confermata</a></p>
                                 <?php }
                             } ?>
 
@@ -82,6 +82,42 @@ $bacheca = $argo->bacheca();
     </div>
 </main>
 
+<script>
+    function presaVisione(id) {
+        console.log(id);
 
+        $.ajax({
+            type: "POST",
+            url: "https://www.portaleargo.it/famiglia/api/rest/presavisionebachecanuova",
+            headers: {
+                "x-version": "2.4.3",
+                "x-key-app": "ax6542sdru3217t4eesd9",
+                "x-app-code": "APF",
+                "x-prg-scheda": 1,
+                "x-prg-alunno": 6190,
+                "x-auth-token": "<?= $token; ?>",
+                "x-produttore-software": "ARGO Software s.r.l. - Ragusa",
+                "x-cod-min": "Sg26685",
+                "x-prg-scuola": 1,
+            },
+            data: JSON.stringify({
+                "presaVisione": true,
+                "prgMessaggio": id
+            }),
+            contentType: 'application/json',
+            success: function(data) {
+                console.log(data);
+                alert(data['message']);
+
+                if (data['message'] != "Per confermare la presa visione, è necessario scaricare almeno un allegato.") {
+                    $(`#pv${id}`).replaceWith(` Confermata in data ${new Date().toLocaleDateString()}`);
+                }
+            },
+            error: function(errMsg) {
+                console.log(errMsg);
+            }
+        });
+    }
+</script>
 
 <?php include './components/footer.php'; ?>

@@ -62,3 +62,8 @@ header, main, footer {
 /* .fc-unthemed td.fc-today {
     background: #f8e71c !important;
 } */
+
+/* Presa visione */
+.pv {
+    cursor: pointer;
+}

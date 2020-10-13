@@ -126,8 +126,9 @@ function linkCliccabili($text){
             <li><div class="divider"></div></li>
 
             <li><a class="subheader">Documenti</a></li>
-            <li><a class="waves-effect" href="bacheca.php">Bacheca</a></li>
+            <li><a class="waves-effect" href="bacheca.php">Bacheca Scuola</a></li>
             <li><a class="waves-effect" href="documenti.php">Bacheca Alunno</a></li>
+            <li><a class="waves-effect" href="condivisione.php">Documenti Docenti</a></li>
 
             <li><div class="divider"></div></li>
             
