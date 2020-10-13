@@ -23,6 +23,7 @@ try {
 $argoLink = 'http://www.' . $codice . '.scuolanext.info/';
 
 $headerArgo = $argo->schede();
+$eventi = $argo->conteggioEventi(date('Y-m-d'));
 
 // Data leggibile
 function dataLeggibile($data) {
@@ -103,7 +104,7 @@ function linkCliccabili($text){
                 </div>
             </li>
 
-            <li><a class="waves-effect" href="home.php">Riepilogo</a></li>
+            <li><a class="waves-effect" href="home.php">Riepilogo <span class="new badge red"><?= $eventi['nuoviElementi'] ?></span></a></li>
 
             <li><div class="divider"></div></li>
 

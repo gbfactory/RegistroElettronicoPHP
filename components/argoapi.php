@@ -99,6 +99,18 @@ class argoUser {
 			throw new Exception("Errore");
 		}
     }
+
+    // Conteggio eventi (quante novità ci sono nel giorno odierno)
+    public function conteggioEventi($datGiorno = datGiorno) {
+		$header = array("x-auth-token: ".$this->authToken, "x-cod-min: ".$this->codMin, "x-prg-alunno: ".$this->prgAlunno, "x-prg-scheda: ".$this->prgScheda, "x-prg-scuola: ".$this->prgScuola);
+		$query = array("datGiorno" => $datGiorno);
+		$curl = $this->curl("conteggioeventi", $header, $query);
+		if ($curl['httpcode']==200) {
+			return json_decode($curl['output'], true);
+		} else {
+			throw new Exception("Errore");
+		}
+    }
     
 	// Assenze
 	public function assenze() {
