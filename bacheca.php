@@ -94,7 +94,7 @@ $bacheca = $argo->bacheca();
                 "x-key-app": "ax6542sdru3217t4eesd9",
                 "x-app-code": "APF",
                 "x-prg-scheda": 1,
-                "x-prg-alunno": 6190,
+                "x-prg-alunno": <?= intval($codAlunno) ?>,
                 "x-auth-token": "<?= $token; ?>",
                 "x-produttore-software": "ARGO Software s.r.l. - Ragusa",
                 "x-cod-min": "Sg26685",

@@ -25,6 +25,8 @@ $argoLink = 'http://www.' . $codice . '.scuolanext.info/';
 $headerArgo = $argo->schede();
 $eventi = $argo->conteggioEventi(date('Y-m-d'));
 
+$codAlunno = $headerArgo[0]['prgAlunno'];
+
 // Data leggibile
 function dataLeggibile($data) {
     $dataSplit = explode('-', $data);
