@@ -6,7 +6,7 @@ $docenti = $argo->docenti();
 <main>
 
     <div class="container">
-        <h3 class="header">Documenti Docenti</h3>
+        <h3 class="header">Condivisione Documenti</h3>
 
         <hr>
 
@@ -16,30 +16,30 @@ $docenti = $argo->docenti();
 
                     <?php for ($x = 0; $x < count($docenti); $x++) { ?>
                         <li class="collection-header">
-                            <span class="title"><?= $docenti[$x]['docente']['nome'] . ' ' . $docenti[$x]['docente']['cognome'] ?> </b></span>
-                            <p><?= str_replace(array('(', ')'), '', $docenti[$x]['materie']) ?></p>
+                            <p><b><?= $docenti[$x]['docente']['nome'] . ' ' . $docenti[$x]['docente']['cognome'] ?></b> <?= $docenti[$x]['materie'] ?></p>
                         </li>
-                        <li class="collection-item">
-
-                            <ul class="collection">
-                                <?php
-                                    $file = $argo->condivisionefile($docenti[$x]['prgAnagrafe']);
-                                    if (empty($file)) echo '<b>Nessun file condiviso!</b>';
-
-                                    for ($i = 0; $i < count($file); $i++) {
-                                    ?>
-                                        <li class="collection-item avatar">
-                                            <i class="material-icons circle">date_range</i>
-                                            <span class="title"><b><?= $file[$i]['datDocumento'] ?> - <?= $file[$i]['desCartella'] ?></b></span>
-                                            <p><?= $file[$i]['desMessaggio'] ?></p>
-                                            <p>📎 <a href="<?= "https://www.portaleargo.it/famiglia/api/rest/documentocondiviso?id=FFF" . $codice . "EEEDO" . str_pad($file[$i]['prgAnagrafe'], 5 ,"0", STR_PAD_LEFT) . str_pad($file[$i]['prgFile'], 10 ,"0", STR_PAD_LEFT) . str_replace('-', '', $token) . "ax6542sdru3217t4eesd9" ?>"><?= $file[$i]['desFile'] ?></a></p>
-                                            <p>🔗 <a href="<?= $file[$i]['desUrl'] ?>"><?= $file[$i]['desUrl'] ?></a></p>
-                                        </li>
-                                    <?php  
-                                    }
-                                ?>
-                            </ul>
-                        </li>
+                        <?php
+                            $file = $argo->condivisionefile($docenti[$x]['prgAnagrafe']);
+                            if (empty($file)) echo '<li class="collection-item"><b>Nessun documento condiviso!</b></li>';
+                            
+                            for ($i = 0; $i < count($file); $i++) {
+                            ?>
+                                <li class="collection-item avatar">
+                                    <i class="material-icons circle blue darken-1">description</i>
+                                    <span class="title"><b><?= dataLeggibile($file[$i]['datDocumento']) ?> - <?= $file[$i]['desCartella'] ?></b></span>
+                                    <?php if (isset($file[$i]['desMessaggio'])) echo '<p>' . $file[$i]['desMessaggio'] . '</p>'; ?>
+                                    <?php if (isset($file[$i]['desFileFisico'])) {
+                                        echo '<p class="valign-wrapper"><i class="material-icons" style="margin-right: .5rem">attachment</i>';
+                                        echo "<a href='https://www.portaleargo.it/famiglia/api/rest/documentocondiviso?id=FFF" . $codice . "EEEDO" . str_pad($file[$i]['prgAnagrafe'], 5 ,"0", STR_PAD_LEFT) . str_pad($file[$i]['prgFile'], 10 ,"0", STR_PAD_LEFT) . str_replace('-', '', $token) . "ax6542sdru3217t4eesd9'>" . $file[$i]['desFile']  . "</a>";
+                                        echo '</p>';
+                                    } ?>
+                                    <?php if (isset($file[$i]['desUrl'])) { ?>
+                                        <p class="valign-wrapper"><i class="material-icons" style="margin-right: .5rem">link</i> <a target="_blank" href="<?= $file[$i]['desUrl'] ?>"><?= $file[$i]['desUrl'] ?></a></p>
+                                    <?php } ?>
+                                </li>
+                            <?php  
+                            }
+                        ?>
                     <?php } ?>
                 </ul>
             </div>
