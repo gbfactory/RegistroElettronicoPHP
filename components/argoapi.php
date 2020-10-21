@@ -31,35 +31,26 @@ class argoUser {
 
 	public function __construct($cod_min, $username, $password, $loginwithtoken = 0) {
 
-		if ($loginwithtoken==0) {
+		if ($loginwithtoken == 0) {
 
-			$header = array("x-cod-min: ".$cod_min, "x-user-id: ".$username, "x-pwd: ".$password);
-			$curl = $this->curl("login", $header);
+            $header = array("x-cod-min: ".$cod_min, "x-user-id: ".$username, "x-pwd: ".$password);
+            $curl = $this->curl("login", $header);
 
-			if ($curl['httpcode']==200) {
-				$this->username = $username;
-				$curl = json_decode($curl['output']);
-				$token = $curl->token;
-				$header = array("x-auth-token: ".$token, "x-cod-min: ".$cod_min);
-				$curl = $this->curl("schede", $header);
+            if ($curl['httpcode']==200) {
+                $this->username = $username;
+                $curl = json_decode($curl['output']);
+                foreach ($curl as $thisKey => $thisCurl) {
+                    $this->$thisKey = $thisCurl;
+                }
+            } else {
+                throw new Exception("Login fallito");
+            }
 
-				if ($curl['httpcode']==200) {
-					$curl = ((array) json_decode($curl['output'])[0]);
-					foreach ($curl as $thisKey => $thisCurl) {
-						$this->$thisKey = $thisCurl;
-					}
-				} else {
-					throw new Exception("Impossibile ottenere info utente");
-				}
-
-			} else {
-				throw new Exception("Login fallito");
-			}
-
-		} elseif ($loginwithtoken==1) {
+		} elseif ($loginwithtoken == 1) {
 
 			$this->username = $username;
-			$token = $password;
+            $token = $password;
+            
 			$header = array("x-auth-token: ".$token, "x-cod-min: ".$cod_min);
 			$curl = $this->curl("schede", $header);
 
@@ -212,6 +203,17 @@ class argoUser {
 	public function docenti() {
 		$header = array("x-auth-token: ".$this->authToken, "x-cod-min: ".$this->codMin, "x-prg-alunno: ".$this->prgAlunno, "x-prg-scheda: ".$this->prgScheda, "x-prg-scuola: ".$this->prgScuola);
 		$curl = $this->curl("docenticlasse", $header);
+		if ($curl['httpcode']==200) {
+			return json_decode($curl['output'], true);
+		} else {
+			throw new Exception("Errore");
+		}
+  }
+  
+  	// Periodi classe
+	public function periodi() {
+		$header = array("x-auth-token: ".$this->authToken, "x-cod-min: ".$this->codMin, "x-prg-alunno: ".$this->prgAlunno, "x-prg-scheda: ".$this->prgScheda, "x-prg-scuola: ".$this->prgScuola);
+		$curl = $this->curl("periodiclasse", $header);
 		if ($curl['httpcode']==200) {
 			return json_decode($curl['output'], true);
 		} else {
