@@ -110,9 +110,9 @@ $schede = $argo->schede();
                 }
             }
 
-            $mediaTot = round($votiTotSomma / $votiTotCount, 2);
-            $mediaTri = round($votiTriSomma / $votiTriCount, 2);
-            $mediaPen = round($votiPenSomma / $votiPenCount, 2);
+            $mediaTot = $votiTotCount > 0 ? round($votiTotSomma / $votiTotCount, 2) : 0;
+            $mediaTri = $votiTriCount > 0 ? round($votiTriSomma / $votiTriCount, 2) : 0;
+            $mediaPen = $votiPenCount > 0 ? round($votiPenSomma / $votiPenCount, 2) : 0;
 
             ?>
 
@@ -124,7 +124,7 @@ $schede = $argo->schede();
                 <div class="row">
                     <div class="col s12 m12 l12">
                         <div class="card-panel hoverable">
-                            <b>Andamento Scolastico</b>
+                            <b>ANDAMENTO VALUTAZIONI</b>
                             <canvas id="canvasAndamentoScolastico"></canvas>
                         </div>
                     </div>
@@ -133,19 +133,19 @@ $schede = $argo->schede();
                 <div class="row">
                     <div class="col s12 m4 l4">
                         <div class="card-panel hoverable">
-                            <b>Media Complessiva</b>
+                            <b>MEDIA</b>
                             <canvas id="canvasMediaComplessiva"></canvas>
                         </div>
                     </div>
                     <div class="col s12 m4 l4">
                         <div class="card-panel hoverable">
-                            <b>Media Trimestre</b>
+                            <b>PRIMO PERIODO</b>
                             <canvas id="canvasMediaTrimestre"></canvas>
                         </div>
                     </div>
                     <div class="col s12 m4 l4">
                         <div class="card-panel hoverable">
-                            <b>Media Pentamestre</b>
+                            <b>SECONDO PERIODO</b>
                             <canvas id="canvasMediaPentamestre"></canvas>
                         </div>
                     </div>
@@ -170,11 +170,11 @@ $schede = $argo->schede();
                         if ($voti[$j]['desMateria'] == $materie[$i]) {
 
                             if ($voti[$j]['decValore'] != 0) {
-                                if (strtotime($voti[$j]['datGiorno']) <= strtotime('2019-12-31')) {
+                                if (strtotime($voti[$j]['datGiorno']) <= $dataTri) {
                                     ${"sommaVoti1" . $i} += $voti[$j]['decValore'];
                                     ${"numVoti1" . $i}++;
                                     array_push(${"listaVoti1" . $i}, $voti[$j]);
-                                } else if (strtotime($voti[$j]['datGiorno']) >= strtotime('2020-01-01')) {
+                                } else if (strtotime($voti[$j]['datGiorno']) >= $dataPen) {
                                     ${"sommaVoti2" . $i} += $voti[$j]['decValore'];
                                     ${"numVoti2" . $i}++;
                                     array_push(${"listaVoti2" . $i}, $voti[$j]);
@@ -209,25 +209,10 @@ $schede = $argo->schede();
                                     <div class="collapsible-body">
                                         <div class="row">
 
-                                            <!-- SECONDO PERIODO -->
-                                            <div class="col s6">
-                                                <!-- media -->
-                                                <?php $media2 = ${"sommaVoti2" . $i} / ${"numVoti2" . $i}; ?>
-                                                <b>Secondo Periodo (Media: <?= round($media2, 2) ?>)</b> <br>
-
-                                                <!-- lista voti -->
-                                                <?php for ($j = 0; $j < count(${"listaVoti2" . $i}); $j++) { ?>
-                                                    <a class="btn-floating <?= coloreVoto(${"listaVoti2" . $i}[$j]['decValore']) ?>">
-                                                        <i><?= ${"listaVoti2" . $i}[$j]['codVoto'] ?></i>
-                                                    </a>
-                                                <?php } ?>
-
-                                            </div>
-
                                             <!-- PRIMO PERIODO -->
                                             <div class="col s6">
                                                 <!-- media -->
-                                                <?php $media1 = ${"sommaVoti1" . $i} / ${"numVoti1" . $i}; ?>
+                                                <?php $media1 = ${"numVoti1" . $i} > 0 ? ${"sommaVoti1" . $i} / ${"numVoti1" . $i} : 0; ?>
                                                 <b>Primo Periodo (Media: <?= round($media1, 2) ?>)</b> <br>
 
                                                 <!-- lista voti -->
@@ -239,9 +224,22 @@ $schede = $argo->schede();
 
                                             </div>
 
+                                            <!-- SECONDO PERIODO -->
+                                            <div class="col s6">
+                                                <!-- media -->
+                                                <?php $media2 = ${"numVoti2" . $i} > 0 ? ${"sommaVoti2" . $i} / ${"numVoti2" . $i} : 0; ?>
+                                                <b>Secondo Periodo (Media: <?= round($media2, 2) ?>)</b> <br>
+
+                                                <!-- lista voti -->
+                                                <?php for ($j = 0; $j < count(${"listaVoti2" . $i}); $j++) { ?>
+                                                    <a class="btn-floating <?= coloreVoto(${"listaVoti2" . $i}[$j]['decValore']) ?>">
+                                                        <i><?= ${"listaVoti2" . $i}[$j]['codVoto'] ?></i>
+                                                    </a>
+                                                <?php } ?>
+
+                                            </div>
 
                                         </div>
-
                                     </div>
                                 </li>
                             <?php } ?>
