@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: *");
-header('Access-Control-Allow-Methods: *');
+header("Access-Control-Allow-Headers: x-cod-min, x-user-id, x-pwd");
+header('Access-Control-Allow-Methods: GET');
 header("Content-Type: application/json; charset=UTF-8");
 
 $getHeaders = getallheaders();
