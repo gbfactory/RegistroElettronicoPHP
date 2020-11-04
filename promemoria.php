@@ -10,8 +10,6 @@ $memo = $argo->promemoria();
 
         <hr>
 
-        <?php //print('<pre> ' . print_r($memo, true) . '</pre>'); ?>
-
         <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.css" rel="stylesheet">
 
@@ -27,7 +25,6 @@ $memo = $argo->promemoria();
                 <a class="waves-effect waves-light btn" id="cal-day">GIORNO</a>
             </div>
             <div class="col s4 right-align">
-                <!-- <a class="waves-effect waves-light btn">OGGI</a> -->
                 <a class="waves-effect waves-light btn" id="cal-left"><i class="material-icons">chevron_left</i></a>
                 <a class="waves-effect waves-light btn" id="cal-now"><i class="material-icons">event</i></a>
                 <a class="waves-effect waves-light btn" id="cal-right"><i class="material-icons">chevron_right</i></a>
@@ -49,12 +46,10 @@ $memo = $argo->promemoria();
                     events: [
                         <?php
                             for ($x = 0; $x < count($memo); $x++) {
-                                
                                 echo ("{");
-                                echo ("title: '" . str_replace("'", '"', json_encode($memo[$x]['desAnnotazioni'])) . "',");
+                                echo ("title: '" . str_replace(['"', "'"], '', json_encode($memo[$x]['desAnnotazioni'])) . "',");
                                 echo ("start: '" . $memo[$x]['datGiorno'] . "'");
                                 echo ("},");
-
                             };
                         ?>
                     ]
@@ -99,37 +94,19 @@ $memo = $argo->promemoria();
 
         </script>
 
-
         <h5>Tutti i promemoria</h5>
+
         <hr>
 
         <div class="row">
             <div class="col s12">
                 <ul class="collection">
-
                     <?php for ($x = 0; $x < count($memo); $x++) { ?>
                         <li class="collection-item avatar">
-                            <?php
-
-                            $dataMemo = $memo[$x]['datGiorno'];
-                            $oggi = date('Y-m-d');
-
-                            // Colore compiti
-                            if ($dataMemo > $oggi) {
-                                $color = 'yellow';
-                            } else if ($dataMemo < $oggi) {
-                                $color = 'green';
-                            } else if ($dataMemo == $oggi) {
-                                $color = 'red';
-                            }
-
-                            ?>
-
-                            <i class="material-icons circle <?= $color ?>">book</i>
+                            <i class="material-icons circle <?= colore_data($memo[$x]['datGiorno']) ?>">announcement</i>
                             <span class="title">Promemoria per il <b> <?= dataLeggibile($memo[$x]['datGiorno']) ?> </b></span>
                             <p><?= linkCliccabili($memo[$x]['desAnnotazioni']) ?></p>
                             <p><i><?= $memo[$x]['desMittente'] ?></i></p>
-
                         </li>
                     <?php } ?>
                 </ul>
@@ -138,7 +115,5 @@ $memo = $argo->promemoria();
 
     </div>
 </main>
-
-
 
 <?php include './components/footer.php'; ?>
