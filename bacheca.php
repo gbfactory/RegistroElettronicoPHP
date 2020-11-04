@@ -106,15 +106,16 @@ $bacheca = $argo->bacheca();
             }),
             contentType: 'application/json',
             success: function(data) {
-                console.log(data);
-                alert(data['message']);
+                // console.log(data);
+                M.toast({html: data['message']})
 
                 if (data['message'] != "Per confermare la presa visione, è necessario scaricare almeno un allegato.") {
                     $(`#pv${id}`).replaceWith(` Confermata in data ${new Date().toLocaleDateString()}`);
                 }
             },
             error: function(errMsg) {
-                console.log(errMsg);
+                // console.log(errMsg);
+                M.toast({html: 'Errore!'})
             }
         });
     }
