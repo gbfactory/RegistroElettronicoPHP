@@ -13,41 +13,16 @@ $compiti = $argo->compiti();
         <div class="row">
             <div class="col s12">
                 <ul class="collection">
-                    <?php for ($x = 0; $x < count($compiti); $x++) { ?>
+                    <?php
+                    for ($x = 0; $x < count($compiti); $x++) {
+                        $datCompiti = $compiti[$x]['datCompiti'];
+                        $datGiorno = $compiti[$x]['datGiorno'];
+                        ?>
                         <li class="collection-item avatar">
-
-                            <?php
-                            
-                            $dataCompiti = $compiti[$x]['datGiorno'];
-                            $oggi = date('Y-m-d');
-
-                            // Colore compiti
-                            if ($dataCompiti > $oggi) {
-                                $color = 'yellow';
-                            } else if ($dataCompiti < $oggi) {
-                                $color = 'green';
-                            } else if ($dataCompiti == $oggi) {
-                                $color = 'red';
-                            }
-
-                            ?>
-
-                            <i class="material-icons circle <?= $color ?>">book</i>
+                            <i class="material-icons circle <?= colore_data($datCompiti) ?>">book</i>
                             <span class="title"><?= $compiti[$x]['desMateria'] ?></span>
-                                <?php
-
-                                    $datCompiti = dataLeggibile($compiti[$x]['datCompiti']);
-                                    $datGiorno = dataLeggibile($compiti[$x]['datGiorno']);
-
-                                    if ($compiti[$x]['datGiorno'] == $compiti[$x]['datCompiti']) {
-                                        echo('<p>Assegnati il <b>' . $datGiorno . '</b></p>');
-                                    } else {
-                                        echo('<p>Assegnati il <b>' . $datGiorno . '</b> per il <b>' . $datCompiti . '</b></p>');
-                                    }
-                                ?>
-                            <p>
-                                <?= linkCliccabili($compiti[$x]['desCompiti']) ?> <br> <?= $compiti[$x]['docente'] ?>
-                            </p>
+                            <p>Assegnati il <b><?= dataLeggibile($datGiorno) ?></b> per il <b><?= dataLeggibile($datCompiti) ?></b></p>
+                            <p><?= linkCliccabili($compiti[$x]['desCompiti']) ?> <br> <?= $compiti[$x]['docente'] ?></p>
                         </li>
                     <?php } ?>
                 </ul>
