@@ -38,6 +38,24 @@ function linkCliccabili($text){
     return preg_replace('!(((f|ht)tp(s)?://)[-a-zA-Zа-яА-Я()0-9@:%_+.~#?&;//=]+)!i', '<a href="$1">$1</a>', $text);
 }
 
+// Nice name
+function rimuovi_parentesi($nome) {
+    return str_replace(['(', ')'], '', $nome);
+}
+
+// Colore in base alla data
+function colore_data($data) {
+    $oggi = date('Y-m-d');
+
+    if ($data > $oggi) {
+        return 'yellow';
+    } else if ($data < $oggi) {
+        return 'green';
+    } else if ($data == $oggi) {
+        return 'red';
+    }
+}
+
 ?>
 
 <html>
