@@ -169,8 +169,8 @@ function tipoProva($cod) {
             <li>
                 <div class="user-view">
                     <div class="background"></div>
-                    <a href="anagrafica"><span class="white-text name"><?= $headerArgo[0]['alunno']['desCognome'] ?> <?= $headerArgo[0]['alunno']['desNome'] ?></span></a>
-                    <a href="anagrafica"><span class="white-text email"><?= $headerArgo[0]['desDenominazione'] ?><?= $headerArgo[0]['desCorso'] ?> <?= $headerArgo[0]['desSede'] ?></span></a>
+                    <a href="anagrafica.php"><span class="white-text name"><?= $headerArgo[0]['alunno']['desCognome'] ?> <?= $headerArgo[0]['alunno']['desNome'] ?></span></a>
+                    <a href="anagrafica.php"><span class="white-text email"><?= $headerArgo[0]['desDenominazione'] ?><?= $headerArgo[0]['desCorso'] ?> <?= $headerArgo[0]['desSede'] ?></span></a>
                 </div>
             </li>
 
@@ -179,28 +179,28 @@ function tipoProva($cod) {
             <li><div class="divider"></div></li>
 
             <li><a class="subheader">Alunno</a></li>
-            <li><a class="waves-effect" href="voti">Voti Giornalieri</a></li>
-            <li><a class="waves-effect" href="assenze">Assenze Giornaliere</a></li>
-            <li><a class="waves-effect" href="note">Note Disciplinari</a></li>
-            <li><a class="waves-effect" href="scrutinio">Voti Scrutinio</a></li>
+            <li><a class="waves-effect" href="voti.php">Voti Giornalieri</a></li>
+            <li><a class="waves-effect" href="assenze.php">Assenze Giornaliere</a></li>
+            <li><a class="waves-effect" href="note.php">Note Disciplinari</a></li>
+            <li><a class="waves-effect" href="scrutinio.php">Voti Scrutinio</a></li>
 
             <li><div class="divider"></div></li>
 
             <li><a class="subheader">Classe</a></li>
-            <li><a class="waves-effect" href="compiti">Compiti Assegnati</a></li>
-            <li><a class="waves-effect" href="argomenti">Argomenti Lezione</a></li>
-            <li><a class="waves-effect" href="promemoria">Promemoria Classe</a></li>
-            <li><a class="waves-effect" href="orario">Orario Classe</a></li>
+            <li><a class="waves-effect" href="compiti.php">Compiti Assegnati</a></li>
+            <li><a class="waves-effect" href="argomenti.php">Argomenti Lezione</a></li>
+            <li><a class="waves-effect" href="promemoria.php">Promemoria Classe</a></li>
+            <li><a class="waves-effect" href="orario.php">Orario Classe</a></li>
             <li><a class="waves-effect" href="">Ricevimento Docenti</a></li>
-            <li><a class="waves-effect" href="docenti">Docenti Classe</a></li>
-            <li><a class="waves-effect" href="bacheca">Bacheca</a></li>
+            <li><a class="waves-effect" href="docenti.php">Docenti Classe</a></li>
+            <li><a class="waves-effect" href="bacheca.php">Bacheca</a></li>
 
             <li><div class="divider"></div></li>
 
             <li><a class="subheader">Documenti</a></li>
-            <li><a class="waves-effect" href="documenti">Documenti alunno</a></li>
-            <li><a class="waves-effect" href="condivisione">Documenti docenti</a></li>
-            <li><a class="waves-effect" href="anagrafica">Dati anagrafici</a></li>
+            <li><a class="waves-effect" href="documenti.php">Documenti alunno</a></li>
+            <li><a class="waves-effect" href="condivisione.php">Documenti docenti</a></li>
+            <li><a class="waves-effect" href="anagrafica.php">Dati anagrafici</a></li>
 
             <li><div class="divider"></div></li>
             
