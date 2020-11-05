@@ -106,6 +106,16 @@ function tipoProva($cod) {
     }
 }
 
+function tipoEvento($cod) {
+    if ($cod == 'A') {
+        return 'Assenza';
+    } else if ($cod == 'I') {
+        return 'Ingresso';
+    } else if ($cod == 'U') {
+        return 'Uscita';
+    }
+}
+
 ?>
 
 <html>
