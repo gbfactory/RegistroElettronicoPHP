@@ -56,6 +56,56 @@ function colore_data($data) {
     }
 }
 
+function coloreVoto($voto) {
+    if ($voto <= 1) {
+        return 'red darken-4';
+    } else if (($voto >= 1) && ($voto < 5)) {
+        return 'red';
+    } else if (($voto >= 5) && ($voto < 6)) {
+        return 'orange darken-4';
+    } else if (($voto >= 6) && ($voto < 7)) {
+        return 'lime';
+    } else if (($voto >= 7) && ($voto < 8)) {
+        return 'lime darken-2';
+    } else if (($voto >= 8) && ($voto < 9)) {
+        return 'light-green';
+    } else if (($voto >= 9) && ($voto < 10)) {
+        return 'green';
+    } else if ($voto >= 10) {
+        return 'green darken-2';
+    }
+}
+
+function coloreGrafico($voto) {
+    if ($voto <= 1) {
+        return '183, 28, 28';
+    } else if (($voto >= 1) && ($voto < 5)) {
+        return '244, 67, 54';
+    } else if (($voto >= 5) && ($voto < 6)) {
+        return '230, 81, 0';
+    } else if (($voto >= 6) && ($voto < 7)) {
+        return '205, 220, 57';
+    } else if (($voto >= 7) && ($voto < 8)) {
+        return '175, 180, 43';
+    } else if (($voto >= 8) && ($voto < 9)) {
+        return '139, 195, 74';
+    } else if (($voto >= 9) && ($voto < 10)) {
+        return '76, 175, 80';
+    } else if ($voto >= 10) {
+        return '56, 142, 60';
+    }
+}
+
+function tipoProva($cod) {
+    if ($cod == 'S') {
+        return 'Scritto';
+    } else if ($cod == 'N') {
+        return 'Orale';
+    } else if ($cod == 'P') {
+        return 'Pratico';
+    }
+}
+
 ?>
 
 <html>
@@ -119,36 +169,38 @@ function colore_data($data) {
             <li>
                 <div class="user-view">
                     <div class="background"></div>
-                    <a href="anagrafica.php"><span class="white-text name"><?= $headerArgo[0]['alunno']['desCognome'] ?> <?= $headerArgo[0]['alunno']['desNome'] ?></span></a>
-                    <a href="anagrafica.php"><span class="white-text email"><?= $headerArgo[0]['desDenominazione'] ?><?= $headerArgo[0]['desCorso'] ?> <?= $headerArgo[0]['desSede'] ?></span></a>
+                    <a href="anagrafica"><span class="white-text name"><?= $headerArgo[0]['alunno']['desCognome'] ?> <?= $headerArgo[0]['alunno']['desNome'] ?></span></a>
+                    <a href="anagrafica"><span class="white-text email"><?= $headerArgo[0]['desDenominazione'] ?><?= $headerArgo[0]['desCorso'] ?> <?= $headerArgo[0]['desSede'] ?></span></a>
                 </div>
             </li>
 
-            <li><a class="waves-effect" href="home.php">Riepilogo <span class="new badge red"><?= $eventi['nuoviElementi'] ?></span></a></li>
+            <li><a class="waves-effect" href="riepilogo">Riepilogo <span class="new badge red"><?= $eventi['nuoviElementi'] ?></span></a></li>
 
             <li><div class="divider"></div></li>
 
             <li><a class="subheader">Alunno</a></li>
-            <li><a class="waves-effect" href="anagrafica.php">Dati Anagrafici</a></li>
-            <li><a class="waves-effect" href="voti.php">Valutazioni</a></li>
-            <li><a class="waves-effect" href="assenze.php">Assenze</a></li>
-            <li><a class="waves-effect" href="note.php">Note Disciplinari</a></li>
+            <li><a class="waves-effect" href="voti">Voti Giornalieri</a></li>
+            <li><a class="waves-effect" href="assenze">Assenze Giornaliere</a></li>
+            <li><a class="waves-effect" href="note">Note Disciplinari</a></li>
+            <li><a class="waves-effect" href="scrutinio">Voti Scrutinio</a></li>
 
             <li><div class="divider"></div></li>
 
             <li><a class="subheader">Classe</a></li>
-            <li><a class="waves-effect" href="compiti.php">Compiti Assegnati</a></li>
-            <li><a class="waves-effect" href="argomenti.php">Argomenti Lezione</a></li>
-            <li><a class="waves-effect" href="promemoria.php">Promemoria</a></li>
-            <li><a class="waves-effect" href="orario.php">Orario Scolastico</a></li>
-            <li><a class="waves-effect" href="docenti.php">Docenti Classe</a></li>
+            <li><a class="waves-effect" href="compiti">Compiti Assegnati</a></li>
+            <li><a class="waves-effect" href="argomenti">Argomenti Lezione</a></li>
+            <li><a class="waves-effect" href="promemoria">Promemoria Classe</a></li>
+            <li><a class="waves-effect" href="orario">Orario Classe</a></li>
+            <li><a class="waves-effect" href="">Ricevimento Docenti</a></li>
+            <li><a class="waves-effect" href="docenti">Docenti Classe</a></li>
+            <li><a class="waves-effect" href="bacheca">Bacheca</a></li>
 
             <li><div class="divider"></div></li>
 
             <li><a class="subheader">Documenti</a></li>
-            <li><a class="waves-effect" href="bacheca.php">Bacheca Scuola</a></li>
-            <li><a class="waves-effect" href="documenti.php">Bacheca Alunno</a></li>
-            <li><a class="waves-effect" href="condivisione.php">Condivisione Documenti</a></li>
+            <li><a class="waves-effect" href="documenti">Documenti alunno</a></li>
+            <li><a class="waves-effect" href="condivisione">Documenti docenti</a></li>
+            <li><a class="waves-effect" href="anagrafica">Dati anagrafici</a></li>
 
             <li><div class="divider"></div></li>
             
