@@ -28,7 +28,6 @@ $riepilogo = $argo->oggiScuola($date);
         <h6>
             <a class="right-align btn-floating waves-effect waves-light red datepicker"><i class="material-icons">date_range</i></a>
             <?php
-
                 if (isset($_GET['date'])) {
                     echo "Riepilogo del " . dataLeggibile($_GET['date']);
                 } else {
@@ -51,133 +50,200 @@ $riepilogo = $argo->oggiScuola($date);
         <hr>
 
         <?php
+
+        // Array tipi evento
+        $voti = [];
+        $assenze = [];
+        $compiti = [];
+        $argomenti = [];
+        $note = [];
+        $promemoria = [];
+        $bacheca = [];
+
+
         for ($x = 0; $x < count($riepilogo); $x++) {
-            $tipo = $riepilogo[$x]['tipo']; ?>
-                
-            <?php // Promemoria
-            if ($tipo == 'PRO') { ?>
-                <div class="promemoria-header">
-                    <p class="riepilogo-titolo valign-wrapper">
-                        <b>Promemoria</b>
-                        <a href="promemoria.php"><i class="material-icons">chevron_right</i></a>
-                    </p>
-                    <blockquote>
-                        <?= linkCliccabili($riepilogo[$x]['dati']['desAnnotazioni']) ?> <br>
-                        <i><?= $riepilogo[$x]['dati']['desMittente'] ?></i>
-                    </blockquote>
-                </div>
+            switch ($riepilogo[$x]['tipo']) {
+                case 'VOT':
+                    array_push($voti, $riepilogo[$x]);
+                    break;
+                case 'ASS':
+                    array_push($assenze, $riepilogo[$x]);
+                    break;
+                case 'COM':
+                    array_push($compiti, $riepilogo[$x]);
+                    break;
+                case 'ARG':
+                    array_push($argomenti, $riepilogo[$x]);
+                    break;
+                case 'NOT':
+                    array_push($note, $riepilogo[$x]);
+                    break;
+                case 'PRO':
+                    array_push($promemoria, $riepilogo[$x]);
+                    break;
+                case 'BAC':
+                    array_push($bacheca, $riepilogo[$x]);
+                    break;
+                default:
+                    break;
+            }
+        }
 
-            <?php // Compiti assegnati
-            } else if ($tipo == 'COM') { ?>
-                <div class="promemoria-header">
-                    <p class="riepilogo-titolo valign-wrapper">
-                        <b>Compiti Assegnati</b>
-                        <a href="compiti.php"><i class="material-icons">chevron_right</i></a>
-                    </p>
-                    <blockquote>
-                        <b><?= $riepilogo[$x]['dati']['desMateria'] ?></b> <br>
-                        <?= linkCliccabili($riepilogo[$x]['dati']['desCompiti']) ?> <br>
-                        <i><?= $riepilogo[$x]['dati']['docente'] ?></i>
-                    </blockquote>
-                </div>
+        ?>
 
-            <?php // Argomenti lezione
-            } else if ($tipo == 'ARG') { ?>
-                <div class="promemoria-header">
-                    <p class="riepilogo-titolo valign-wrapper">
-                        <b>Argomenti Lezione</b>
-                        <a href="argomenti.php"><i class="material-icons">chevron_right</i></a>
-                    </p>
-                    <blockquote>
-                        <b><?= $riepilogo[$x]['dati']['desMateria'] ?></b> <br>
-                        <?= linkCliccabili($riepilogo[$x]['dati']['desArgomento']) ?> <br>
-                        <i><?= $riepilogo[$x]['dati']['docente'] ?></i>
-                    </blockquote>
-                </div>
+        <?php if (count($voti) > 0) { ?>
+            <ul class="collection with-header">
+                <li class="collection-header"><h5>Voti Giornalieri</h5></li>
+            <?php for ($x = 0; $x < count($voti); $x++) { ?>
+                <?php $item = $voti[$x]['dati']; ?>
+                <li class="collection-item avatar">
+                    <i class="circle <?= coloreVoto($item['decValore']) ?>"><?= $item['codVoto'] ?></i>
 
-            <?php // Voto
-            } else if ($tipo == 'VOT') {
-                
-                $codProva = $riepilogo[$x]['dati']['codVotoPratico'];
-                $tipProva = '';
-                if ($codProva == 'S') {
-                    $tipProva = 'Scritto';
-                } else if ($codProva == 'N') {
-                    $tipProva == 'Orale';
-                } else if ($codProva == 'P') {
-                    $tipProva == 'Pratico';
-                }
+                    <span class="title"><?= $item['desMateria'] ?>
+                        <?php if (substr($item['desCommento'], -14) == '(non fa media)') echo '<b>(Non fa media)</b>'; ?>
+                    </span>
 
-                $voto = $riepilogo[$x]['dati']['decValore'];
-                if ($voto <= 1) {
-                    $vColor = 'red darken-4';
-                } else if (($voto >= 1) && ($voto < 5)) {
-                    $vColor = 'red';
-                } else if (($voto >= 5) && ($voto < 6)) {
-                    $vColor = 'orange darken-4';
-                } else if (($voto >= 6) && ($voto < 7)) {
-                    $vColor = 'lime';
-                } else if (($voto >= 7) && ($voto < 8)) {
-                    $vColor = 'lime darken-2';
-                } else if (($voto >= 8) && ($voto < 9)) {
-                    $vColor = 'light-green';
-                } else if (($voto >= 9) && ($voto < 10)) {
-                    $vColor = 'green';
-                } else if ($voto >= 10) {
-                    $vColor = 'green darken-2';
-                }
-            ?>
-                <div class="promemoria-header">
-                    <p class="riepilogo-titolo valign-wrapper">
-                        <b>Voti Giornalieri</b>
-                        <a href="voti.php"><i class="material-icons">chevron_right</i></a>
-                    </p>
-                    <blockquote>
-                        <a class="btn-floating <?= $vColor ?>">
-                            <i><?= $riepilogo[$x]['dati']['codVoto'] ?></i>
-                        </a>
-                        <span>
-                            <b><?= $riepilogo[$x]['dati']['desMateria'] ?></b> <br>
+                    <p><?= dataLeggibile($item['datGiorno']) ?> - <?= tipoProva($codProva = $item['codVotoPratico']) ?></p>
 
-                            <?php if ($riepilogo[$x]['dati']['desProva']) { ?>
-                                <b>Descrizione:</b> <?= $riepilogo[$x]['dati']['desProva'] ?> <br>
-                            <?php } ?>
+                    <p><?php if ($item['desProva'] != '') echo ('<b>Descrizione:</b> ' . $item['desProva']); ?>
 
-                            <?php if ($riepilogo[$x]['dati']['desCommento']) { ?>
-                                <b>Commento:</b> <?= $riepilogo[$x]['dati']['desCommento'] ?> <br>
-                            <?php } ?>
+                    <p><?php if ($item['desCommento'] != '') echo ('<b>Commento:</b> ' . $item['desCommento']); ?>
 
-                            <i><?= $riepilogo[$x]['dati']['docente'] ?></i>
-                        </span>
-                    </blockquote>
-                </div>
-                
-            <?php // Bacheca    
-            } else if ($tipo == 'BAC') { ?>
-                <div class="promemoria-header">
-                    <p class="riepilogo-titolo valign-wrapper">
-                        <b>Bacheca</b>
-                        <a href="bacheca.php"><i class="material-icons">chevron_right</i></a>
-                    </p>
-                    <blockquote>
-                        <b><?= $riepilogo[$x]['dati']['desOggetto'] ?></b> <br>
-                        <?= $riepilogo[$x]['dati']['desMessaggio'] ?>
-                    </blockquote>
-                </div>
-
-            <?php // Note
-            } else if ($tipo == 'NOT') { ?>
-                <div class="promemoria-header">
-                    <p class="riepilogo-titolo valign-wrapper">
-                        <b>Note Disciplinari</b>
-                        <a href="note.php"><i class="material-icons">chevron_right</i></a>
-                    </p>
-                    <blockquote>
-                        <?= $riepilogo[$x]['dati']['desNota'] ?> <br>
-                        <i><?= $riepilogo[$x]['dati']['docente'] ?></i>
-                    </blockquote>
-                </div>
+                    <p><i><?= rimuovi_parentesi($item['docente']); ?></i></p>
+                </li>
             <?php } ?>
+            </ul>
+        <?php } ?>
+
+        
+        <?php if (count($assenze) > 0) { ?>
+            <ul class="collection with-header">
+                <li class="collection-header"><h5>Assenze Giornaliere</h5></li>
+            <?php for ($x = 0; $x < count($assenze); $x++) { ?>
+                <?php $item = $assenze[$x]['dati']; ?>
+                <li class="collection-item avatar">
+
+                    <?php if ($item['codEvento'] == 'A') { ?>
+                        <i class="circle material-icons red darken-4">close</i>
+                        <span class="title">Assenza del <b><?= dataLeggibile($item['datAssenza']) ?></b></span>
+                        <p>Registrata da <?= rimuovi_parentesi($item['registrataDa']) ?></p>
+
+                    <?php } else if ($item['codEvento'] == 'I') { ?>
+                        <i class="circle material-icons green darken-3">subdirectory_arrow_right</i>
+                        <span class="title">Ingresso del <b><?= dataLeggibile($item['datAssenza']) ?></b> in <b><?= $item['numOra'] ?>° ora</b></span>
+                        <p>Ingresso alle ore <?= substr($item['oraAssenza'], -5) ?> registrato da <?= rimuovi_parentesi($item['registrataDa']) ?></p>
+
+                    <?php } else if ($item['codEvento'] == 'U') { ?>
+                        <i class="circle material-icons orange darken-4">subdirectory_arrow_left</i>
+                        <span class="title">Uscita del <b><?= dataLeggibile($item['datAssenza']) ?></b> in <b><?= $item['numOra'] ?>° ora</b></span>
+                        <p>Uscita alle ore <?= substr($item['oraAssenza'], -5) ?> registrata da <?= rimuovi_parentesi($item['registrataDa']) ?></p>
+
+                    <?php } ?>
+
+                    <?php if (isset($item['giustificataDa'])) { ?>
+                        <p>Giustificata da <?= rimuovi_parentesi($item['giustificataDa']) ?> il <?= dataLeggibile($item['datGiustificazione']) ?>
+                    <?php } else { ?>
+                        <p>Da giustificare!</p>
+                    <?php } ?>
+                </li>
+            <?php } ?>
+            </ul>
+        <?php } ?>
+
+        <?php if (count($compiti) > 0) { ?>
+            <ul class="collection with-header">
+                <li class="collection-header"><h5>Compiti Assegnati</h5></li>
+            <?php for ($x = 0; $x < count($compiti); $x++) { ?>
+                <?php $item = $compiti[$x]['dati']; ?>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle <?= colore_data($item['datCompiti']) ?>">book</i>
+
+                    <b class="title"><?= $item['desMateria'] ?></b>
+
+                    <p>Assegnati per il <b><?= dataLeggibile($item['datCompiti']) ?></b></p>
+
+                    <p><?= linkCliccabili($item['desCompiti']) ?></p>
+
+                    <p><i><?= rimuovi_parentesi($item['docente']) ?></i></p>
+                </li>
+            <?php } ?>
+            </ul>
+        <?php } ?>
+
+        <?php if (count($argomenti) > 0) { ?>
+            <ul class="collection with-header">
+                <li class="collection-header"><h5>Argomenti Lezioni</h5></li>
+            <?php for ($x = 0; $x < count($argomenti); $x++) { ?>
+                <?php $item = $argomenti[$x]['dati']; ?>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle blue darken-2">reorder</i>
+
+                    <b class="title"><?= $item['desMateria'] ?></b>
+
+                    <p><?= linkCliccabili($item['desArgomento']) ?></p>
+
+                    <p><i><?= rimuovi_parentesi($item['docente']) ?></i></p>
+                </li>
+            <?php } ?>
+            </ul>
+        <?php } ?>
+
+        <?php if (count($note) > 0) { ?>
+            <ul class="collection with-header">
+                <li class="collection-header"><h5>Note disciplinari</h5></li>
+            <?php for ($x = 0; $x < count($note); $x++) { ?>
+                <?php $item = $note[$x]['dati']; ?>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle red">new_releases</i>
+
+                    <span class="title">Nota del <?= dataLeggibile($item['datNota']) ?> (<?= substr($item['oraNota'], -5) ?>)</span>
+                    
+                    <?php if ($item['flgVisualizzata'] != 'S') {
+                        echo ('<a class="secondary-content tooltipped" data-position="top" data-tooltip="Non è stata presa visione!"><i class="material-icons">error_outline</i></a>');
+                    } ?>
+
+                    <p><?= $item['desNota'] ?></p>
+
+                    <p><i><?= $item['docente'] ?></i></p>
+                </li>
+            <?php } ?>
+            </ul>
+        <?php } ?>
+
+        <?php if (count($promemoria) > 0) { ?>
+            <ul class="collection with-header">
+                <li class="collection-header"><h5>Promemoria</h5></li>
+            <?php for ($x = 0; $x < count($promemoria); $x++) { ?>
+                <?php $item = $promemoria[$x]['dati']; ?>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle <?= colore_data($item['datGiorno']) ?>">announcement</i>
+
+                    <p><?= linkCliccabili($item['desAnnotazioni']) ?></p>
+
+                    <p><i><?= $item['desMittente'] ?></i></p>
+                </li>
+            <?php } ?>
+            </ul>
+        <?php } ?>
+
+        <?php if (count($bacheca) > 0) { ?>
+            <ul class="collection with-header">
+                <li class="collection-header"><h5>Bacheca</h5></li>
+            <?php for ($x = 0; $x < count($bacheca); $x++) { ?>
+                <?php $item = $bacheca[$x]['dati']; ?>
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">date_range</i>
+
+                    <b class="title"><?= $item['desOggetto'] ?></b>
+                    
+                    <?php for ($i = 0; $i < count($item['allegati']); $i++) { ?>
+                        <p class="valign-wrapper"><i class="material-icons" style="margin-right: .5rem">attachment</i>
+                            <a href="bacheca.php"><?= $item['allegati'][$i]['desFile'] ?></a>
+                        </p>
+                    <?php } ?>
+                </li>
+            <?php } ?>
+            </ul>
         <?php } ?>
 
         <script>
