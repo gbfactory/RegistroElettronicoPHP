@@ -174,7 +174,7 @@ function tipoProva($cod) {
                 </div>
             </li>
 
-            <li><a class="waves-effect" href="riepilogo">Riepilogo <span class="new badge red"><?= $eventi['nuoviElementi'] ?></span></a></li>
+            <li><a class="waves-effect" href="riepilogo.php">Riepilogo <span class="new badge red"><?= $eventi['nuoviElementi'] ?></span></a></li>
 
             <li><div class="divider"></div></li>
 
