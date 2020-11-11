@@ -22,7 +22,8 @@ $compiti = $argo->compiti();
                             <i class="material-icons circle <?= colore_data($datCompiti) ?>">book</i>
                             <span class="title"><?= $compiti[$x]['desMateria'] ?></span>
                             <p>Assegnati il <b><?= dataLeggibile($datGiorno) ?></b> per il <b><?= dataLeggibile($datCompiti) ?></b></p>
-                            <p><?= linkCliccabili($compiti[$x]['desCompiti']) ?> <br> <?= $compiti[$x]['docente'] ?></p>
+                            <p><?= linkCliccabili($compiti[$x]['desCompiti']) ?></p>
+                            <p><i><?= rimuovi_parentesi($compiti[$x]['docente']) ?></i></p>
                         </li>
                     <?php } ?>
                 </ul>
