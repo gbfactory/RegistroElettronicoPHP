@@ -162,7 +162,7 @@ $riepilogo = $argo->oggiScuola($date);
 
                     <p>Assegnati per il <b><?= dataLeggibile($item['datCompiti']) ?></b></p>
 
-                    <p><?= linkCliccabili($item['desCompiti']) ?></p>
+                    <p><?= linkCliccabili(explode('(Assegnati per il', $item['desCompiti'])[0]) ?></p>
 
                     <p><i><?= rimuovi_parentesi($item['docente']) ?></i></p>
                 </li>
