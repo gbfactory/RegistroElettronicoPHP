@@ -236,6 +236,8 @@ $riepilogo = $argo->oggiScuola($date);
 
                     <b class="title"><?= $item['desOggetto'] ?></b>
                     
+                    <p><?= $item['desMessaggio'] ?></p>
+
                     <?php for ($i = 0; $i < count($item['allegati']); $i++) { ?>
                         <p class="valign-wrapper"><i class="material-icons" style="margin-right: .5rem">attachment</i>
                             <a href="bacheca.php"><?= $item['allegati'][$i]['desFile'] ?></a>
