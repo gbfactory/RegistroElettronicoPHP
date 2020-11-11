@@ -16,7 +16,12 @@ $docenti = $argo->docenti();
                         <li class="collection-item avatar">
                             <i class="material-icons circle <?php if (strpos($docenti[$x]['docente']['nome'], 'Coordinatore') !== false) { echo 'red'; } ?>">face</i>
                             <span class="title"><b><?= $docenti[$x]['docente']['nome'] ?> <?= $docenti[$x]['docente']['cognome'] ?></b></span>
-                            <p><?= rimuovi_parentesi($docenti[$x]['materie']) ?></p>
+                            <?php
+                            $materie = explode(',', rimuovi_parentesi($docenti[$x]['materie']));
+                            for($i = 0; $i < count($materie); $i++) {
+                                echo "<p>$materie[$i]</p>";
+                            }
+                            ?>
                         </li>
                     <?php } ?>
                 </ul>
