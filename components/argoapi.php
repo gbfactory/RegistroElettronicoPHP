@@ -158,7 +158,17 @@ class argoUser {
 			throw new Exception("Errore");
 		}
     }
-    
+
+    // Periodi
+    public function periodi() {
+		$header = array("x-auth-token: ".$this->authToken, "x-cod-min: ".$this->codMin, "x-prg-alunno: ".$this->prgAlunno, "x-prg-scheda: ".$this->prgScheda, "x-prg-scuola: ".$this->prgScuola);
+		$curl = $this->curl("periodiclasse", $header);
+		if ($curl['httpcode']==200) {
+			return json_decode($curl['output'], true);
+		} else {
+			throw new Exception("Errore");
+		}
+    }
 
 	// Compiti
 	public function compiti() {
