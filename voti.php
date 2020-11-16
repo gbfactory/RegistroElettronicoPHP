@@ -65,8 +65,9 @@ $schede = $argo->schede();
 
             <div class="col s12" style="margin-bottom: 1rem;">
                 <ul class="tabs">
-                    <li class="tab col s6"><a class="active" href="#riepilogo">RIEPILOGO</a></li>
-                    <li class="tab col s6"><a href="#valutazioni">VALUTAZIONI</a></li>
+                    <li class="tab col s4"><a class="active" href="#riepilogo">RIEPILOGO</a></li>
+                    <li class="tab col s4"><a href="#materie">MATERIE</a></li>
+                    <li class="tab col s4"><a href="#valutazioni">VALUTAZIONI</a></li>
                 </ul>
             </div>
 
@@ -354,6 +355,81 @@ $schede = $argo->schede();
                     });
                 </script>
 
+            </div>
+
+            <div id="materie" class="col s12">
+                <?php for ($i = 0; $i < count($materie); $i++) {
+
+                    $sommaVoti = ${"sommaVoti1" . $i} + ${"sommaVoti2" . $i};
+                    $numVoti = ${"numVoti1" . $i} + ${"numVoti2" . $i};
+                    $listaVoti = array_merge(${"listaVoti1" . $i}, ${"listaVoti2" . $i});
+                    $media = round($sommaVoti / $numVoti, 2);
+
+                    ?>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12 m5">
+                                    <h5><?= $materie[$i] ?></h5>
+                                    <hr>
+                                    Media complessiva: <b><?= $media ?></b>
+                                    <div class="progress">
+                                        <div class="determinate" style="width: 70%"></div>
+                                    </div>
+                                    <hr>
+
+                                    <div class="row">
+                                        <div class="col 6">
+                                            <?php $media1 = ${"numVoti1" . $i} > 0 ? ${"sommaVoti1" . $i} / ${"numVoti1" . $i} : 0; ?>
+                                            Media Primo Periodo: <b><?= round($media1, 2) ?></b>
+                                            <div class="progress">
+                                                <div class="determinate" style="width: 70%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col 6">
+                                            <?php $media2 = ${"numVoti2" . $i} > 0 ? ${"sommaVoti2" . $i} / ${"numVoti2" . $i} : 0; ?>
+                                            Media Secondo Periodo: <b><?= round($media2, 2) ?></b>
+                                            <div class="progress">
+                                                <div class="determinate" style="width: 70%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <?php // =(<totalNumberOfGrades> * <desiredMinimumGrade> - (<currentAverage> * (<totalNumberOfGrades> - <numberOfMissingGrades>))) / <numberOfMissingGrades> ?>
+                                    <?php $mantieniMedia = count($listaVoti) * $media - ($media * (count($listaVoti) - 1)) / 1; ?>
+                                    <?php $recuperaMedia = count($listaVoti) * 6 - ($media * (count($listaVoti) - 1)) / 1; ?>
+                                    <b>CONSIGLI</b>
+                                    <?php if ($media < 6) { ?>
+                                        <p>Devi prendere almeno <b><?= $recuperaMedia ?></b> per raggiungere la sufficienza.</p>
+                                    <?php } else { ?>
+                                        <p>Prendi almeno <b><?= $mantieniMedia ?></b> per mantenere la media!</p>
+                                    <?php } ?>
+                                    <hr>
+                                </div>
+                                <div class="col s12 m7">
+                                    <ul class="collection">
+                                        <?php for ($j = 0; $j < count($listaVoti); $j++) { ?>
+                                            <?php $voto = $listaVoti[$j]; ?>
+                                            <li class="collection-item avatar">
+                                                <i class="circle <?= coloreVoto($voto['decValore']) ?>"><?= $voto['codVoto'] ?></i>
+
+                                                <span class="title">Prova <?= tipoProva($codProva = $voto['codVotoPratico']) ?> del <?= dataLeggibile($voto['datGiorno']) ?></span>
+
+                                                <p><?php if ($voto['desProva'] != '') echo ('<b>Descrizione:</b> ' . $voto['desProva']); ?>
+                                                <p><?php if ($voto['desCommento'] != '') echo ('<b>Commento:</b> ' . $voto['desCommento']); ?>
+                                            </li>
+                                        <?php } ?>
+                                    </ul>
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
 
             <div id="valutazioni" class="col s12">
