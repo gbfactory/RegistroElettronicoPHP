@@ -375,7 +375,7 @@ $schede = $argo->schede();
                                     <hr>
                                     Media complessiva: <b><?= $media ?></b>
                                     <div class="progress">
-                                        <div class="determinate" style="width: 70%"></div>
+                                        <div class="determinate" style="width: <?= $media * 10 ?>%"></div>
                                     </div>
                                     <hr>
 
@@ -384,27 +384,17 @@ $schede = $argo->schede();
                                             <?php $media1 = ${"numVoti1" . $i} > 0 ? ${"sommaVoti1" . $i} / ${"numVoti1" . $i} : 0; ?>
                                             Media Primo Periodo: <b><?= round($media1, 2) ?></b>
                                             <div class="progress">
-                                                <div class="determinate" style="width: 70%"></div>
+                                                <div class="determinate" style="width: <?= $media1 * 10 ?>%"></div>
                                             </div>
                                         </div>
                                         <div class="col 6">
                                             <?php $media2 = ${"numVoti2" . $i} > 0 ? ${"sommaVoti2" . $i} / ${"numVoti2" . $i} : 0; ?>
                                             Media Secondo Periodo: <b><?= round($media2, 2) ?></b>
                                             <div class="progress">
-                                                <div class="determinate" style="width: 70%"></div>
+                                                <div class="determinate" style="width: <?= $media2 * 10 ?>%"></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <hr>
-                                    <?php // =(<totalNumberOfGrades> * <desiredMinimumGrade> - (<currentAverage> * (<totalNumberOfGrades> - <numberOfMissingGrades>))) / <numberOfMissingGrades> ?>
-                                    <?php $mantieniMedia = count($listaVoti) * $media - ($media * (count($listaVoti) - 1)) / 1; ?>
-                                    <?php $recuperaMedia = count($listaVoti) * 6 - ($media * (count($listaVoti) - 1)) / 1; ?>
-                                    <b>CONSIGLI</b>
-                                    <?php if ($media < 6) { ?>
-                                        <p>Devi prendere almeno <b><?= $recuperaMedia ?></b> per raggiungere la sufficienza.</p>
-                                    <?php } else { ?>
-                                        <p>Prendi almeno <b><?= $mantieniMedia ?></b> per mantenere la media!</p>
-                                    <?php } ?>
                                     <hr>
                                 </div>
                                 <div class="col s12 m7">
