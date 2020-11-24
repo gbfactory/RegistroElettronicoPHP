@@ -121,7 +121,7 @@ $argoAssenze = $argo->assenze();
                             <p>Ingresso alle ore <?= substr($ingressi[$x]['oraAssenza'], -5) ?> registrato da <?= rimuovi_parentesi($ingressi[$x]['registrataDa']) ?></p>
 
                             <?php if (isset($ingressi[$x]['giustificataDa'])) { ?>
-                                <p>Giustificato da <?= rimuovi_parentesi($ingressi[$x]['giustificataDa']) ?> il <?= $ingressi[$x]['datGiustificazione'] ?></p>
+                                <p>Giustificato da <?= rimuovi_parentesi($ingressi[$x]['giustificataDa']) ?> il <?= dataLeggibile($ingressi[$x]['datGiustificazione']) ?></p>
                             <?php } else { ?>
                                 <p>Da giustificare!</p>
                                 <a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>
@@ -142,7 +142,7 @@ $argoAssenze = $argo->assenze();
                             <p>Uscita alle ore <?= substr($uscite[$x]['oraAssenza'], -5) ?> registrata da <?= rimuovi_parentesi($uscite[$x]['registrataDa']) ?></p>
 
                             <?php if (isset($uscite[$x]['giustificataDa'])) { ?>
-                                <p>Giustificato da <?= rimuovi_parentesi($uscite[$x]['giustificataDa']) ?> il <?= $uscite[$x]['datGiustificazione'] ?></p>
+                                <p>Giustificato da <?= rimuovi_parentesi($uscite[$x]['giustificataDa']) ?> il <?= dataLeggibile($uscite[$x]['datGiustificazione']) ?></p>
                             <?php } else { ?>
                                 <p>Da giustificare!</p>
                                 <a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>
