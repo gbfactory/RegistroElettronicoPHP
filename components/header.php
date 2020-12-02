@@ -201,7 +201,7 @@ function tipoEvento($cod) {
             <li><a class="waves-effect" href="argomenti.php">Argomenti Lezione</a></li>
             <li><a class="waves-effect" href="promemoria.php">Promemoria Classe</a></li>
             <li><a class="waves-effect" href="orario.php">Orario Classe</a></li>
-            <li><a class="waves-effect" href="">Ricevimento Docenti</a></li>
+            <li><a class="waves-effect" href="ricevimento.php">Ricevimento Docenti</a></li>
             <li><a class="waves-effect" href="docenti.php">Docenti Classe</a></li>
             <li><a class="waves-effect" href="bacheca.php">Bacheca</a></li>
 
