@@ -227,7 +227,30 @@ class argoUser {
 		} else {
 			throw new Exception("Errore");
 		}
-	}
+    }
+    
+    // Lista prenotazioni ricevimento
+    public function prenotazioniricevimento() {
+		$header = array("x-auth-token: ".$this->authToken, "x-cod-min: ".$this->codMin, "x-prg-alunno: ".$this->prgAlunno, "x-prg-scheda: ".$this->prgScheda, "x-prg-scuola: ".$this->prgScuola);
+		$curl = $this->curl("prenotazioniricevimento", $header);
+		if ($curl['httpcode']==200) {
+			return json_decode($curl['output'], true);
+		} else {
+			throw new Exception("Errore");
+		}
+    }
+
+    // Disponibilità docente per ricevimento
+    public function disponibilitadocente($prgAnagrafe) {
+		$header = array("x-auth-token: ".$this->authToken, "x-cod-min: ".$this->codMin, "x-prg-alunno: ".$this->prgAlunno, "x-prg-scheda: ".$this->prgScheda, "x-prg-scuola: ".$this->prgScuola);
+        $query = array("prgAnagrafe" => $prgAnagrafe);
+		$curl = $this->curl("disponibilitadocente", $header, $query);
+		if ($curl['httpcode']==200) {
+			return json_decode($curl['output'], true);
+		} else {
+			throw new Exception("Errore");
+		}
+    }
 	
 	// Bacheca
 	public function bacheca() {
