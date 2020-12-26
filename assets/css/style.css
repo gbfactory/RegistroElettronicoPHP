@@ -67,3 +67,8 @@ header, main, footer {
 .pv {
     cursor: pointer;
 }
+
+/* Not found */
+.not-found {
+    margin-top: 3rem;
+}

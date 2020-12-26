@@ -49,8 +49,14 @@ $riepilogo = $argo->oggiScuola($date);
 
         <hr>
 
-        <?php
+        <?php if (empty($riepilogo)) { ?>
+            <div class="center not-found">
+                <img class="responsive-img" width="500px" height="auto" src="./img/not_found.svg" alt="Not Found">
+                <h5>In questa data non è successo nulla...</h5>
+            </div>
+        <?php } ?>
 
+        <?php
         // Array tipi evento
         $voti = [];
         $assenze = [];

@@ -90,66 +90,84 @@ $argoAssenze = $argo->assenze();
             </div>
 
             <div id="assenze" class="col s12">
-                <ul class="collection">
-                    <?php for ($x = 0; $x < count($assenze); $x++) { ?>
-                        <li class="collection-item avatar">
-                            <i class="circle material-icons red darken-4">close</i>
+                <?php if (empty($assenze)) { ?>
+                    <div class="center">
+                        <h5>Non hai assenze!</h5>
+                    </div>
+                <?php } else { ?>
+                    <ul class="collection">
+                        <?php for ($x = 0; $x < count($assenze); $x++) { ?>
+                            <li class="collection-item avatar">
+                                <i class="circle material-icons red darken-4">close</i>
 
-                            <span class="title">Assenza del <b><?= dataLeggibile($assenze[$x]['datAssenza']) ?></b></span>
+                                <span class="title">Assenza del <b><?= dataLeggibile($assenze[$x]['datAssenza']) ?></b></span>
 
-                            <p>Registrata da <?= rimuovi_parentesi($assenze[$x]['registrataDa']) ?></p>
+                                <p>Registrata da <?= rimuovi_parentesi($assenze[$x]['registrataDa']) ?></p>
 
-                            <?php if (isset($assenze[$x]['giustificataDa'])) { ?>
-                                <p>Giustificata da <?= rimuovi_parentesi($assenze[$x]['giustificataDa']) ?> il <?= dataLeggibile($assenze[$x]['datGiustificazione']) ?>
-                            <?php } else { ?>
-                                <p>Da giustificare!</p>
-                                <a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>
-                            <?php } ?>
-                        </li>
-                    <?php } ?>
-                </ul>
+                                <?php if (isset($assenze[$x]['giustificataDa'])) { ?>
+                                    <p>Giustificata da <?= rimuovi_parentesi($assenze[$x]['giustificataDa']) ?> il <?= dataLeggibile($assenze[$x]['datGiustificazione']) ?>
+                                <?php } else { ?>
+                                    <p>Da giustificare!</p>
+                                    <a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>
+                                <?php } ?>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                <?php } ?>
             </div>
 
             <div id="ingressi" class="col s12">
-                <ul class="collection">
-                    <?php for ($x = 0; $x < count($ingressi); $x++) { ?>
-                        <li class="collection-item avatar">
-                            <i class="circle material-icons green darken-3">subdirectory_arrow_right</i>
+                <?php if (empty($ingressi)) { ?>
+                    <div class="center">
+                        <h5>Non hai ingressi!</h5>
+                    </div>
+                <?php } else { ?>
+                    <ul class="collection">
+                        <?php for ($x = 0; $x < count($ingressi); $x++) { ?>
+                            <li class="collection-item avatar">
+                                <i class="circle material-icons green darken-3">subdirectory_arrow_right</i>
 
-                            <span class="title">Ingresso del <b><?= dataLeggibile($ingressi[$x]['datAssenza']) ?></b> in <b><?= $ingressi[$x]['numOra'] ?>° ora</b></span>
+                                <span class="title">Ingresso del <b><?= dataLeggibile($ingressi[$x]['datAssenza']) ?></b> in <b><?= $ingressi[$x]['numOra'] ?>° ora</b></span>
 
-                            <p>Ingresso alle ore <?= substr($ingressi[$x]['oraAssenza'], -5) ?> registrato da <?= rimuovi_parentesi($ingressi[$x]['registrataDa']) ?></p>
+                                <p>Ingresso alle ore <?= substr($ingressi[$x]['oraAssenza'], -5) ?> registrato da <?= rimuovi_parentesi($ingressi[$x]['registrataDa']) ?></p>
 
-                            <?php if (isset($ingressi[$x]['giustificataDa'])) { ?>
-                                <p>Giustificato da <?= rimuovi_parentesi($ingressi[$x]['giustificataDa']) ?> il <?= dataLeggibile($ingressi[$x]['datGiustificazione']) ?></p>
-                            <?php } else { ?>
-                                <p>Da giustificare!</p>
-                                <a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>
-                            <?php } ?>
-                        </li>
-                    <?php } ?>
-                </ul>
+                                <?php if (isset($ingressi[$x]['giustificataDa'])) { ?>
+                                    <p>Giustificato da <?= rimuovi_parentesi($ingressi[$x]['giustificataDa']) ?> il <?= dataLeggibile($ingressi[$x]['datGiustificazione']) ?></p>
+                                <?php } else { ?>
+                                    <p>Da giustificare!</p>
+                                    <a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>
+                                <?php } ?>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                <?php } ?>
             </div>
 
             <div id="uscite" class="col s12">
-                <ul class="collection">
-                    <?php for ($x = 0; $x < count($uscite); $x++) { ?>
-                        <li class="collection-item avatar">
-                            <i class="circle material-icons orange darken-4">subdirectory_arrow_left</i>
-                            
-                            <span class="title">Uscita del <b><?= dataLeggibile($uscite[$x]['datAssenza']) ?></b> in <b><?= $uscite[$x]['numOra'] ?>° ora</b></span>
+                <?php if (empty($uscite)) { ?>
+                    <div class="center">
+                        <h5>Non hai uscite!</h5>
+                    </div>
+                <?php } else { ?>
+                    <ul class="collection">
+                        <?php for ($x = 0; $x < count($uscite); $x++) { ?>
+                            <li class="collection-item avatar">
+                                <i class="circle material-icons orange darken-4">subdirectory_arrow_left</i>
+                                
+                                <span class="title">Uscita del <b><?= dataLeggibile($uscite[$x]['datAssenza']) ?></b> in <b><?= $uscite[$x]['numOra'] ?>° ora</b></span>
 
-                            <p>Uscita alle ore <?= substr($uscite[$x]['oraAssenza'], -5) ?> registrata da <?= rimuovi_parentesi($uscite[$x]['registrataDa']) ?></p>
+                                <p>Uscita alle ore <?= substr($uscite[$x]['oraAssenza'], -5) ?> registrata da <?= rimuovi_parentesi($uscite[$x]['registrataDa']) ?></p>
 
-                            <?php if (isset($uscite[$x]['giustificataDa'])) { ?>
-                                <p>Giustificato da <?= rimuovi_parentesi($uscite[$x]['giustificataDa']) ?> il <?= dataLeggibile($uscite[$x]['datGiustificazione']) ?></p>
-                            <?php } else { ?>
-                                <p>Da giustificare!</p>
-                                <a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>
-                            <?php } ?>
-                        </li>
-                    <?php } ?>
-                </ul>
+                                <?php if (isset($uscite[$x]['giustificataDa'])) { ?>
+                                    <p>Giustificato da <?= rimuovi_parentesi($uscite[$x]['giustificataDa']) ?> il <?= dataLeggibile($uscite[$x]['datGiustificazione']) ?></p>
+                                <?php } else { ?>
+                                    <p>Da giustificare!</p>
+                                    <a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>
+                                <?php } ?>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                <?php } ?>
             </div>
 
         </div>
