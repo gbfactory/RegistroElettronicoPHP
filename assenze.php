@@ -1,15 +1,15 @@
-<?php include './components/header.php';
+<?php
+$cod = "ass";
+$titolo = "Assenze Giornaliere";
+
+include './components/header.php';
 
 $argoAssenze = $argo->assenze();
-
 ?>
+
 <main>
-
     <div class="container">
-        <h3 class="header">Assenze Giornaliere</h3>
-
-        <hr>
-
+        
         <?php
         // Definizione arrays eventi
         $assenze = [];

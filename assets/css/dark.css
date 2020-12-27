@@ -3,9 +3,13 @@ body.dark {
     color: #ffffff;
 }
 
-.dark a {
-    color: #3ea6ff;
+.dark nav.top-nav {
+    border-bottom: 1px solid rgb(255 255 255 / 14%);
 }
+
+/* .dark a {
+    color: #3ea6ff;
+} */
 
 .dark input {
     color: #ffffff;
@@ -83,4 +87,11 @@ body.dark {
 
 .dark .card-panel {
     background-color: #303030;
+}
+.dark .card {
+    background-color: #303030;
+}
+
+.dark .chip {
+    background-color: #4c4c4c;
 }

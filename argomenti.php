@@ -1,33 +1,23 @@
-<?php include './components/header.php';
+<?php
+$cod = "arg";
+$titolo = "Argomenti Lezione";
+
+include './components/header.php';
 
 $argomenti = $argo->argomenti();
-
 ?>
+
 <main>
-    <div class="container">
+    <div class="container">        
+        <?php if (empty($argomenti)) { ?>
+            <div class="center">
+                <h5>Non ci sono argomenti!</h5>
+            </div>
+        <?php } ?>
 
-        <h3 class="header">Argomenti Lezioni</h3>
-
-        <hr>
-        
         <div class="row">
-            <div class="col s12">
-
-                <?php if (empty($argomenti)) { ?>
-                    <div class="center">
-                        <h5>Non ci sono argomenti!</h5>
-                    </div>
-                <?php } else { ?>
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="input-field">
-                                <i class="material-icons prefix">search</i>
-                                <input type="text" id="argCerca">
-                                <label for="argCerca">Cerca argomento...</label>
-                            </div>
-                        </div>
-                    </div>
-
+            <div class="col s12 m8">
+                <div class="section">
                     <ul class="collection">
                         <?php for ($x = 0; $x < count($argomenti); $x++) { ?>
                             <li class="collection-item avatar">
@@ -40,23 +30,34 @@ $argomenti = $argo->argomenti();
                             </li>
                         <?php } ?>
                     </ul>
-                <?php } ?>
+                </div>
+            </div>
 
+            <div class="col s12 m4">
+                <div class="section">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="input-field">
+                                <i class="material-icons prefix">search</i>
+                                <input type="text" id="ricerca_argomenti">
+                                <label for="ricerca_argomenti">Cerca argomento...</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <script>
             // https://stackoverflow.com/questions/52592173/search-for-an-item-in-a-list-using-jquery-filter/52592294
-            $("#argCerca").on("keyup", function() {
+            $("#ricerca_argomenti").on("keyup", function() {
                 var value = this.value.toLowerCase().trim();
                 $(".collection li").show().filter(function() {
                     return $(this).text().toLowerCase().trim().indexOf(value) == -1;
                 }).hide();
             });
         </script>
-
     </div>
 </main>
-
 
 <?php include './components/footer.php'; ?>

@@ -1,16 +1,16 @@
-<?php include './components/header.php';
+<?php
+$cod = "vot";
+$titolo = "Voti Giornalieri";
+
+include './components/header.php';
 
 $voti = $argo->votiGiornalieri();
 $scrutinio = $argo->votiScrutinio();
 $schede = $argo->schede();
-
 ?>
+
 <main>
     <div class="container">
-
-        <h3 class="header">Voti Giornalieri</h3>
-
-        <hr>
 
         <?php
         $materie = [];
@@ -73,128 +73,123 @@ $schede = $argo->schede();
 
             <div id="riepilogo" class="col s12">
 
-                <div class="row">
-                    <div class="col s12 m12 l12">
-                        <div class="card-panel hoverable">
-                            <b>ANDAMENTO VALUTAZIONI</b>
-                            <canvas id="canvasAndamentoScolastico"></canvas>
-                        </div>
-                    </div>
+                <div class="section">
+                    <h4 class="text-pink" style="margin-top: 0">Andamento Valutazioni</h4>
+                    <canvas id="canvasAndamentoScolastico"></canvas>
                 </div>
 
-                <div class="row">
-                    <div class="col s12 m4 l4">
-                        <div class="card-panel hoverable">
-                            <b>MEDIA</b>
+                <div class="section">
+                    <div class="row">
+                        <div class="col s12 m4 l4">
+                            <h5 class="text-pink">Media Complessiva</h5>
                             <canvas id="canvasMediaComplessiva"></canvas>
                         </div>
-                    </div>
-                    <div class="col s12 m4 l4">
-                        <div class="card-panel hoverable">
-                            <b>PRIMO PERIODO</b>
+                        <div class="col s12 m4 l4">
+                            <h5 class="text-pink">Media Primo Periodo</h5>
                             <canvas id="canvasMediaTrimestre"></canvas>
                         </div>
-                    </div>
-                    <div class="col s12 m4 l4">
-                        <div class="card-panel hoverable">
-                            <b>SECONDO PERIODO</b>
+                        <div class="col s12 m4 l4">
+                            <h5 class="text-pink">Media Secondo Periodo</h5>
                             <canvas id="canvasMediaPentamestre"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <hr>
+                <div class="section">
+                    <h4 class="text-pink">Riepilogo per Materia</h4>
 
-                <?php
+                    <?php
 
-                for ($i = 0; $i < count($materie); $i++) {
+                    for ($i = 0; $i < count($materie); $i++) {
 
-                    ${"sommaVoti1" . $i} = 0;
-                    ${"numVoti1" . $i} = 0;
-                    ${"listaVoti1" . $i} = [];
+                        ${"sommaVoti1" . $i} = 0;
+                        ${"numVoti1" . $i} = 0;
+                        ${"listaVoti1" . $i} = [];
 
-                    ${"sommaVoti2" . $i} = 0;
-                    ${"numVoti2" . $i} = 0;
-                    ${"listaVoti2" . $i} = [];
+                        ${"sommaVoti2" . $i} = 0;
+                        ${"numVoti2" . $i} = 0;
+                        ${"listaVoti2" . $i} = [];
 
-                    for ($j = 0; $j < count($voti); $j++) {
+                        for ($j = 0; $j < count($voti); $j++) {
 
-                        if ($voti[$j]['desMateria'] == $materie[$i]) {
+                            if ($voti[$j]['desMateria'] == $materie[$i]) {
 
-                            if ($voti[$j]['decValore'] != 0) {
-                                if (strtotime($voti[$j]['datGiorno']) <= $dataTri) {
-                                    ${"sommaVoti1" . $i} += $voti[$j]['decValore'];
-                                    ${"numVoti1" . $i}++;
-                                    array_push(${"listaVoti1" . $i}, $voti[$j]);
-                                } else if (strtotime($voti[$j]['datGiorno']) >= $dataPen) {
-                                    ${"sommaVoti2" . $i} += $voti[$j]['decValore'];
-                                    ${"numVoti2" . $i}++;
-                                    array_push(${"listaVoti2" . $i}, $voti[$j]);
+                                if ($voti[$j]['decValore'] != 0) {
+                                    if (strtotime($voti[$j]['datGiorno']) <= $dataTri) {
+                                        ${"sommaVoti1" . $i} += $voti[$j]['decValore'];
+                                        ${"numVoti1" . $i}++;
+                                        array_push(${"listaVoti1" . $i}, $voti[$j]);
+                                    } else if (strtotime($voti[$j]['datGiorno']) >= $dataPen) {
+                                        ${"sommaVoti2" . $i} += $voti[$j]['decValore'];
+                                        ${"numVoti2" . $i}++;
+                                        array_push(${"listaVoti2" . $i}, $voti[$j]);
+                                    }
                                 }
                             }
                         }
                     }
-                }
 
-                ?>
+                    ?>
 
-                <div class="row">
-                    <div class="col s12">
-                        <ul class="collapsible">
-                            <?php
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="collapsible">
+                                <?php
 
-                            for ($i = 0; $i < count($materie); $i++) {
+                                for ($i = 0; $i < count($materie); $i++) {
 
-                                $sommaVoti = ${"sommaVoti1" . $i} + ${"sommaVoti2" . $i};
-                                $numVoti = ${"numVoti1" . $i} + ${"numVoti2" . $i};
-                                $media = round($sommaVoti / $numVoti, 2);
+                                    $sommaVoti = ${"sommaVoti1" . $i} + ${"sommaVoti2" . $i};
+                                    $numVoti = ${"numVoti1" . $i} + ${"numVoti2" . $i};
+                                    $media = round($sommaVoti / $numVoti, 2);
 
-                            ?>
-                                <li>
-                                    <div class="collapsible-header" tabindex="0" style="background: linear-gradient(90deg, rgba(0,0,0,0) 50%, rgba(<?= coloreGrafico($media) ?> ,1) 100%);">
-                                        <b><?= $materie[$i] ?></b>
-                                        <span class="badge <?php if ($media < 6) {
-                                                                echo 'text-white';
-                                                            } ?>">MEDIA: <b><?= $media ?></b></span>
-                                    </div>
-                                    <div class="collapsible-body">
-                                        <div class="row">
-
-                                            <!-- PRIMO PERIODO -->
-                                            <div class="col s6">
-                                                <!-- media -->
-                                                <?php $media1 = ${"numVoti1" . $i} > 0 ? ${"sommaVoti1" . $i} / ${"numVoti1" . $i} : 0; ?>
-                                                <b>Primo Periodo (Media: <?= round($media1, 2) ?>)</b> <br>
-
-                                                <!-- lista voti -->
-                                                <?php for ($j = 0; $j < count(${"listaVoti1" . $i}); $j++) { ?>
-                                                    <a class="btn-floating <?= coloreVoto(${"listaVoti1" . $i}[$j]['decValore']) ?>">
-                                                        <i><?= ${"listaVoti1" . $i}[$j]['codVoto'] ?></i>
-                                                    </a>
-                                                <?php } ?>
-
-                                            </div>
-
-                                            <!-- SECONDO PERIODO -->
-                                            <div class="col s6">
-                                                <!-- media -->
-                                                <?php $media2 = ${"numVoti2" . $i} > 0 ? ${"sommaVoti2" . $i} / ${"numVoti2" . $i} : 0; ?>
-                                                <b>Secondo Periodo (Media: <?= round($media2, 2) ?>)</b> <br>
-
-                                                <!-- lista voti -->
-                                                <?php for ($j = 0; $j < count(${"listaVoti2" . $i}); $j++) { ?>
-                                                    <a class="btn-floating <?= coloreVoto(${"listaVoti2" . $i}[$j]['decValore']) ?>">
-                                                        <i><?= ${"listaVoti2" . $i}[$j]['codVoto'] ?></i>
-                                                    </a>
-                                                <?php } ?>
-
-                                            </div>
-
+                                ?>
+                                    <li>
+                                        <div class="collapsible-header" tabindex="0" style="background: linear-gradient(90deg, rgba(0,0,0,0) 50%, rgba(<?= coloreGrafico($media) ?> ,1) 100%);">
+                                            <b><?= $materie[$i] ?></b>
+                                            <span class="badge <?php if ($media < 6) {
+                                                                    echo 'text-white';
+                                                                } ?>">MEDIA: <b><?= $media ?></b></span>
                                         </div>
-                                    </div>
-                                </li>
-                            <?php } ?>
-                        </ul>
+                                        <div class="collapsible-body">
+                                            <div class="row">
+
+                                                <!-- PRIMO PERIODO -->
+                                                <div class="col s6">
+                                                    <!-- media -->
+                                                    <?php $media1 = ${"numVoti1" . $i} > 0 ? ${"sommaVoti1" . $i} / ${"numVoti1" . $i} : 0; ?>
+                                                    <b>Primo Periodo (Media: <?= round($media1, 2) ?>)</b> <br>
+
+                                                    <!-- lista voti -->
+                                                    <?php for ($j = 0; $j < count(${"listaVoti1" . $i}); $j++) { ?>
+                                                        <a class="btn-floating <?= coloreVoto(${"listaVoti1" . $i}[$j]['decValore']) ?>">
+                                                            <i><?= ${"listaVoti1" . $i}[$j]['codVoto'] ?></i>
+                                                        </a>
+                                                    <?php } ?>
+
+                                                </div>
+
+                                                <!-- SECONDO PERIODO -->
+                                                <div class="col s6">
+                                                    <!-- media -->
+                                                    <?php $media2 = ${"numVoti2" . $i} > 0 ? ${"sommaVoti2" . $i} / ${"numVoti2" . $i} : 0; ?>
+                                                    <b>Secondo Periodo (Media: <?= round($media2, 2) ?>)</b> <br>
+
+                                                    <!-- lista voti -->
+                                                    <?php for ($j = 0; $j < count(${"listaVoti2" . $i}); $j++) { ?>
+                                                        <a class="btn-floating <?= coloreVoto(${"listaVoti2" . $i}[$j]['decValore']) ?>">
+                                                            <i><?= ${"listaVoti2" . $i}[$j]['codVoto'] ?></i>
+                                                        </a>
+                                                    <?php } ?>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+
                     </div>
 
                 </div>
@@ -365,7 +360,7 @@ $schede = $argo->schede();
                     $listaVoti = array_merge(${"listaVoti1" . $i}, ${"listaVoti2" . $i});
                     $media = round($sommaVoti / $numVoti, 2);
 
-                    ?>
+                ?>
 
                     <div class="card">
                         <div class="card-content">
@@ -407,7 +402,7 @@ $schede = $argo->schede();
                                                 <span class="title">Prova <?= tipoProva($codProva = $voto['codVotoPratico']) ?> del <?= dataLeggibile($voto['datGiorno']) ?></span>
 
                                                 <p><?php if ($voto['desProva'] != '') echo ('<b>Descrizione:</b> ' . $voto['desProva']); ?>
-                                                <p><?php if ($voto['desCommento'] != '') echo ('<b>Commento:</b> ' . $voto['desCommento']); ?>
+                                                    <p><?php if ($voto['desCommento'] != '') echo ('<b>Commento:</b> ' . $voto['desCommento']); ?>
                                             </li>
                                         <?php } ?>
                                     </ul>
@@ -435,8 +430,8 @@ $schede = $argo->schede();
                             <p><?= dataLeggibile($voti[$x]['datGiorno']) ?> - <?= tipoProva($codProva = $voti[$x]['codVotoPratico']) ?></p>
 
                             <p><?php if ($voti[$x]['desProva'] != '') echo ('<b>Descrizione:</b> ' . $voti[$x]['desProva']); ?>
-                            <p><?php if ($voti[$x]['desCommento'] != '') echo ('<b>Commento:</b> ' . $voti[$x]['desCommento']); ?>
-                            <p><i><?= rimuovi_parentesi($voti[$x]['docente']); ?></i></p>
+                                <p><?php if ($voti[$x]['desCommento'] != '') echo ('<b>Commento:</b> ' . $voti[$x]['desCommento']); ?>
+                                    <p><i><?= rimuovi_parentesi($voti[$x]['docente']); ?></i></p>
                         </li>
                     <?php } ?>
                 </ul>

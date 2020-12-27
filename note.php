@@ -1,14 +1,14 @@
-<?php include './components/header.php';
+<?php
+$cod = "not";
+$titolo = "Note Disciplinari";
+
+include './components/header.php';
 
 $note = $argo->noteDisciplinari();
 
 ?>
 <main>
-
     <div class="container">
-        <h3 class="header">Note Disciplinari</h3>
-        <hr>
-
         <div class="row">
             <div class="col s12">
                 <?php if (empty($note)) { ?>
@@ -31,7 +31,6 @@ $note = $argo->noteDisciplinari();
                 <?php } ?>
             </div>
         </div>
-
     </div>
 </main>
 

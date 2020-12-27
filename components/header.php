@@ -20,6 +20,12 @@ try {
     //header('Location: index.php');
 }
 
+if (!isset($titolo) || !isset($cod)) {
+    $titolo = $cod = "";
+}
+
+$active_class = 'class="nav-active"';
+
 $argoLink = 'http://www.' . $codice . '.scuolanext.info/';
 
 $headerArgo = $argo->schede();
@@ -122,7 +128,7 @@ function tipoEvento($cod) {
 
 <head>
     <meta charset="utf-8">
-    <title>Registro Elettronico</title>
+    <title><?= $titolo ?> - Registro</title>
     <link rel="shortcut icon" href="./assets/img/diary.png" />
     <meta name="description" content="Interfaccia registro elettronico Argo ScuolaNext">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -141,30 +147,12 @@ function tipoEvento($cod) {
 <body>
 
     <!-- Logout modal -->
-    <div id="modal1" class="modal">
+    <div id="modal_settings" class="modal">
         <div class="modal-content">
-            <h4>Sei sicuro di voler uscire?</h4>
-            <a class="waves-effect waves-light btn red darken-1 white-text" href="./logout.php">esci</a>
-            <a class="waves-effect waves-light btn light-green darken-1 white-text" id="annulla">annulla</a>
-        </div>
-    </div>
-
-    <script>
-        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-            $('#modal1').addClass('bottom-sheet');
-        }
-
-        $('#annulla').click(function() {
-            $('#modal1').modal('close');
-        })
-    </script>
-
-    <header>
-
-        <nav>
-            <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-
-            <div class="container switch right-align">
+            <h4>Impostazioni</h4>
+            <hr>
+            <h5>Dark Mode</h5>
+            <div class="container switch">
                 <label>
                 🌕
                 <input type="checkbox" id="theme-switch">
@@ -172,10 +160,54 @@ function tipoEvento($cod) {
                 🌑
                 </label>
             </div>
+            <hr>
+            <a class="waves-effect waves-light btn red darken-1 white-text" id="settings_close">chiudi</a>
+        </div>
+    </div>
+
+    <!-- Logout modal -->
+    <div id="modal_logout" class="modal">
+        <div class="modal-content">
+            <h4>Sei sicuro di voler uscire?</h4>
+            <a class="waves-effect waves-light btn red darken-1 white-text" href="./logout.php">esci</a>
+            <a class="waves-effect waves-light btn light-green darken-1 white-text" id="logout_cancel">annulla</a>
+        </div>
+    </div>
+
+    <script>
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            $('#modal_logout').addClass('bottom-sheet');
+            $('#modal_settings').addClass('bottom-sheet');
+        }
+
+        $('#logout_cancel').click(function() {
+            $('#modal_logout').modal('close');
+        })
+        
+        $('#settings_close').click(function() {
+            $('#modal_settings').modal('close');
+        })
+    </script>
+
+    <header>
+
+        <nav class="top-nav">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <div class="row">
+                        <div class="col s12">
+                            <h3 class="header"><?= $titolo ?></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </nav>
 
-        <ul id="slide-out" class="sidenav sidenav-fixed">
+        <div class="container">
+            <a href="#" data-target="slide-out" class="top-nav sidenav-trigger full hide-on-large-only"><i class="material-icons">menu</i></a>
+        </div>
 
+        <ul id="slide-out" class="sidenav sidenav-fixed">
             <li>
                 <div class="user-view">
                     <div class="background"></div>
@@ -184,38 +216,41 @@ function tipoEvento($cod) {
                 </div>
             </li>
 
-            <li><a class="waves-effect" href="riepilogo.php">Riepilogo <span class="new badge red"><?= $eventi['nuoviElementi'] ?></span></a></li>
+            <li <?= $cod == "rpg" ? $active_class : "" ?>><a class="waves-effect" href="riepilogo.php">Riepilogo <span class="new badge red"><?= $eventi['nuoviElementi'] ?></span></a></li>
 
             <li><div class="divider"></div></li>
 
             <li><a class="subheader">Alunno</a></li>
-            <li><a class="waves-effect" href="voti.php">Voti Giornalieri</a></li>
-            <li><a class="waves-effect" href="assenze.php">Assenze Giornaliere</a></li>
-            <li><a class="waves-effect" href="note.php">Note Disciplinari</a></li>
-            <li><a class="waves-effect" href="scrutinio.php">Voti Scrutinio</a></li>
+            <li <?= $cod == "vot" ? $active_class : "" ?>><a class="waves-effect" href="voti.php">Voti Giornalieri</a></li>
+            <li <?= $cod == "ass" ? $active_class : "" ?>><a class="waves-effect" href="assenze.php">Assenze Giornaliere</a></li>
+            <li <?= $cod == "not" ? $active_class : "" ?>><a class="waves-effect" href="note.php">Note Disciplinari</a></li>
+            <li <?= $cod == "vsc" ? $active_class : "" ?>><a class="waves-effect" href="scrutinio.php">Voti Scrutinio</a></li>
 
             <li><div class="divider"></div></li>
 
             <li><a class="subheader">Classe</a></li>
-            <li><a class="waves-effect" href="compiti.php">Compiti Assegnati</a></li>
-            <li><a class="waves-effect" href="argomenti.php">Argomenti Lezione</a></li>
-            <li><a class="waves-effect" href="promemoria.php">Promemoria Classe</a></li>
-            <li><a class="waves-effect" href="orario.php">Orario Classe</a></li>
-            <li><a class="waves-effect" href="ricevimento.php">Ricevimento Docenti</a></li>
-            <li><a class="waves-effect" href="docenti.php">Docenti Classe</a></li>
-            <li><a class="waves-effect" href="bacheca.php">Bacheca</a></li>
+            <li <?= $cod == "com" ? $active_class : "" ?>><a class="waves-effect" href="compiti.php">Compiti Assegnati</a></li>
+            <li <?= $cod == "arg" ? $active_class : "" ?>><a class="waves-effect" href="argomenti.php">Argomenti Lezione</a></li>
+            <li <?= $cod == "pro" ? $active_class : "" ?>><a class="waves-effect" href="promemoria.php">Promemoria Classe</a></li>
+            <li <?= $cod == "ora" ? $active_class : "" ?>><a class="waves-effect" href="orario.php">Orario Classe</a></li>
+            <li <?= $cod == "ric" ? $active_class : "" ?>><a class="waves-effect" href="ricevimento.php">Ricevimento Docenti</a></li>
+            <li <?= $cod == "prf" ? $active_class : "" ?>><a class="waves-effect" href="docenti.php">Docenti Classe</a></li>
+            <li <?= $cod == "bac" ? $active_class : "" ?>><a class="waves-effect" href="bacheca.php">Bacheca</a></li>
 
             <li><div class="divider"></div></li>
 
             <li><a class="subheader">Documenti</a></li>
-            <li><a class="waves-effect" href="documenti.php">Documenti alunno</a></li>
-            <li><a class="waves-effect" href="condivisione.php">Documenti docenti</a></li>
-            <li><a class="waves-effect" href="anagrafica.php">Dati anagrafici</a></li>
+            <li <?= $cod == "dal" ? $active_class : "" ?>><a class="waves-effect" href="documenti.php">Documenti alunno</a></li>
+            <li <?= $cod == "ddo" ? $active_class : "" ?>><a class="waves-effect" href="condivisione.php">Documenti docenti</a></li>
+            <li <?= $cod == "ang" ? $active_class : "" ?>><a class="waves-effect" href="anagrafica.php">Dati anagrafici</a></li>
 
             <li><div class="divider"></div></li>
-            
-            <li><a class="waves-effect red darken-1 white-text modal-trigger" href="#modal1">Logout</a></li>
 
+            <li><a class="waves-effect green white-text modal-trigger" href="#modal_settings">Impostazioni</a></li>
+
+            <li><div class="divider"></div></li>
+
+            <li><a class="waves-effect red darken-1 white-text modal-trigger" href="#modal_logout">Logout</a></li>
         </ul>
 
     </header>
