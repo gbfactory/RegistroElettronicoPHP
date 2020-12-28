@@ -129,7 +129,7 @@ function tipoEvento($cod) {
 <head>
     <meta charset="utf-8">
     <title><?= $titolo ?> - Registro</title>
-    <link rel="shortcut icon" href="./assets/img/diary.png" />
+    <link rel="shortcut icon" href="./img/icon.png" />
     <meta name="description" content="Interfaccia registro elettronico Argo ScuolaNext">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
