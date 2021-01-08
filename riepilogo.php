@@ -253,22 +253,21 @@ $riepilogo = $argo->oggiScuola($date);
                     <div class="card">
                         <div class="card-content flow-text">
                             <?php
-                            if (isset($_GET['date'])) {
-                                echo "Riepilogo del " . dataLeggibile($_GET['date']);
-                            } else {
-                                // https://www.mrwebmaster.it/php/data-oggi-italiano_11815.html
+                            // Se è passata una data specifica usa quella, altrimenti prende quella di oggi
+                            $data = isset($_GET['date']) ? strtotime($_GET['date']) : strtotime(date("Y-m-d"));
 
-                                $giorni = array("Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato");
-                                $mesi = array("Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre");
+                            // Array con nomi mesi e giorni
+                            $giorni = array("Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato");
+                            $mesi = array("Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre");
 
-                                $nome_giorno = $giorni[date("w")]; // giorno della settimana in italiano
-                                $numero_giorno_mese = date("j"); // giorno del mese
-                                $nome_mese = $mesi[date("n") - 1]; // nome del mese in italiano
-                                $anno = date("Y"); // numero dell'anno
+                            // Ottiene le informazioni a partire dalla data fornita
+                            $nome_giorno = $giorni[date("w", $data)];
+                            $giorno = date("j", $data);
+                            $nome_mese = $mesi[date("n", $data) - 1];
+                            $anno = date("Y", $data);
 
-                                // Stampo a video
-                                echo "Oggi è " . $nome_giorno . " " . $numero_giorno_mese . " " . $nome_mese . " " . $anno;
-                            }
+                            // Stampa
+                            echo $nome_giorno . " " . $giorno . " " . $nome_mese . " " . $anno;
                             ?>
                         </div>
                     </div>
