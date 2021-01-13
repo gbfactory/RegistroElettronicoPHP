@@ -102,13 +102,13 @@ function coloreGrafico($voto) {
     }
 }
 
-function tipoProva($cod) {
+function tipoProva($cod, $tipo = false) {
     if ($cod == 'S') {
-        return 'Scritto';
+        return $tipo ? 'Scritta' : 'Scritto';
     } else if ($cod == 'N') {
         return 'Orale';
     } else if ($cod == 'P') {
-        return 'Pratico';
+        return $tipo ? 'Pratica' : 'Pratico';
     }
 }
 
@@ -120,6 +120,24 @@ function tipoEvento($cod) {
     } else if ($cod == 'U') {
         return 'Uscita';
     }
+}
+
+function data_bella($data) {
+    // Conversione data
+    $data = strtotime($data);
+
+    // Array con nomi mesi e giorni
+    $giorni = array("Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato");
+    $mesi = array("Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre");
+
+    // Ottiene le informazioni a partire dalla data fornita
+    $nome_giorno = $giorni[date("w", $data)];
+    $giorno = date("j", $data);
+    $nome_mese = $mesi[date("n", $data) - 1];
+    $anno = date("Y", $data);
+
+    // Stampa
+    return $nome_giorno . " " . $giorno . " " . $nome_mese . " " . $anno;
 }
 
 ?>
