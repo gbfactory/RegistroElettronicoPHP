@@ -18,14 +18,21 @@ $argomenti = $argo->argomenti();
         <div class="row">
             <div class="col s12 m8">
                 <div class="section">
-                    <ul class="collection">
+                    <ul class="collection with-header">
                         <?php for ($x = 0; $x < count($argomenti); $x++) { ?>
+                            <?php if ($x == 0) { ?>
+                                <li class="collection-header"><h5><?= data_bella($argomenti[$x]['datGiorno']); ?></h5></li>
+                            <?php } else if ($argomenti[$x]['datGiorno'] != $argomenti[$x - 1]['datGiorno'] && $x != 0) { ?>
+                                <li class="collection-header"><h5><?= data_bella($argomenti[$x]['datGiorno']); ?></h5></li>
+                            <?php } ?>
                             <li class="collection-item avatar">
                                 <i class="material-icons circle blue darken-2">reorder</i>
 
-                                <span class="title"><b><?= $argomenti[$x]['desMateria'] ?> - <?= dataLeggibile($argomenti[$x]['datGiorno']) ?></b></span>
+                                <span class="title"><?= $argomenti[$x]['desMateria'] ?></span>
 
                                 <p><?= linkCliccabili($argomenti[$x]['desArgomento']) ?></p>
+
+                                <p><i><?= rimuovi_parentesi($argomenti[$x]['docente']); ?></i></p>
 
                             </li>
                         <?php } ?>
