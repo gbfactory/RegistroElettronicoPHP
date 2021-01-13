@@ -43,8 +43,8 @@ $schede = $argo->schede();
                 $votiTotSomma += $voto;
 
                 // Media trimetre
-                $dataTri = strtotime(explode('-', $annoInizio)[0] . '-12-31');
-                $dataPen = strtotime(explode('-', $annoFine)[0] . '-01-31');
+                $dataTri = strtotime(explode('-', $annoFine)[0] . '-01-31');
+                $dataPen = strtotime(explode('-', $annoFine)[0] . '-06-31');
 
                 if ($data <= $dataTri) {
                     $votiTriSomma += $voto;
