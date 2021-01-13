@@ -95,109 +95,6 @@ $schede = $argo->schede();
                     </div>
                 </div>
 
-                <div class="section">
-                    <h4 class="text-pink">Riepilogo per Materia</h4>
-
-                    <?php
-
-                    for ($i = 0; $i < count($materie); $i++) {
-
-                        ${"sommaVoti1" . $i} = 0;
-                        ${"numVoti1" . $i} = 0;
-                        ${"listaVoti1" . $i} = [];
-
-                        ${"sommaVoti2" . $i} = 0;
-                        ${"numVoti2" . $i} = 0;
-                        ${"listaVoti2" . $i} = [];
-
-                        ${"listaVoti" . $i} = [];
-
-                        for ($j = 0; $j < count($voti); $j++) {
-
-                            if ($voti[$j]['desMateria'] == $materie[$i]) {
-
-                                if ($voti[$j]['decValore'] != 0) {
-                                    array_push(${"listaVoti" . $i}, $voti[$j]);
-
-                                    if (strtotime($voti[$j]['datGiorno']) <= $dataTri) {
-                                        ${"sommaVoti1" . $i} += $voti[$j]['decValore'];
-                                        ${"numVoti1" . $i}++;
-                                        array_push(${"listaVoti1" . $i}, $voti[$j]);
-                                    } else if (strtotime($voti[$j]['datGiorno']) >= $dataPen) {
-                                        ${"sommaVoti2" . $i} += $voti[$j]['decValore'];
-                                        ${"numVoti2" . $i}++;
-                                        array_push(${"listaVoti2" . $i}, $voti[$j]);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    ?>
-
-                    <div class="row">
-                        <div class="col s12">
-                            <ul class="collapsible">
-                                <?php
-
-                                for ($i = 0; $i < count($materie); $i++) {
-
-                                    $sommaVoti = ${"sommaVoti1" . $i} + ${"sommaVoti2" . $i};
-                                    $numVoti = ${"numVoti1" . $i} + ${"numVoti2" . $i};
-                                    $media = round($sommaVoti / $numVoti, 2);
-
-                                ?>
-                                    <li>
-                                        <div class="collapsible-header" tabindex="0" style="background: linear-gradient(90deg, rgba(0,0,0,0) 50%, rgba(<?= coloreGrafico($media) ?> ,1) 100%);">
-                                            <b><?= $materie[$i] ?></b>
-                                            <span class="badge <?php if ($media < 6) {
-                                                                    echo 'text-white';
-                                                                } ?>">MEDIA: <b><?= $media ?></b></span>
-                                        </div>
-                                        <div class="collapsible-body">
-                                            <div class="row">
-
-                                                <!-- PRIMO PERIODO -->
-                                                <div class="col s6">
-                                                    <!-- media -->
-                                                    <?php $media1 = ${"numVoti1" . $i} > 0 ? ${"sommaVoti1" . $i} / ${"numVoti1" . $i} : 0; ?>
-                                                    <b>Primo Periodo (Media: <?= round($media1, 2) ?>)</b> <br>
-
-                                                    <!-- lista voti -->
-                                                    <?php for ($j = 0; $j < count(${"listaVoti1" . $i}); $j++) { ?>
-                                                        <a class="btn-floating <?= coloreVoto(${"listaVoti1" . $i}[$j]['decValore']) ?>">
-                                                            <i><?= ${"listaVoti1" . $i}[$j]['codVoto'] ?></i>
-                                                        </a>
-                                                    <?php } ?>
-
-                                                </div>
-
-                                                <!-- SECONDO PERIODO -->
-                                                <div class="col s6">
-                                                    <!-- media -->
-                                                    <?php $media2 = ${"numVoti2" . $i} > 0 ? ${"sommaVoti2" . $i} / ${"numVoti2" . $i} : 0; ?>
-                                                    <b>Secondo Periodo (Media: <?= round($media2, 2) ?>)</b> <br>
-
-                                                    <!-- lista voti -->
-                                                    <?php for ($j = 0; $j < count(${"listaVoti2" . $i}); $j++) { ?>
-                                                        <a class="btn-floating <?= coloreVoto(${"listaVoti2" . $i}[$j]['decValore']) ?>">
-                                                            <i><?= ${"listaVoti2" . $i}[$j]['codVoto'] ?></i>
-                                                        </a>
-                                                    <?php } ?>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </li>
-                                <?php } ?>
-                            </ul>
-                        </div>
-
-                    </div>
-
-                </div>
-
                 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.5/chartjs-plugin-annotation.js"></script>
 
@@ -357,13 +254,48 @@ $schede = $argo->schede();
             </div>
 
             <div id="materie" class="col s12">
-                <?php for ($i = 0; $i < count($materie); $i++) {
+
+                <?php
+                for ($i = 0; $i < count($materie); $i++) {
+                    ${"sommaVoti1" . $i} = 0;
+                    ${"numVoti1" . $i} = 0;
+                    ${"listaVoti1" . $i} = [];
+
+                    ${"sommaVoti2" . $i} = 0;
+                    ${"numVoti2" . $i} = 0;
+                    ${"listaVoti2" . $i} = [];
+
+                    ${"listaVoti" . $i} = [];
+
+                    for ($j = 0; $j < count($voti); $j++) {
+
+                        if ($voti[$j]['desMateria'] == $materie[$i]) {
+
+                            if ($voti[$j]['decValore'] != 0) {
+                                array_push(${"listaVoti" . $i}, $voti[$j]);
+
+                                if (strtotime($voti[$j]['datGiorno']) <= $dataTri) {
+                                    ${"sommaVoti1" . $i} += $voti[$j]['decValore'];
+                                    ${"numVoti1" . $i}++;
+                                    array_push(${"listaVoti1" . $i}, $voti[$j]);
+                                } else if (strtotime($voti[$j]['datGiorno']) >= $dataPen) {
+                                    ${"sommaVoti2" . $i} += $voti[$j]['decValore'];
+                                    ${"numVoti2" . $i}++;
+                                    array_push(${"listaVoti2" . $i}, $voti[$j]);
+                                }
+                            }
+                        }
+                    }
+                }
+                ?>
+
+                <?php
+                for ($i = 0; $i < count($materie); $i++) {
 
                     $sommaVoti = ${"sommaVoti1" . $i} + ${"sommaVoti2" . $i};
                     $numVoti = ${"numVoti1" . $i} + ${"numVoti2" . $i};
                     $listaVoti = ${"listaVoti" . $i};
                     $media = round($sommaVoti / $numVoti, 2);
-
                 ?>
 
                     <div class="card">
@@ -410,10 +342,6 @@ $schede = $argo->schede();
                                             </li>
                                         <?php } ?>
                                     </ul>
-
-
-
-
                                 </div>
                             </div>
                         </div>
