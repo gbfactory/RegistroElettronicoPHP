@@ -335,7 +335,7 @@ $schede = $argo->schede();
                                             <li class="collection-item avatar">
                                                 <i class="circle <?= coloreVoto($voto['decValore']) ?>"><?= $voto['codVoto'] ?></i>
 
-                                                <span class="title">Prova <?= tipoProva($codProva = $voto['codVotoPratico']) ?> del <?= dataLeggibile($voto['datGiorno']) ?></span>
+                                                <span class="title">Prova <?= tipoProva($codProva = $voto['codVotoPratico'], true) ?> del <?= dataLeggibile($voto['datGiorno']) ?></span>
 
                                                 <p><?php if ($voto['desProva'] != '') echo ('<b>Descrizione:</b> ' . $voto['desProva']); ?>
                                                     <p><?php if ($voto['desCommento'] != '') echo ('<b>Commento:</b> ' . $voto['desCommento']); ?>
