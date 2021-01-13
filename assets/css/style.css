@@ -131,3 +131,10 @@ a.sidenav-trigger i {
 .not-found {
     margin-top: 3rem;
 }
+
+/* Titolo collection */
+.collection .collection-item.avatar .title {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.8rem;
+}
