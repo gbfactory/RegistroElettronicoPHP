@@ -252,23 +252,8 @@ $riepilogo = $argo->oggiScuola($date);
                 <div class="section">
                     <div class="card">
                         <div class="card-content flow-text">
-                            <?php
-                            // Se è passata una data specifica usa quella, altrimenti prende quella di oggi
-                            $data = isset($_GET['date']) ? strtotime($_GET['date']) : strtotime(date("Y-m-d"));
-
-                            // Array con nomi mesi e giorni
-                            $giorni = array("Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato");
-                            $mesi = array("Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre");
-
-                            // Ottiene le informazioni a partire dalla data fornita
-                            $nome_giorno = $giorni[date("w", $data)];
-                            $giorno = date("j", $data);
-                            $nome_mese = $mesi[date("n", $data) - 1];
-                            $anno = date("Y", $data);
-
-                            // Stampa
-                            echo $nome_giorno . " " . $giorno . " " . $nome_mese . " " . $anno;
-                            ?>
+                            <?php $data = isset($_GET['date']) ? $_GET['date'] : date("Y-m-d"); ?>
+                            <?= data_bella($data) ?>
                         </div>
                     </div>
 
