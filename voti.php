@@ -110,11 +110,15 @@ $schede = $argo->schede();
                         ${"numVoti2" . $i} = 0;
                         ${"listaVoti2" . $i} = [];
 
+                        ${"listaVoti" . $i} = [];
+
                         for ($j = 0; $j < count($voti); $j++) {
 
                             if ($voti[$j]['desMateria'] == $materie[$i]) {
 
                                 if ($voti[$j]['decValore'] != 0) {
+                                    array_push(${"listaVoti" . $i}, $voti[$j]);
+
                                     if (strtotime($voti[$j]['datGiorno']) <= $dataTri) {
                                         ${"sommaVoti1" . $i} += $voti[$j]['decValore'];
                                         ${"numVoti1" . $i}++;
@@ -357,7 +361,7 @@ $schede = $argo->schede();
 
                     $sommaVoti = ${"sommaVoti1" . $i} + ${"sommaVoti2" . $i};
                     $numVoti = ${"numVoti1" . $i} + ${"numVoti2" . $i};
-                    $listaVoti = array_merge(${"listaVoti1" . $i}, ${"listaVoti2" . $i});
+                    $listaVoti = ${"listaVoti" . $i};
                     $media = round($sommaVoti / $numVoti, 2);
 
                 ?>
