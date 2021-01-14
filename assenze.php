@@ -9,7 +9,7 @@ $argoAssenze = $argo->assenze();
 
 <main>
     <div class="container">
-        
+
         <?php
         // Definizione arrays eventi
         $assenze = [];
@@ -30,72 +30,14 @@ $argoAssenze = $argo->assenze();
         };
         ?>
 
-        <div class="row">
+        <div class="section">
+            <div class="row">
 
-            <div class="col s12" style="margin-bottom: 1rem;">
-                <ul class="tabs">
-                    <li class="tab col s3"><a class="active" href="#riepilogo">RIEPILOGO</a></li>
-                    <li class="tab col s3"><a href="#assenze">ASSENZE (<?= count($assenze) ?>)</a></li>
-                    <li class="tab col s3"><a href="#ingressi">INGRESSI (<?= count($ingressi) ?>)</a></li>
-                    <li class="tab col s3"><a href="#uscite">USCITE (<?= count($uscite) ?>)</a></li>
-                </ul>
-            </div>
-
-            <div id="riepilogo" class="col s12">
-
-                <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.css" rel="stylesheet">
-                <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.css" rel="stylesheet">
-
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.js"></script>
-
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        
-                        var calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
-                            plugins: ['dayGrid'],
-                            locale: 'it',
-                            events: [
-                                <?php
-                                for ($x = 0; $x < count($argoAssenze); $x++) {
-
-                                    $codEvento = $argoAssenze[$x]['codEvento'];
-
-                                    if ($codEvento == 'A') {
-                                        echo ("{");
-                                        echo ("title: 'Assenza',");
-                                        echo ("start: '" . $argoAssenze[$x]['datAssenza'] . "'");
-                                        echo ("},");
-                                    } else if ($codEvento == 'I') {
-                                        echo ("{");
-                                        echo ("title: 'Ingresso " . $argoAssenze[$x]['numOra'] . "° ora',");
-                                        echo ("start: '" . $argoAssenze[$x]['datAssenza'] . "'");
-                                        echo ("},");
-                                    } else if ($codEvento == 'U') {
-                                        echo ("{");
-                                        echo ("title: 'Uscita " . $argoAssenze[$x]['numOra'] . "° ora',");
-                                        echo ("start: '" . $argoAssenze[$x]['datAssenza'] . "'");
-                                        echo ("},");
-                                    }
-                                };
-                                ?>
-                            ]
-                        });
-
-                        calendar.render();
-                    });
-                </script>
-
-                <div id="calendar"></div>
-            </div>
-
-            <div id="assenze" class="col s12">
-                <?php if (empty($assenze)) { ?>
-                    <div class="center">
-                        <h5>Non hai assenze!</h5>
-                    </div>
-                <?php } else { ?>
-                    <ul class="collection">
+                <div id="assenze" class="col s12 m4">
+                    <ul class="collection with-header">
+                        <li class="collection-header">
+                            <h5>Assenze <small>(<?= count($assenze) ?>)</small></h5>
+                        </li>
                         <?php for ($x = 0; $x < count($assenze); $x++) { ?>
                             <li class="collection-item avatar">
                                 <i class="circle material-icons red darken-4">close</i>
@@ -106,23 +48,20 @@ $argoAssenze = $argo->assenze();
 
                                 <?php if (isset($assenze[$x]['giustificataDa'])) { ?>
                                     <p>Giustificata da <?= rimuovi_parentesi($assenze[$x]['giustificataDa']) ?> il <?= dataLeggibile($assenze[$x]['datGiustificazione']) ?>
-                                <?php } else { ?>
-                                    <p>Da giustificare!</p>
-                                    <a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>
-                                <?php } ?>
+                                    <?php } else { ?>
+                                        <p>Da giustificare!</p>
+                                        <a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>
+                                    <?php } ?>
                             </li>
                         <?php } ?>
                     </ul>
-                <?php } ?>
-            </div>
+                </div>
 
-            <div id="ingressi" class="col s12">
-                <?php if (empty($ingressi)) { ?>
-                    <div class="center">
-                        <h5>Non hai ingressi!</h5>
-                    </div>
-                <?php } else { ?>
-                    <ul class="collection">
+                <div id="ingressi" class="col s12 m4">
+                    <ul class="collection with-header">
+                        <li class="collection-header">
+                            <h5>Ingressi <small>(<?= count($ingressi) ?>)</small></h5>
+                        </li>
                         <?php for ($x = 0; $x < count($ingressi); $x++) { ?>
                             <li class="collection-item avatar">
                                 <i class="circle material-icons green darken-3">subdirectory_arrow_right</i>
@@ -140,20 +79,17 @@ $argoAssenze = $argo->assenze();
                             </li>
                         <?php } ?>
                     </ul>
-                <?php } ?>
-            </div>
+                </div>
 
-            <div id="uscite" class="col s12">
-                <?php if (empty($uscite)) { ?>
-                    <div class="center">
-                        <h5>Non hai uscite!</h5>
-                    </div>
-                <?php } else { ?>
-                    <ul class="collection">
+                <div id="uscite" class="col s12 m4">
+                    <ul class="collection with-header">
+                        <li class="collection-header">
+                            <h5>Uscite <small>(<?= count($uscite) ?>)</small></h5>
+                        </li>
                         <?php for ($x = 0; $x < count($uscite); $x++) { ?>
                             <li class="collection-item avatar">
                                 <i class="circle material-icons orange darken-4">subdirectory_arrow_left</i>
-                                
+
                                 <span class="title">Uscita del <b><?= dataLeggibile($uscite[$x]['datAssenza']) ?></b> in <b><?= $uscite[$x]['numOra'] ?>° ora</b></span>
 
                                 <p>Uscita alle ore <?= substr($uscite[$x]['oraAssenza'], -5) ?> registrata da <?= rimuovi_parentesi($uscite[$x]['registrataDa']) ?></p>
@@ -167,9 +103,9 @@ $argoAssenze = $argo->assenze();
                             </li>
                         <?php } ?>
                     </ul>
-                <?php } ?>
-            </div>
+                </div>
 
+            </div>
         </div>
     </div>
 </main>
