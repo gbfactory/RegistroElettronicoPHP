@@ -142,7 +142,9 @@ function data_bella($data) {
 
 ?>
 
-<html>
+<!DOCTYPE html>
+
+<html lang="it">
 
 <head>
     <meta charset="utf-8">
