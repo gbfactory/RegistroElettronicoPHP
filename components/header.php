@@ -2,8 +2,8 @@
 
 session_start();
 
-if (!isset($_SESSION['login']) || !isset($_SESSION['codice']) || !isset($_SESSION['authToken']) || !isset($_SESSION['userCode'])) {
-    header('Location: index.php');	    header('Location: index.php');
+if (!isset($_SESSION['login']) || !isset($_SESSION['codice']) || !isset($_SESSION['utente']) || !isset($_SESSION['authToken'])) {
+    header('Location: logout.php');
     exit;
 }
 
@@ -17,6 +17,7 @@ try {
     $argo = new argoUser($codice, $utente, $token, 1);
 } catch (Exception $e) {
     header('Location: logout.php');
+    exit;
 }
 
 if (!isset($titolo) || !isset($cod)) {

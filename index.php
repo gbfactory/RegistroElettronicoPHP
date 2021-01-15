@@ -20,6 +20,7 @@
             $_SESSION['authToken'] = $argo->schede()[0]['authToken'];
 
             header('Location: riepilogo.php');
+            exit;
         } catch (Exception $e) {
             echo '<div class="card-panel red">Errore di connessione alle API di Argo ' . $e->getMessage() . '</div>';
         }
