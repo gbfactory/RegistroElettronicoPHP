@@ -1,131 +1,114 @@
 <?php
     session_start();
+
     if (isset($_SESSION['login'])) {
         header('Location: riepilogo.php');
+        exit;
     }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        require_once('./components/argoapi.php');
+
+        $error = '';
+
+        try {
+            $argo = new argoUser($_POST['codice'], $_POST['utente'], $_POST['password'], 0);
+
+            $_SESSION['login'] = true;
+            $_SESSION['codice'] = $_POST['codice'];
+            $_SESSION['utente'] = $_POST['utente'];
+            $_SESSION['authToken'] = $argo->schede()[0]['authToken'];
+
+            header('Location: riepilogo.php');
+        } catch (Exception $e) {
+            echo '<div class="card-panel red">Errore di connessione alle API di Argo ' . $e->getMessage() . '</div>';
+        }
+    }
+
+    $file = file_get_contents("https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US");
+    $json = json_decode($file, true);
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="it">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="https://scuola.gbfactory.net/img/icon.png">
+    <link rel="icon" type="image/png" href="https://scuola.gbfactory.net/img/icon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>Registro Elettronico</title>
-    <link rel="shortcut icon" href="./assets/img/diary.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" media="screen,projection" />
-    <style>
-        /* Changing color background */
-        .cambia-colore {
-            background: linear-gradient(270deg, #b721ff, #21d4fd);
-            background-size: 400% 400%;
-
-            -webkit-animation: cambiacolore 7s ease infinite;
-            -moz-animation: cambiacolore 7s ease infinite;
-            -o-animation: cambiacolore 7s ease infinite;
-            animation: cambiacolore 7s ease infinite;
-        }
-
-        @-webkit-keyframes cambiacolore {
-            0%{background-position:0% 50%}
-            50%{background-position:100% 50%}
-            100%{background-position:0% 50%}
-        }
-        @-moz-keyframes cambiacolore {
-            0%{background-position:0% 50%}
-            50%{background-position:100% 50%}
-            100%{background-position:0% 50%}
-        }
-        @-o-keyframes cambiacolore {
-            0%{background-position:0% 50%}
-            50%{background-position:100% 50%}
-            100%{background-position:0% 50%}
-        }
-        @keyframes cambiacolore {
-            0%{background-position:0% 50%}
-            50%{background-position:100% 50%}
-            100%{background-position:0% 50%}
-        }
-    </style>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <!-- Canonical SEO -->
+    <link rel="canonical" href="https://scuola.gbfactory.net/" />
+    <!--  Social tags      -->
+    <meta name="keywords" content="registro elettronico, registro online, argo, argo scuolanext, argo famiglia">
+    <meta name="description" content="Una nuova interfaccia web non ufficiale per il Registro Elettronico Argo Scuolanext.">
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="Registro Elettronico">
+    <meta itemprop="description" content="Una nuova interfaccia web non ufficiale per il Registro Elettronico Argo Scuolanext.">
+    <meta itemprop="image" content="https://i.imgur.com/X1eCKpK.png">
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Registro Elettronico" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://scuola.gbfactory.net/" />
+    <meta property="og:image" content="https://i.imgur.com/X1eCKpK.png" />
+    <meta property="og:description" content="Una nuova interfaccia web non ufficiale per il Registro Elettronico Argo Scuolanext." />
+    <meta property="og:site_name" content="Registro Elettronico" />
+    <!-- Fonts and icons -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/css/material-kit.min.css" integrity="sha512-maBfUe6UBMwSa9YhA4MKGi7M/KMBw8KEt5HsqKHWNXCST1qzjlNgxOCP7M+eNRI2T/JQpWRUHI8quTNhWTTKtQ==" crossorigin="anonymous" />
 </head>
 
-<body class="cambia-colore">
+<body class="login-page sidebar-collapse">
 
-    <div class="container">
-        <div class="row">
-
-            <form class="col m6 offset-m3 card" action="" method="POST">
-
-                <div class="row center" style="margin-top: 30px;">
-                    <img src="./assets/img/diary.svg" alt="" class="responsive-img" style="max-height: 150px">
-                    <h5>Registro Elettronico</h5>
-                    <p>Collegati ad Argo ScuolaNext con le tue credenziali</p>
-                </div>
-
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">school</i>
-                        <input id="codice_scuola" type="text" class="validate" name="codice">
-                        <label for="codice_scuola">Codice Scuola</label>
+    <div class="page-header header-filter" style="background-image: url('https://www.bing.com/<?= $json['images'][0]['url'] ?>'); background-size: cover; background-position: top center;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                    <div class="card card-login">
+                        <form class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                            <div class="card-header card-header-primary text-center">
+                                <h4 class="card-title">Registro Elettronico</h4>
+                                <p class="text-center">Una nuova interfaccia web non ufficiale per il registro elettronico Argo Scuolanext.</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">school</i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Codice Scuola" name="codice">
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">account_circle</i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Nome Utente" name="utente">
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">vpn_key</i>
+                                        </span>
+                                    </div>
+                                    <input type="password" class="form-control" placeholder="Password" name="password">
+                                </div>
+                            </div>
+                            <div class="footer text-center">
+                                <button class="btn btn-primary" type="submit" name="submit">ACCEDI</button>
+                                <p class="description text-center">Accedi al registro ufficiale da <a href="https://www.portaleargo.it/">portaleargo.it</a></p>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input id="nome_utente" type="text" class="validate" name="utente">
-                        <label for="nome_utente">Utente</label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">vpn_key</i>
-                        <input id="password_utente" type="password" class="validate" name="password">
-                        <label for="password_utente">Password</label>
-                    </div>
-                </div>
-
-                <div class="row center">
-                    <button class="btn waves-effect waves-light btn-large" type="submit" name="submit">Entra
-                        <i class="material-icons right">send</i>
-                    </button>
-                </div>
-
-                <?php
-
-                if (isset($_POST['submit'])) {
-
-                    require_once('./components/argoapi.php');
-
-                    $error = '';
-
-                    try {
-                        $argo = new argoUser($_POST['codice'], $_POST['utente'], $_POST['password'], 0);
-
-                        $_SESSION['login'] = true;
-                        $_SESSION['codice'] = $_POST['codice'];
-                        $_SESSION['utente'] = $_POST['utente'];
-                        $_SESSION['authToken'] = $argo->schede()[0]['authToken'];
-
-                        header('Location: index.php');
-                    } catch (Exception $e) {
-                        echo '<div class="card-panel red">Errore di connessione alle API di Argo ' . $e->getMessage() . '</div>';
-                    }
-                } ?>
-
-                <p>Questo non è il registro Argo ufficiale, per utilizzare il registro Argo ScuolaNext ufficiale recarsi a <a href="https://www.portaleargo.it/argoweb/famiglia/common/login_form2.jsp">questo link</a></p>
-
-            </form>
-
+            </div>
         </div>
-
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
 </body>
 
 </html>
