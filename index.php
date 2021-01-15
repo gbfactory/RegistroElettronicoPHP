@@ -1,65 +1,32 @@
 <?php
-// Inizializza la sessione
-session_start();
+    session_start();
 
-// Controlla se l'utente è loggato, in quel caso reindirizza al registro
-if (isset($_SESSION['login'])) {
-    header('Location: riepilogo.php');
-    exit;
-}
-
-// Argo API
-require_once('./components/argologin.php');
-
-// Variabili
-$codice = $utente = $password = '';
-$errore = '';
-
-// Quando il form di login viene inviato
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Controllo codice
-    if (empty(trim($_POST['codice']))) {
-        $errore .= 'Inserisci il codice scuola. ';
-    } else {
-        $codice = strtolower(trim($_POST['codice']));
+    if (isset($_SESSION['login'])) {
+        header('Location: riepilogo.php');
+        exit;
     }
 
-    // Controllo utente
-    if (empty(trim($_POST['utente']))) {
-        $errore .= 'Inserisci il nome utente. ';
-    } else {
-        $utente = strtolower(trim($_POST['utente']));
-    }
-    
-    // Controllo password
-    if (empty(trim($_POST['password']))) {
-        $errore .= 'Inserisci il nome utente. ';
-    } else {
-        $password = strtolower(trim($_POST['password']));
-    }
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        require_once('./components/argoapi.php');
 
-    // Procede se non ci sono errori
-    if (empty($errore)) {
+        $error = '';
+
         try {
-            $argo = new argoLogin($codice, $utente, $password);
+            $argo = new argoUser($_POST['codice'], $_POST['utente'], $_POST['password'], 0);
 
-            $_SESSION['codice'] = $codice;
-            $_SESSION['authToken'] = $argo->__construct($codice, $utente, $password);
+            $_SESSION['login'] = true;
+            $_SESSION['codice'] = $_POST['codice'];
+            $_SESSION['utente'] = $_POST['utente'];
+            $_SESSION['authToken'] = $argo->schede()[0]['authToken'];
 
-            header('Location: select.php');
-
-            // $token = $argo->__construct($codice, $utente, $password);
-
-            // header('Location: select.php?cod=' . $codice . '&token=' . $token);
+            header('Location: riepilogo.php');
         } catch (Exception $e) {
-            $errore = 'Impossibile effettuare l\'accesso. Potrebbe essere un errore di credenziali o delle API di Argo.';
+            echo '<div class="card-panel red">Errore di connessione alle API di Argo ' . $e->getMessage() . '</div>';
         }
     }
-}
 
-// Sfondo immagine Bing
-$file = file_get_contents("https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US");
-$json = json_decode($file, true);
+    $file = file_get_contents("https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US");
+    $json = json_decode($file, true);
 ?>
 
 <!DOCTYPE html>
@@ -96,17 +63,6 @@ $json = json_decode($file, true);
 
 <body class="login-page sidebar-collapse">
 
-    <?php if (!empty($errore)) { ?>
-        <div class="alert alert-danger" style="position: absolute; z-index: 9999; width: 100%;">
-            <div class="container">
-                <div class="alert-icon">
-                    <i class="material-icons">error_outline</i>
-                </div>
-                <b>ERRORE:</b> <?= $errore; ?>
-            </div>
-        </div>
-    <?php } ?>
-
     <div class="page-header header-filter" style="background-image: url('https://www.bing.com/<?= $json['images'][0]['url'] ?>'); background-size: cover; background-position: top center;">
         <div class="container">
             <div class="row">
@@ -124,7 +80,7 @@ $json = json_decode($file, true);
                                             <i class="material-icons">school</i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Codice Scuola" value="<?= $codice ?>" name="codice">
+                                    <input type="text" class="form-control" placeholder="Codice Scuola" name="codice">
                                 </div>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -132,7 +88,7 @@ $json = json_decode($file, true);
                                             <i class="material-icons">account_circle</i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Nome Utente" value="<?= $utente ?>" name="utente">
+                                    <input type="text" class="form-control" placeholder="Nome Utente" name="utente">
                                 </div>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -140,7 +96,7 @@ $json = json_decode($file, true);
                                             <i class="material-icons">vpn_key</i>
                                         </span>
                                     </div>
-                                    <input type="password" class="form-control" placeholder="Password" value="<?= $password ?>" name="password">
+                                    <input type="password" class="form-control" placeholder="Password" name="password">
                                 </div>
                             </div>
                             <div class="footer text-center">
