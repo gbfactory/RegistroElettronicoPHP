@@ -29,52 +29,19 @@ class argoUser {
     }
     
 
-	public function __construct($cod_min, $username, $password, $loginwithtoken = 0) {
+	public function __construct($cod_min, $token, $user = 0) {
+		$header = array("x-auth-token: ".$token, "x-cod-min: ".$cod_min);
+		$curl = $this->curl("schede", $header);
 
-		if ($loginwithtoken==0) {
-
-			$header = array("x-cod-min: ".$cod_min, "x-user-id: ".$username, "x-pwd: ".$password);
-			$curl = $this->curl("login", $header);
-
-			if ($curl['httpcode']==200) {
-				$this->username = $username;
-				$curl = json_decode($curl['output']);
-				$token = $curl->token;
-				$header = array("x-auth-token: ".$token, "x-cod-min: ".$cod_min);
-				$curl = $this->curl("schede", $header);
-
-				if ($curl['httpcode']==200) {
-					$curl = ((array) json_decode($curl['output'])[0]);
-					foreach ($curl as $thisKey => $thisCurl) {
-						$this->$thisKey = $thisCurl;
-					}
-				} else {
-					throw new Exception("Impossibile ottenere info utente");
-				}
-
-			} else {
-				throw new Exception("Login fallito");
+		if ($curl['httpcode']==200) {
+			$curl = ((array) json_decode($curl['output'])[$user]);
+			foreach ($curl as $thisKey => $thisCurl) {
+				$this->$thisKey = $thisCurl;
 			}
-
-		} elseif ($loginwithtoken==1) {
-
-			$this->username = $username;
-			$token = $password;
-			$header = array("x-auth-token: ".$token, "x-cod-min: ".$cod_min);
-			$curl = $this->curl("schede", $header);
-
-			if ($curl['httpcode']==200) {
-				$curl = ((array) json_decode($curl['output'])[0]);
-				foreach ($curl as $thisKey => $thisCurl) {
-					$this->$thisKey = $thisCurl;
-				}
-			}
-			else {
-				throw new Exception("Login con token fallito");
-			}
-
 		}
-		
+		else {
+			throw new Exception("Login con token fallito");
+		}			
     }	
     
 	// Schede (Dati anagrafici studente)

@@ -2,22 +2,22 @@
 
 session_start();
 
-if (isset($_SESSION['login'])) {
-} else {
+if (!isset($_SESSION['login']) || !isset($_SESSION['codice']) || !isset($_SESSION['authToken']) || !isset($_SESSION['userCode'])) {
     header('Location: index.php');
+    exit;
 }
 
 require_once('./components/argoapi.php');
 
 $codice = $_SESSION['codice'];
-$utente = $_SESSION['utente'];
 $token = $_SESSION['authToken'];
+$cod_utente = $_SESSION['userCode'];
 
 try {
-    $argo = new argoUser($codice, $utente, $token, 1);
+    $argo = new argoUser($codice, $token, $cod_utente);
 } catch (Exception $e) {
-    echo 'Errore di connessione ad ArgoAPI: ', $e->getMessage(), "\n";
-    //header('Location: index.php');
+    header('Location: logout.php');
+    exit;
 }
 
 if (!isset($titolo) || !isset($cod)) {

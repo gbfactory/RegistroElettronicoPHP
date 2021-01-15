@@ -19,6 +19,8 @@ if (isset($_GET['date'])) {
     $datejsgiorno = date('d');
 }
 
+$data = isset($_GET['date']) ? $_GET['date'] : date("Y-m-d");
+
 $riepilogo = $argo->oggiScuola($date);
 ?>
 
@@ -252,7 +254,6 @@ $riepilogo = $argo->oggiScuola($date);
                 <div class="section">
                     <div class="card">
                         <div class="card-content flow-text">
-                            <?php $data = isset($_GET['date']) ? $_GET['date'] : date("Y-m-d"); ?>
                             <?= data_bella($data) ?>
                         </div>
                     </div>
