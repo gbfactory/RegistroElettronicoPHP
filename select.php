@@ -99,7 +99,7 @@ $json = json_decode($file, true);
                                     <div class="card card-nav-tabs">
                                         <div class="card-body">
                                             <h4 class="card-title"><?= $utente['alunno']['desNome'] ?> <?= $utente['alunno']['desCognome'] ?></h4>
-                                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                            <p class="card-text"><?= $utente['desSede'] ?> - <?= $utente['desDenominazione'] ?> <?= $utente['desCorso'] ?></p>
                                             <input type="hidden" name="user_code" value="<?= $i ?>">
                                             <button class="btn btn-primary" type="submit">Accedi con questo utente</button>
                                         </div>
