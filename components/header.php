@@ -237,6 +237,7 @@ function data_bella($data) {
             </li>
 
             <li <?= $cod == "rpg" ? $active_class : "" ?>><a class="waves-effect" href="riepilogo.php">Riepilogo <span class="new badge red"><?= $eventi['nuoviElementi'] ?></span></a></li>
+            <li <?= $cod == "agd" ? $active_class : "" ?>><a class="waves-effect" href="agenda.php">Agenda</a></li>
 
             <li><div class="divider"></div></li>
 
