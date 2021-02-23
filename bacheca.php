@@ -28,7 +28,7 @@ $bacheca = $argo->bacheca();
 
                                 <?php if (isset($bacheca[$x]['allegati'][0])) {
                                     for($i = 0; $i < count($bacheca[$x]['allegati']); $i++) { ?>
-                                        <p><b>Allegato:</b> <a href="<?= "http://www.portaleargo.it/famiglia/api/rest/messaggiobachecanuova?id=FFF" . $codice . "EEEII00001" . str_pad($bacheca[$x]['allegati'][$i]['prgMessaggio'], 10 ,"0", STR_PAD_LEFT) . str_replace('-', '', $token) . "ax6542sdru3217t4eesd9"; ?>">
+                                        <p><b>Allegato:</b> <a href="<?= "http://www.portaleargo.it/famiglia/api/rest/messaggiobachecanuova?id=FFF" . $codice . "EEEII" . str_pad($i + 1, 5 ,"0", STR_PAD_LEFT) . str_pad($bacheca[$x]['allegati'][$i]['prgMessaggio'], 10 ,"0", STR_PAD_LEFT) . str_replace('-', '', $token) . "ax6542sdru3217t4eesd9"; ?>">
                                         <?= $bacheca[$x]['allegati'][$i]['desFile'] ?></a></p>
                                 <?php }
                                 } ?>
