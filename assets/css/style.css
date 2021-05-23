@@ -157,3 +157,9 @@ body {
 main {
   flex: 1 0 auto;
 }
+
+/* Nascondi iubenda */
+.iubenda-tp-btn, .iubenda-cs-preferences-link {
+    display: none !important;
+    opacity: 0 !important;
+}

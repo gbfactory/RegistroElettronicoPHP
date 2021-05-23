@@ -41,4 +41,7 @@ $(document).ready(function() {
             themeSwitch.checked = true;
         }
     }
+
+    // Rimuovi iubenda
+    $('.iubenda-tp-btn.iubenda-cs-preferences-link').remove();
 });
