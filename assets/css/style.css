@@ -1,121 +1,129 @@
-header, main, footer {
-    padding-left: 300px;
-}
-
-@media only screen and (max-width : 992px) {
-    header, main, footer {
-        padding-left: 0;
-    }
-}
-
-@media only screen and (min-width: 601px) {
-    main>.container, body>.page-footer>.container, .top-nav>.container, #index-banner>.container, .github-commit>.container {
-        width: 100%;
-    }
-}
-
-nav.top-nav {
-    height: 110px;
-    box-shadow: none;
-    border-bottom: 1px solid rgba(0,0,0,0.14);
-    background-color: transparent;
+header,
+main,
+footer {
+  padding-left: 300px;
 }
 
 @media only screen and (max-width: 992px) {
-    nav .nav-wrapper {
-        text-align: center;
-    }    
+  header,
+  main,
+  footer {
+    padding-left: 0;
+  }
+}
+
+@media only screen and (min-width: 601px) {
+  main > .container,
+  body > .page-footer > .container,
+  .top-nav > .container,
+  #index-banner > .container,
+  .github-commit > .container {
+    width: 100%;
+  }
+}
+
+nav.top-nav {
+  height: 110px;
+  box-shadow: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  background-color: transparent;
+}
+
+@media only screen and (max-width: 992px) {
+  nav .nav-wrapper {
+    text-align: center;
+  }
 }
 
 nav.top-nav h1.header {
-    margin: 0;
-    padding-top: 22px;
+  margin: 0;
+  padding-top: 22px;
 }
 
 .header {
-    color: #ee6e73;
-    font-weight: 300;
+  color: #ee6e73;
+  font-weight: 300;
 }
 
 .text-pink {
-    color: #ee6e73;
+  color: #ee6e73;
 }
 
 a.sidenav-trigger {
-    position: absolute;
-    text-align: center;
-    height: 48px;
-    width: 48px;
-    top: 28px;
-    float: none;
-    margin-left: 1.5rem;
-    color: #f3989b;
-    font-size: 36px;
-    z-index: 2;
+  position: absolute;
+  text-align: center;
+  height: 48px;
+  width: 48px;
+  top: 28px;
+  float: none;
+  margin-left: 1.5rem;
+  color: #f3989b;
+  font-size: 36px;
+  z-index: 2;
 }
 
 @media only screen and (max-width: 600px) {
-    a.sidenav-trigger {
-        left: 0;
-    }
+  a.sidenav-trigger {
+    left: 0;
+  }
 }
 
 a.sidenav-trigger i {
-    font-size: 32px;
+  font-size: 32px;
 }
 
 .nav-active {
-    background-color: #ee6e73;
+  background-color: #ee6e73;
 }
 
 .nav-active > a {
-    color: #fff !important;
+  color: #fff !important;
 }
 
 .tabs.custom .col.s3 {
-    width: 33.3%;
+  width: 33.3%;
 }
 
 .user-view .background {
-    background-color: #ee6e73;
+  background-color: #ee6e73;
 }
 
 /* Riepilogo */
 .riepilogo-titolo {
-    width: 100%;
-    margin-bottom: -20px;
-    border-radius: 3px;
-    padding: 5px;
-    background-color: #e0e0e0;
-    position: relative;
+  width: 100%;
+  margin-bottom: -20px;
+  border-radius: 3px;
+  padding: 5px;
+  background-color: #e0e0e0;
+  position: relative;
 }
 
 .riepilogo-titolo a {
-    position: absolute;
-    right: 10px;
+  position: absolute;
+  right: 10px;
 }
 
 .riepilogo-titolo a i {
-    color: #000;
+  color: #000;
 }
 
 .promemoria-header {
-    background-color: #eeeeee;
-    border-radius: 3px;
+  background-color: #eeeeee;
+  border-radius: 3px;
 }
 
 .promemoria-header > blockquote {
-    padding: 10px;
-    overflow: hidden;
+  padding: 10px;
+  overflow: hidden;
 }
 
 /* Fullcalendar customization */
 .fc-content {
-    padding: 10px;
+  padding: 10px;
 }
 
-.fc-day-grid-event .fc-content{
-    white-space: normal !important;
+.fc-day-grid-event .fc-content {
+  white-space: normal !important;
 }
 
 /* .fc-unthemed td.fc-today {
@@ -124,17 +132,28 @@ a.sidenav-trigger i {
 
 /* Presa visione */
 .pv {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* Not found */
 .not-found {
-    margin-top: 3rem;
+  margin-top: 3rem;
 }
 
 /* Titolo collection */
 .collection .collection-item.avatar .title {
-    font-size: 17px;
-    font-weight: 500;
-    line-height: 1.8rem;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.8rem;
+}
+
+/* Sticky footer */
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
 }
