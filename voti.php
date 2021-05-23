@@ -5,7 +5,6 @@ $titolo = "Voti Giornalieri";
 include './components/header.php';
 
 $voti = $argo->votiGiornalieri();
-$scrutinio = $argo->votiScrutinio();
 $schede = $argo->schede();
 ?>
 
@@ -43,13 +42,16 @@ $schede = $argo->schede();
                 $votiTotSomma += $voto;
 
                 // Media trimetre
-                $dataTri = strtotime(explode('-', $annoFine)[0] . '-01-31');
-                $dataPen = strtotime(explode('-', $annoFine)[0] . '-06-31');
+                // $dataTri = strtotime(explode('-', $annoFine)[0] . '-01-31');
+                // $dataPen = strtotime(explode('-', $annoFine)[0] . '-06-31');
+
+                $dataTri = (strtotime('2021-01-31'));
+                $dataPen = (strtotime('2021-06-31'));
 
                 if ($data <= $dataTri) {
                     $votiTriSomma += $voto;
                     $votiTriCount++;
-                } else if ($data >= $dataPen) {
+                } else /*if ($data >= $dataPen)*/ {
                     $votiPenSomma += $voto;
                     $votiPenCount++;
                 }
@@ -73,24 +75,42 @@ $schede = $argo->schede();
 
             <div id="riepilogo" class="col s12">
 
-                <div class="section">
-                    <h4 class="text-pink" style="margin-top: 0">Andamento Valutazioni</h4>
-                    <canvas id="canvasAndamentoScolastico"></canvas>
+                <div class="row">
+                    <div class="col s12 m4 l4">
+                        <div class="card">
+                            <div class="card-content">
+                                <h5 class="text-pink">Media Complessiva</h5>
+                                <h3><?= $mediaTot ?></h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12 m4 l4">
+                        <div class="card">
+                            <div class="card-content">
+                                <h5 class="text-pink">Media Primo Periodo</h5>
+                                <h3><?= $mediaTri ?></h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12 m4 l4">
+                        <div class="card">
+                            <div class="card-content">
+                                <h5 class="text-pink">Media Secondo Periodo</h5>
+                                <h3><?= $mediaPen ?></h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="section">
-                    <div class="row">
-                        <div class="col s12 m4 l4">
-                            <h5 class="text-pink">Media Complessiva</h5>
-                            <canvas id="canvasMediaComplessiva"></canvas>
-                        </div>
-                        <div class="col s12 m4 l4">
-                            <h5 class="text-pink">Media Primo Periodo</h5>
-                            <canvas id="canvasMediaTrimestre"></canvas>
-                        </div>
-                        <div class="col s12 m4 l4">
-                            <h5 class="text-pink">Media Secondo Periodo</h5>
-                            <canvas id="canvasMediaPentamestre"></canvas>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card">
+                            <div class="card-content">
+                                <h4 class="text-pink" style="margin-top: 0">Andamento Valutazioni</h4>
+                                <canvas id="canvasAndamentoScolastico"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -278,7 +298,7 @@ $schede = $argo->schede();
                                     ${"sommaVoti1" . $i} += $voti[$j]['decValore'];
                                     ${"numVoti1" . $i}++;
                                     array_push(${"listaVoti1" . $i}, $voti[$j]);
-                                } else if (strtotime($voti[$j]['datGiorno']) >= $dataPen) {
+                                } else /*if (strtotime($voti[$j]['datGiorno']) >= $dataPen)*/ {
                                     ${"sommaVoti2" . $i} += $voti[$j]['decValore'];
                                     ${"numVoti2" . $i}++;
                                     array_push(${"listaVoti2" . $i}, $voti[$j]);
