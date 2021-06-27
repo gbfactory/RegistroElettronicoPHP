@@ -35,13 +35,13 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="https://scuola.gbfactory.net/img/icon.png">
-    <link rel="icon" type="image/png" href="https://scuola.gbfactory.net/img/icon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./img/icon.png">
+    <link rel="icon" type="image/png" href="./img/icon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>Registro Elettronico</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <!-- Canonical SEO -->
-    <link rel="canonical" href="https://scuola.gbfactory.net/" />
+    <link rel="canonical" href="https://registro.gbfactory.net/" />
     <!--  Social tags      -->
     <meta name="keywords" content="registro elettronico, registro online, argo, argo scuolanext, argo famiglia">
     <meta name="description" content="Una nuova interfaccia web non ufficiale per il Registro Elettronico Argo Scuolanext.">
@@ -52,7 +52,7 @@
     <!-- Open Graph data -->
     <meta property="og:title" content="Registro Elettronico" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://scuola.gbfactory.net/" />
+    <meta property="og:url" content="https://registro.gbfactory.net/" />
     <meta property="og:image" content="https://i.imgur.com/X1eCKpK.png" />
     <meta property="og:description" content="Una nuova interfaccia web non ufficiale per il Registro Elettronico Argo Scuolanext." />
     <meta property="og:site_name" content="Registro Elettronico" />
