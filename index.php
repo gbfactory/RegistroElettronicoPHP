@@ -1,33 +1,33 @@
 <?php
-    session_start();
+session_start();
 
-    if (isset($_SESSION['login'])) {
+if (isset($_SESSION['login'])) {
+    header('Location: riepilogo.php');
+    exit;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    require_once('./components/argoapi.php');
+
+    $error = '';
+
+    try {
+        $argo = new argoUser($_POST['codice'], $_POST['utente'], $_POST['password'], 0);
+
+        $_SESSION['login'] = true;
+        $_SESSION['codice'] = $_POST['codice'];
+        $_SESSION['utente'] = $_POST['utente'];
+        $_SESSION['authToken'] = $argo->schede()[0]['authToken'];
+
         header('Location: riepilogo.php');
         exit;
+    } catch (Exception $e) {
+        echo '<div class="card-panel red">Errore di connessione alle API di Argo ' . $e->getMessage() . '</div>';
     }
+}
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        require_once('./components/argoapi.php');
-
-        $error = '';
-
-        try {
-            $argo = new argoUser($_POST['codice'], $_POST['utente'], $_POST['password'], 0);
-
-            $_SESSION['login'] = true;
-            $_SESSION['codice'] = $_POST['codice'];
-            $_SESSION['utente'] = $_POST['utente'];
-            $_SESSION['authToken'] = $argo->schede()[0]['authToken'];
-
-            header('Location: riepilogo.php');
-            exit;
-        } catch (Exception $e) {
-            echo '<div class="card-panel red">Errore di connessione alle API di Argo ' . $e->getMessage() . '</div>';
-        }
-    }
-
-    $file = file_get_contents("https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US");
-    $json = json_decode($file, true);
+$file = file_get_contents("https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US");
+$json = json_decode($file, true);
 ?>
 
 <!DOCTYPE html>
@@ -110,6 +110,8 @@
             </div>
         </div>
     </div>
+
+    <?php include './components/analyticstracking.php' ?>
 </body>
 
 </html>
