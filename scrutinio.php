@@ -13,7 +13,8 @@ $scrutinio = $argo->votiScrutinio();
         <div class="row">
             <div class="col s6">
                 <ul class="collection with-header">
-                    <?php //print('<pre> ' . print_r($scrutinio, true) . '</pre>'); ?>
+                    <?php //print('<pre> ' . print_r($scrutinio, true) . '</pre>'); 
+                    ?>
 
                     <?php
                     // Divisione periodi
@@ -22,18 +23,19 @@ $scrutinio = $argo->votiScrutinio();
 
                     $default = $scrutinio[0]['prgPeriodo'];
 
-                    for ($i=0; $i < count($scrutinio); $i++) { 
+                    for ($i = 0; $i < count($scrutinio); $i++) {
 
                         if ($scrutinio[$i]['prgPeriodo'] == $default) {
                             array_push($primoPeriodo, $scrutinio[$i]);
                         } else {
                             array_push($secondoPeriodo, $scrutinio[$i]);
                         }
-
                     }
                     ?>
 
-                    <li class="collection-header"><h5>Primo Trimestre</h5></li>
+                    <li class="collection-header">
+                        <h5>Primo Trimestre</h5>
+                    </li>
                     <?php for ($x = 0; $x < count($primoPeriodo); $x++) { ?>
                         <li class="collection-item avatar">
                             <i class="circle <?= coloreVoto($primoPeriodo[$x]['votoOrale']['codVoto']) ?>"><?= $primoPeriodo[$x]['votoOrale']['codVoto'] ?></i>
@@ -51,7 +53,9 @@ $scrutinio = $argo->votiScrutinio();
 
             <div class="col s6">
                 <ul class="collection with-header">
-                    <li class="collection-header"><h5>Scrutinio Finale</h5></li>
+                    <li class="collection-header">
+                        <h5>Scrutinio Finale</h5>
+                    </li>
                     <?php for ($x = 0; $x < count($secondoPeriodo); $x++) { ?>
                         <li class="collection-item avatar">
                             <i class="circle <?= coloreVoto($secondoPeriodo[$x]['votoOrale']['codVoto']) ?>"><?= $secondoPeriodo[$x]['votoOrale']['codVoto'] ?></i>
@@ -66,7 +70,7 @@ $scrutinio = $argo->votiScrutinio();
                     <?php } ?>
                 </ul>
             </div>
-            
+
         </div>
     </div>
 </main>

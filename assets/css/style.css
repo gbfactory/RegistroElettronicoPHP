@@ -163,3 +163,8 @@ main {
     display: none !important;
     opacity: 0 !important;
 }
+
+/* Filtro materie */
+.filter-item {
+    margin: 0 0 8px 0 !important;
+}

@@ -9,15 +9,14 @@ $orario = $argo->orario();
 
 <main>
     <div class="container">
-        <div class="col s12">
-            <div class="section">
-                <ul class="collection with-header">
+        <div class="row">
+            <div class="col s12 m8">
+                <div class="section">
                     <?php
                     for ($x = 0; $x < count($orario); $x++) {
-
-                        if ($x > 0 && $orario[$x]['giorno'] != $orario[$x - 1]['giorno']) {
-                            echo '<li class="collection-header"><h5>' . $orario[$x]['giorno'] . '</h5></li>';
-                        } else if ($x == 0) {
+                        if (($x > 0 && $orario[$x]['giorno'] != $orario[$x - 1]['giorno']) || ($x == 0)) {
+                            if ($x != 0) echo '</ul>';
+                            echo '<ul class="collection with-header card">';
                             echo '<li class="collection-header"><h5>' . $orario[$x]['giorno'] . '</h5></li>';
                         }
 
@@ -26,7 +25,7 @@ $orario = $argo->orario();
                         }
                     }
                     ?>
-                </ul>
+                </div>
             </div>
         </div>
     </div>

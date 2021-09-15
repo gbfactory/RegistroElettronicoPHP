@@ -1,0 +1,68 @@
+192.168.1.3:40413: GET https://www.portaleargo.it/famiglia/api/rest/verifica?_dc=1602594886629
+                << 200 OK 47b
+192.168.1.3:40413: GET https://www.portaleargo.it/famiglia/api/rest/login?_dc=1602594887792
+                << 200 OK 551b
+192.168.1.3:40413: GET https://www.portaleargo.it/famiglia/api/rest/schede?_dc=1602594888148&page=1&start=0&limit=25
+                << 200 OK 1.78k
+192.168.1.3:40413: GET https://www.portaleargo.it/famiglia/api/rest/conteggioeventi?datGiorno=2020-10-13&_dc=1602594888502
+                << 200 OK 465b
+192.168.1.3:40413: GET https://www.portaleargo.it/famiglia/api/rest/oggi?_dc=1602594905168&datGiorno=2020-10-13&page=1&start=0&limit=25
+                << 200 OK 5.48k
+192.168.1.3:40414: GET https://www.portaleargo.it/famiglia/api/rest/messaggiobachecanuova?id=FFFSG26685EEEII000010000000232b2d280cce2494d13939adf56251c3412.7ax6542sdru3217t4eesd9
+                << 200 OK 311.37k
+192.168.1.3:40420: GET https://www.portaleargo.it/famiglia/api/rest/conteggioeventi?datGiorno=2020-10-13&_dc=1602594982199
+                << 200 OK 465b
+192.168.1.3:40420: GET https://www.portaleargo.it/famiglia/api/rest/assenze?_dc=1602594986520&page=1&start=0&limit=25
+                << 200 OK 1.5k
+192.168.1.3:40420: GET https://www.portaleargo.it/famiglia/api/rest/votigiornalieri?_dc=1602594991756&page=1&start=0&limit=25
+                << 200 OK 1.5k
+192.168.1.3:40420: GET https://www.portaleargo.it/famiglia/api/rest/notedisciplinari?_dc=1602594995585&page=1&start=0&limit=25
+                << 200 OK 1.5k
+192.168.1.3:40420: GET https://www.portaleargo.it/famiglia/api/rest/periodiclasse?_dc=1602594998185&page=1&start=0&limit=25
+                << 200 OK 1.93k
+192.168.1.3:40421: GET https://www.portaleargo.it/famiglia/api/rest/compiti?_dc=1602595005763&page=1&start=0&limit=25
+                << 200 OK 8.46k
+192.168.1.3:40421: GET https://www.portaleargo.it/famiglia/api/rest/compiti?_dc=1602595011541&page=1&start=0&limit=25
+                << 200 OK 8.46k
+192.168.1.3:40421: GET https://www.portaleargo.it/famiglia/api/rest/argomenti?_dc=1602595015471&page=1&start=0&limit=25
+                << 200 OK 14.08k
+192.168.1.3:40421: GET https://www.portaleargo.it/famiglia/api/rest/promemoria?_dc=1602595030819&page=1&start=0&limit=25
+                << 200 OK 3.59k
+192.168.1.3:40421: GET https://www.portaleargo.it/famiglia/api/rest/orario?_dc=1602595035544&page=1&start=0&limit=25
+                << 200 OK 11.51k
+192.168.1.3:40422: GET https://www.portaleargo.it/famiglia/api/rest/prenotazioniricevimento?_dc=1602595065116&page=1&start=0&limit=25
+                << 200 OK 2b
+192.168.1.3:40423: GET https://www.portaleargo.it/famiglia/api/rest/conteggioeventi?datGiorno=2020-10-13&_dc=1602595065131
+                << 200 OK 465b
+192.168.1.3:40423: GET https://www.portaleargo.it/famiglia/api/rest/docenticlasse?_dc=1602595088200&page=1&start=0&limit=25
+                << 200 OK 1.88k
+192.168.1.3:40423: GET https://www.portaleargo.it/famiglia/api/rest/disponibilitadocente?_dc=1602595099142&prgAnagrafe=134&page=1&start=0&limit=25
+                << 200 OK 2b
+192.168.1.3:40423: GET https://www.portaleargo.it/famiglia/api/rest/disponibilitadocente?_dc=1602595104922&prgAnagrafe=27&page=1&start=0&limit=25
+                << 200 OK 2b
+192.168.1.3:40424: GET https://www.portaleargo.it/famiglia/api/rest/bachecanuova?_dc=1602595135119&page=1&start=0&limit=25
+                << 200 OK 21.51k
+192.168.1.3:40425: GET https://www.portaleargo.it/famiglia/api/rest/conteggioeventi?datGiorno=2020-10-13&_dc=1602595135154
+                << 200 OK 465b
+192.168.1.3:40425: GET https://www.portaleargo.it/famiglia/api/rest/bachecaalunno?_dc=1602595143825&page=1&start=0&limit=25
+                << 200 OK 1.5k
+192.168.1.3:40425: GET https://www.portaleargo.it/famiglia/api/rest/docenticlasse?_dc=1602595150213&page=1&start=0&limit=25
+                << 200 OK 1.88k
+192.168.1.3:40425: GET https://www.portaleargo.it/famiglia/api/rest/condivisionefile?_dc=1602595155539&prgAnagrafe=134&page=1&start=0&limit=25
+                << 200 OK 1.5k
+192.168.1.3:40425: GET https://www.portaleargo.it/famiglia/api/rest/condivisionefile?_dc=1602595160121&prgAnagrafe=27&page=1&start=0&limit=25
+                << 200 OK 1.5k
+192.168.1.3:40425: GET https://www.portaleargo.it/famiglia/api/rest/condivisionefile?_dc=1602595163873&prgAnagrafe=435&page=1&start=0&limit=25
+                << 200 OK 1.96k
+192.168.1.3:40425: GET https://www.portaleargo.it/famiglia/api/rest/condivisionefile?_dc=1602595166479&prgAnagrafe=435&page=1&start=0&limit=25
+                << 200 OK 1.96k
+192.168.1.3:40441: GET https://www.portaleargo.it/famiglia/api/rest/condivisionefile?_dc=1602595201903&prgAnagrafe=435&page=1&start=0&limit=25
+                << 200 OK 1.96k
+192.168.1.3:40441: GET https://www.portaleargo.it/famiglia/api/rest/conteggioeventi?datGiorno=2020-10-13&_dc=1602595216424
+                << 200 OK 465b
+192.168.1.3:40441: GET https://www.portaleargo.it/famiglia/api/rest/bsmart?_dc=1602595226771
+                << 200 OK 745b
+192.168.1.3:40441: GET https://www.portaleargo.it/famiglia/api/rest/bachecanuova?_dc=1602595261909&page=1&start=0&limit=25
+                << 200 OK 21.51k
+192.168.1.3:40703: GET https://www.portaleargo.it/famiglia/api/rest/documentocondiviso?id=FFFSG26685EEEDO000530000000022b2d280cce2494d13939adf56251c3412.7ax6542sdru3217t4eesd9&a=6190&s=1&d=0
+                << 200 OK 12.71k

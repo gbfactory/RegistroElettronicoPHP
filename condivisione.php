@@ -15,7 +15,7 @@ $docenti = $argo->docenti();
                     <ul class="collection with-header">
                         <?php for ($x = 0; $x < count($docenti); $x++) { ?>
                             <?php $file = $argo->condivisionefile($docenti[$x]['prgAnagrafe']); ?>
-                            
+
                             <?php if (!empty($file)) { ?>
                                 <li class="collection-header">
                                     <p><b><?= $docenti[$x]['docente']['nome'] . ' ' . $docenti[$x]['docente']['cognome'] ?></b> <?= $docenti[$x]['materie'] ?></p>

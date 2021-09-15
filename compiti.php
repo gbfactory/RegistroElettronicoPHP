@@ -2,7 +2,7 @@
 $cod = "com";
 $titolo = "Compiti Assegnati";
 
-include './components/header.php'; 
+include './components/header.php';
 
 $compiti = $argo->compiti();
 ?>
@@ -18,23 +18,16 @@ $compiti = $argo->compiti();
         }
         ?>
 
-        <style>
-            .chip {
-                padding: 5px 12px;
-                overflow: hidden;
-            }
-        </style>
-
         <div class="row">
             <div class="col s12 m8">
                 <div class="section">
-                    <ul class="collection">
+                    <ul class="collection card">
                         <?php
                         for ($x = 0; $x < count($compiti); $x++) {
                             $datCompiti = $compiti[$x]['datCompiti'];
                             $datGiorno = $compiti[$x]['datGiorno'];
-                            ?>
-                            <li class="collection-item avatar" data-id="<?= str_replace(' ', '', $compiti[$x]['desMateria']) ?>">
+                        ?>
+                            <li class="collection-item avatar" data-id="<?= str_replace(' ', '', $compiti[$x]['desMateria']) ?>" data-color="<?= colore_data($datCompiti) ?>">
                                 <i class="material-icons circle <?= colore_data($datCompiti) ?>">book</i>
                                 <span class="title"><?= $compiti[$x]['desMateria'] ?></span>
                                 <p>Assegnati il <b><?= dataLeggibile($datGiorno) ?></b> per il <b><?= dataLeggibile($datCompiti) ?></b></p>
@@ -50,17 +43,39 @@ $compiti = $argo->compiti();
                 <div class="section">
                     <div class="card">
                         <div class="card-content">
-                            <h5 style="margin: 0">Filtro Materie</h5>
-                            <div class="section">
-                                <?php for ($x = 0; $x < count($materie); $x++) { ?>
-                                    <div class="chip">
-                                        <label>
-                                            <input type="checkbox" class="filled-in" checked="checked" value="<?= str_replace(' ', '', $materie[$x]) ?>" />
-                                            <span><?= $materie[$x] ?></span>
-                                        </label>
-                                    </div>
-                                <?php } ?>
-                            </div>
+                            <span class="card-title">Filtro Data</span>
+                            <p class="filter-item">
+                                <label>
+                                    <input type="checkbox" checked="checked" value="yellow" />
+                                    <span>PER DOMANI</span>
+                                </label>
+                            </p>
+                            <p class="filter-item">
+                                <label>
+                                    <input type="checkbox" checked="checked" value="red" />
+                                    <span>PER OGGI</span>
+                                </label>
+                            </p>
+                            <p class="filter-item">
+                                <label>
+                                    <input type="checkbox" checked="checked" value="green" />
+                                    <span>PASSATI</span>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Filtro Materie</span>
+                            <?php for ($x = 0; $x < count($materie); $x++) { ?>
+                                <p class="filter-item">
+                                    <label>
+                                        <input type="checkbox" id="filtro-materie" checked="checked" value="<?= str_replace(' ', '', $materie[$x]) ?>" />
+                                        <span><?= $materie[$x] ?></span>
+                                    </label>
+                                </p>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -68,10 +83,11 @@ $compiti = $argo->compiti();
         </div>
 
         <script>
-            $(document).ready(function(){
-                $('input[type="checkbox"]').click(function(){
+            $(document).ready(function() {
+                $('input[type="checkbox"]').click(function() {
                     var inputValue = $(this).attr("value");
                     $("[data-id='" + inputValue + "']").toggle();
+                    $("[data-color='" + inputValue + "']").toggle();
                 });
             });
         </script>

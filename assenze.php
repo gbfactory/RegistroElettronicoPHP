@@ -49,9 +49,9 @@ $argoAssenze = $argo->assenze();
                                 <?php if (isset($assenze[$x]['giustificataDa'])) { ?>
                                     <p>Giustificata da <?= rimuovi_parentesi($assenze[$x]['giustificataDa']) ?> il <?= dataLeggibile($assenze[$x]['datGiustificazione']) ?>
                                     <?php } else { ?>
-                                        <p>Da giustificare!</p>
-                                        <a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>
-                                    <?php } ?>
+                                    <p>Da giustificare!</p>
+                                    <a class="secondary-content tooltipped" data-tooltip="Da giustificare!"><i class="material-icons">warning</i></a>
+                                <?php } ?>
                             </li>
                         <?php } ?>
                     </ul>

@@ -22,8 +22,8 @@ $schede = $argo->schede();
         $votiTriCount = 0;
         $votiPenCount = 0;
 
-        $annoInizio = $schede[0]['annoScolastico']['datInizio'];
-        $annoFine = $schede[0]['annoScolastico']['datFine'];
+        $annoInizio = $schede[$scheda]['annoScolastico']['datInizio'];
+        $annoFine = $schede[$scheda]['annoScolastico']['datFine'];
 
         for ($x = 0; $x < count($voti); $x++) {
 
@@ -114,163 +114,6 @@ $schede = $argo->schede();
                         </div>
                     </div>
                 </div>
-
-                <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.5/chartjs-plugin-annotation.js"></script>
-
-                <script>
-                    // Grafico andamennto scolastico
-                    var canvasAndamento = document.getElementById('canvasAndamentoScolastico').getContext('2d');
-
-                    var dataAndamento = {
-                        datasets: [{
-                            data: [
-                                <?php
-                                for ($x = 0; $x < count($voti); $x++) {
-                                    if ($voti[$x]['decValore'] != 0) {
-                                        echo ($voti[$x]['decValore'] . ',');
-                                    }
-                                }
-                                ?>
-                            ],
-                            fill: false,
-                            backgroundColor: 'rgb(255, 159, 64)',
-                            borderColor: 'rgb(255, 205, 86)'
-                        }],
-                        labels: [
-                            <?php
-                            for ($x = 0; $x < count($voti); $x++) {
-                                if ($voti[$x]['decValore'] != 0) {
-                                    echo ("'" . $voti[$x]['desMateria'] . "',");
-                                }
-                            }
-                            ?>
-                        ]
-                    };
-
-                    var grafAndamento = new Chart(canvasAndamento, {
-                        type: 'line',
-                        data: dataAndamento,
-                        options: {
-                            responsive: true,
-                            legend: {
-                                display: false
-                            },
-                            scales: {
-                                xAxes: [{
-                                    display: false
-                                }],
-                                yAxes: [{
-                                    display: true
-                                }],
-                            },
-                            elements: {
-                                line: {
-                                    tension: 0
-                                }
-                            },
-                            annotation: {
-                                annotations: [{
-                                    drawTime: "afterDatasetsDraw",
-                                    type: "line",
-                                    mode: "horizontal",
-                                    scaleID: "y-axis-0",
-                                    value: 6,
-                                    borderColor: "rgb(212, 55, 73)",
-                                    borderWidth: 2,
-                                }]
-                            }
-                        }
-                    });
-
-
-                    // Grafici medie periodi
-                    var canvasMediaComp = document.getElementById('canvasMediaComplessiva').getContext('2d');
-                    var canvasMediaTrim = document.getElementById('canvasMediaTrimestre').getContext('2d');
-                    var canvasMediaPent = document.getElementById('canvasMediaPentamestre').getContext('2d');
-
-                    var dataMediaComp = {
-                        datasets: [{
-                            data: [
-                                <?= $mediaTot . ',' . (10 - $mediaTot) ?>
-                            ],
-                            backgroundColor: [
-                                'rgb(<?= coloreGrafico($mediaTot) ?>)',
-                                'rgb(161, 161, 161)',
-                            ]
-                        }],
-                        labels: [
-                            'Media complessiva',
-                            'Restante'
-                        ]
-                    };
-
-                    var dataMediaTrim = {
-                        datasets: [{
-                            data: [
-                                <?= $mediaTri . ',' . (10 - $mediaTri) ?>
-                            ],
-                            backgroundColor: [
-                                'rgb(<?= coloreGrafico($mediaTri) ?>)',
-                                'rgb(161, 161, 161)',
-                            ]
-                        }],
-                        labels: [
-                            'Media Trimetre',
-                            'Restante'
-                        ]
-                    };
-
-                    var dataMediaPent = {
-                        datasets: [{
-                            data: [
-                                <?= $mediaPen . ',' . (10 - $mediaPen) ?>
-                            ],
-                            backgroundColor: [
-                                'rgb(<?= coloreGrafico($mediaPen) ?>)',
-                                'rgb(161, 161, 161)',
-                            ]
-                        }],
-                        labels: [
-                            'Media Pentamentre',
-                            'Restante'
-                        ]
-                    };
-
-                    var grafMediaComp = new Chart(canvasMediaComp, {
-                        type: 'doughnut',
-                        data: dataMediaComp,
-                        options: {
-                            responsive: true,
-                            legend: {
-                                display: false
-                            }
-                        }
-                    });
-
-                    var grafMediaTrim = new Chart(canvasMediaTrim, {
-                        type: 'doughnut',
-                        data: dataMediaTrim,
-                        options: {
-                            responsive: true,
-                            legend: {
-                                display: false
-                            }
-                        }
-                    });
-
-                    var grafMediaPent = new Chart(canvasMediaPent, {
-                        type: 'doughnut',
-                        data: dataMediaPent,
-                        options: {
-                            responsive: true,
-                            legend: {
-                                display: false
-                            }
-                        }
-                    });
-                </script>
-
             </div>
 
             <div id="materie" class="col s12">
@@ -291,9 +134,9 @@ $schede = $argo->schede();
 
                         if ($voti[$j]['desMateria'] == $materie[$i]) {
 
-                            if ($voti[$j]['decValore'] != 0) {
-                                array_push(${"listaVoti" . $i}, $voti[$j]);
+                            array_push(${"listaVoti" . $i}, $voti[$j]);
 
+                            if ($voti[$j]['decValore'] != 0) {
                                 if (strtotime($voti[$j]['datGiorno']) <= $dataTri) {
                                     ${"sommaVoti1" . $i} += $voti[$j]['decValore'];
                                     ${"numVoti1" . $i}++;
@@ -321,7 +164,7 @@ $schede = $argo->schede();
                     <div class="card">
                         <div class="card-content">
                             <div class="row">
-                                <div class="col s12 m5">
+                                <div class="col s12 m4">
                                     <h5><?= $materie[$i] ?></h5>
                                     <hr>
                                     Media complessiva: <b><?= $media ?></b>
@@ -332,11 +175,28 @@ $schede = $argo->schede();
 
                                     <div class="row">
                                         <div class="col 6">
+                                            <svg class="sparkline<?= $i ?>1 sparkline--red" width="100" height="30" stroke-width="3"></svg>
+                                            <svg class="sparkline<?= $i ?>1 sparkline--red sparkline--filled" width="100" height="30" stroke-width="3"></svg>
+                                            <script>
+                                                sparkline(document.querySelector(".sparkline<?= $i ?>1"), [1, 5, 2, 4, 8, 3, 7]);
+                                            </script>
+                                        </div>
+                                        <div class="col 6">
                                             <?php $media1 = ${"numVoti1" . $i} > 0 ? ${"sommaVoti1" . $i} / ${"numVoti1" . $i} : 0; ?>
                                             Media Primo Periodo: <b><?= round($media1, 2) ?></b>
                                             <div class="progress">
                                                 <div class="determinate" style="width: <?= $media1 * 10 ?>%"></div>
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col 6">
+                                            <svg class="sparkline<?= $i ?>2 sparkline--red" width="100" height="30" stroke-width="3"></svg>
+                                            <svg class="sparkline<?= $i ?>2 sparkline--red sparkline--filled" width="100" height="30" stroke-width="3"></svg>
+                                            <script>
+                                                sparkline(document.querySelector(".sparkline<?= $i ?>2"), [1, 5, 2, 4, 8, 3, 7]);
+                                            </script>
                                         </div>
                                         <div class="col 6">
                                             <?php $media2 = ${"numVoti2" . $i} > 0 ? ${"sommaVoti2" . $i} / ${"numVoti2" . $i} : 0; ?>
@@ -348,7 +208,7 @@ $schede = $argo->schede();
                                     </div>
                                     <hr>
                                 </div>
-                                <div class="col s12 m7">
+                                <div class="col s12 m8">
                                     <ul class="collection">
                                         <?php for ($j = 0; $j < count($listaVoti); $j++) { ?>
                                             <?php $voto = $listaVoti[$j]; ?>
@@ -357,8 +217,9 @@ $schede = $argo->schede();
 
                                                 <span class="title">Prova <?= tipoProva($codProva = $voto['codVotoPratico'], true) ?> del <?= dataLeggibile($voto['datGiorno']) ?></span>
 
-                                                <p><?php if ($voto['desProva'] != '') echo ('<b>Descrizione:</b> ' . $voto['desProva']); ?>
-                                                    <p><?php if ($voto['desCommento'] != '') echo ('<b>Commento:</b> ' . $voto['desCommento']); ?>
+                                                <p><?php if ($voto['desProva'] != '') echo ('<b>Descrizione:</b> ' . $voto['desProva']); ?></p>
+                                                <p><?php if ($voto['desCommento'] != '') echo ('<b>Commento:</b> ' . $voto['desCommento']); ?></p>
+                                                <p><i><?= rimuovi_parentesi($voto['docente']); ?></i></p>
                                             </li>
                                         <?php } ?>
                                     </ul>
@@ -381,9 +242,9 @@ $schede = $argo->schede();
 
                             <p><?= dataLeggibile($voti[$x]['datGiorno']) ?> - <?= tipoProva($codProva = $voti[$x]['codVotoPratico']) ?></p>
 
-                            <p><?php if ($voti[$x]['desProva'] != '') echo ('<b>Descrizione:</b> ' . $voti[$x]['desProva']); ?>
-                                <p><?php if ($voti[$x]['desCommento'] != '') echo ('<b>Commento:</b> ' . $voti[$x]['desCommento']); ?>
-                                    <p><i><?= rimuovi_parentesi($voti[$x]['docente']); ?></i></p>
+                            <p><?php if ($voti[$x]['desProva'] != '') echo ('<b>Descrizione:</b> ' . $voti[$x]['desProva']); ?></p>
+                            <p><?php if ($voti[$x]['desCommento'] != '') echo ('<b>Commento:</b> ' . $voti[$x]['desCommento']); ?></p>
+                            <p><i><?= rimuovi_parentesi($voti[$x]['docente']); ?></i></p>
                         </li>
                     <?php } ?>
                 </ul>
@@ -393,9 +254,94 @@ $schede = $argo->schede();
     </div>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.5/chartjs-plugin-annotation.js"></script>
+
 <script>
+    // Materialize Tabs
     $(document).ready(function() {
         $('.tabs').tabs();
+    });
+
+    // Grafico andamento voti
+    var canvasContext = document.createElement("canvas").getContext("2d");
+
+    var pinkBlue = canvasContext.createLinearGradient(140, 0, 150, 300.0);
+    pinkBlue.addColorStop(0, "rgba(252,  70, 107, .9)");
+    pinkBlue.addColorStop(1, "rgba(255, 255, 255, .0)");
+
+    const graficoVoti = new Chart(document.getElementById('canvasAndamentoScolastico'), {
+        type: "line",
+        options: {
+            tooltips: {
+                mode: "index",
+                intersect: false,
+            },
+            legend: {
+                display: false
+            },
+            scales: {
+                xAxes: [{
+                    display: false,
+                }, ],
+                yAxes: [{
+                    display: true,
+                }, ],
+            },
+            annotation: {
+                annotations: [{
+                    drawTime: "afterDatasetsDraw",
+                    type: "line",
+                    mode: "horizontal",
+                    scaleID: "y-axis-0",
+                    value: 6,
+                    borderColor: "rgb(212, 55, 73)",
+                    borderWidth: 2,
+                }]
+            }
+        },
+        data: {
+            labels: [
+                <?php
+                for ($x = 0; $x < count($voti); $x++) {
+                    if ($voti[$x]['decValore'] != 0) {
+                        echo ("'" . $voti[$x]['desMateria'] . "',");
+                    }
+                }
+                ?>
+            ],
+            datasets: [{
+                data: [
+                    <?php
+                    for ($x = 0; $x < count($voti); $x++) {
+                        if ($voti[$x]['decValore'] != 0) {
+                            echo ($voti[$x]['decValore'] . ',');
+                        }
+                    }
+                    ?>
+                ],
+                label: "Valutazione",
+                fill: true,
+                lineTension: 0.3,
+                backgroundColor: pinkBlue,
+                borderColor: "#d63384",
+                borderCapStyle: "butt",
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: "miter",
+                borderWidth: 1,
+                pointBorderColor: "#d63384",
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "#d63384",
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                spanGaps: false
+            }]
+        }
     });
 </script>
 

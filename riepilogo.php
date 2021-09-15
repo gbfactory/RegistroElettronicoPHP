@@ -96,9 +96,9 @@ $riepilogo = $argo->oggiScuola($date);
 
                                     <p><?php if ($item['desProva'] != '') echo ('<b>Descrizione:</b> ' . $item['desProva']); ?>
 
-                                        <p><?php if ($item['desCommento'] != '') echo ('<b>Commento:</b> ' . $item['desCommento']); ?>
+                                    <p><?php if ($item['desCommento'] != '') echo ('<b>Commento:</b> ' . $item['desCommento']); ?>
 
-                                            <p><i><?= rimuovi_parentesi($item['docente']); ?></i></p>
+                                    <p><i><?= rimuovi_parentesi($item['docente']); ?></i></p>
                                 </li>
                             <?php } ?>
                         </ul>
@@ -133,8 +133,8 @@ $riepilogo = $argo->oggiScuola($date);
                                     <?php if (isset($item['giustificataDa'])) { ?>
                                         <p>Giustificata da <?= rimuovi_parentesi($item['giustificataDa']) ?> il <?= dataLeggibile($item['datGiustificazione']) ?>
                                         <?php } else { ?>
-                                            <p>Da giustificare!</p>
-                                        <?php } ?>
+                                        <p>Da giustificare!</p>
+                                    <?php } ?>
                                 </li>
                             <?php } ?>
                         </ul>
@@ -259,7 +259,7 @@ $riepilogo = $argo->oggiScuola($date);
                     </div>
 
                     <a class="waves-effect waves-light btn red datepicker" style="width: 100%"><i class="material-icons left">date_range</i>cambia data</a>
-                
+
                 </div>
             </div>
 
@@ -282,8 +282,7 @@ $riepilogo = $argo->oggiScuola($date);
                 var pickerval = $('.datepicker').val();
                 var date = pickerval.split('/');
                 var newDate = date[2] + '-' + date[1] + '-' + date[0];
-                if (newDate == "<?= $datejsanno ?>-<?= $datejsmese + 1 ?>-<?= $datejsgiorno ?>") return;
-                console.log(newDate);
+                
                 window.location.href = '?date=' + newDate
             },
             'i18n': {

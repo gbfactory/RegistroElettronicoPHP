@@ -1,28 +1,89 @@
 <?php
 session_start();
 
-if (isset($_SESSION['login'])) {
+if (isset($_SESSION['codice']) || isset($_SESSION['utente']) || isset($_SESSION['authToken'])) {
+
+    if (!isset($_SESSION['scheda'])) {
+        header('Location: seleziona.php');
+        exit;
+    }
+
     header('Location: riepilogo.php');
     exit;
 }
 
+function curl($request, $auxiliaryHeader, $auxiliaryQuery = array()) {
+    $defaultHeader = array(
+        "x-key-app: " . "ax6542sdru3217t4eesd9",
+        "x-version: " . "2.1.0",
+        "x-produttore-software: " . "ARGO Software s.r.l. - Ragusa",
+        "x-app-code: " . "APF",
+        "user-agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36"
+    );
+
+    $header = array_merge($defaultHeader, $auxiliaryHeader);
+
+    $defaultQuery = array("_dc" => round(microtime(true) * 1000));
+    $query = array_merge($defaultQuery, $auxiliaryQuery);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://www.portaleargo.it/famiglia/api/rest/" . $request . "?" . http_build_query($query));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+
+    $output = curl_exec($ch);
+
+    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    curl_close($ch);
+
+    return array("output" => $output, "httpcode" => $httpcode);
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    require_once('./components/argoapi.php');
+    $codice = $_POST['codice'];
+    $user = $_POST['utente'];
+    $password = $_POST['password'];
 
-    $error = '';
+    $header = array("x-cod-min: " . $codice, "x-user-id: " . $user, "x-pwd: " . $password);
+    $curl = curl("login", $header);
 
-    try {
-        $argo = new argoUser($_POST['codice'], $_POST['utente'], $_POST['password'], 0);
+    if ($curl['httpcode'] == 200) {
+        $curl = json_decode($curl['output']);
+        $token = $curl->token;
 
-        $_SESSION['login'] = true;
-        $_SESSION['codice'] = $_POST['codice'];
-        $_SESSION['utente'] = $_POST['utente'];
-        $_SESSION['authToken'] = $argo->schede()[0]['authToken'];
+        $header = array("x-auth-token: " . $token, "x-cod-min: " . $codice);
+        $curl = curl("schede", $header);
 
-        header('Location: riepilogo.php');
-        exit;
-    } catch (Exception $e) {
-        echo '<div class="card-panel red">Errore di connessione alle API di Argo ' . $e->getMessage() . '</div>';
+        if ($curl['httpcode'] == 200) {
+            $curl = ((array) json_decode($curl['output']));
+
+            if (count($curl) <= 1) {
+                // Se c'è solo 1 scheda manda a riepilogo
+                $_SESSION['codice'] = $codice;
+                $_SESSION['utente'] = $user;
+                $_SESSION['authToken'] = $token;
+                $_SESSION['scheda'] = 0;
+
+                header('Location: riepilogo.php');
+                exit;
+
+            } else {
+                // Se ci sono più schede manda a selettore
+                $_SESSION['codice'] = $codice;
+                $_SESSION['utente'] = $user;
+                $_SESSION['authToken'] = $token;
+
+                header('Location: seleziona.php');
+                exit;
+            }
+        } else {
+            $errore = TRUE;
+        }
+
+    } else {
+        $errore = TRUE;
     }
 }
 
@@ -111,7 +172,20 @@ $json = json_decode($file, true);
         </div>
     </div>
 
+    <?php if ($error === TRUE) { ?>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            swal.fire({
+                icon: 'error',
+                title: 'Accesso fallito!',
+                text: 'Controlla le tue credenziali o riprova più tardi.',
+            })
+        </script>
+    <?php } ?>
+
     <?php include './components/analyticstracking.php' ?>
+
 </body>
 
 </html>

@@ -2,8 +2,6 @@
 
 session_start();
 
-if(session_destroy()) {
+if (session_destroy()) {
     header('Location: index.php');
 }
-
-?>

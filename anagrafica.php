@@ -4,7 +4,7 @@ $titolo = "Dati Anagrafici";
 
 include './components/header.php';
 
-$request = $argo->schede();
+$anagrafica = $argo->schede()[$scheda];
 ?>
 
 <main>
@@ -15,51 +15,51 @@ $request = $argo->schede();
                     <table>
                         <tr>
                             <td>Alunno</td>
-                            <td><?= $request[0]["alunno"]["desCognome"] ?> <?= $request[0]["alunno"]["desNome"] ?></td>
+                            <td><?= $anagrafica["alunno"]["desCognome"] ?> <?= $anagrafica["alunno"]["desNome"] ?></td>
                         </tr>
                         <tr>
                             <td>Data di Nascita</td>
-                            <td><?= dataLeggibile($request[0]["alunno"]["datNascita"]) ?></td>
+                            <td><?= dataLeggibile($anagrafica["alunno"]["datNascita"]) ?></td>
                         </tr>
                         <tr>
                             <td>Sesso</td>
-                            <td><?= $request[0]["alunno"]["flgSesso"] ?></td>
+                            <td><?= $anagrafica["alunno"]["flgSesso"] ?></td>
                         </tr>
                         <tr>
                             <td>Codice Fiscale</td>
-                            <td><?= $request[0]["alunno"]["desCf"] ?></td>
+                            <td><?= $anagrafica["alunno"]["desCf"] ?></td>
                         </tr>
                         <tr>
                             <td>Comune di Nascita</td>
-                            <td><?= $request[0]["alunno"]["desComuneNascita"] ?></td>
+                            <td><?= $anagrafica["alunno"]["desComuneNascita"] ?></td>
                         </tr>
                         <tr>
                             <td>Cittadinanza</td>
-                            <td><?= $request[0]["alunno"]["desCittadinanza"] ?></td>
+                            <td><?= $anagrafica["alunno"]["desCittadinanza"] ?></td>
                         </tr>
                         <tr>
                             <td>Comune di Residenza</td>
-                            <td><?= $request[0]["alunno"]["desComuneResidenza"] ?> (<?= $request[0]["alunno"]["desCap"] ?>)</td>
+                            <td><?= $anagrafica["alunno"]["desComuneResidenza"] ?> (<?= $anagrafica["alunno"]["desCap"] ?>)</td>
                         </tr>
                         <tr>
                             <td>Via</td>
-                            <td><?= $request[0]["alunno"]["desVia"] ?></td>
+                            <td><?= $anagrafica["alunno"]["desVia"] ?></td>
                         </tr>
                         <tr>
                             <td>Comune di Recapito</td>
-                            <td><?= $request[0]["alunno"]["desComuneRecapito"] ?> (<?= $request[0]["alunno"]["desCapResidenza"] ?>)</td>
+                            <td><?= $anagrafica["alunno"]["desComuneRecapito"] ?> (<?= $anagrafica["alunno"]["desCapResidenza"] ?>)</td>
                         </tr>
                         <tr>
                             <td>Via di Recapito</td>
-                            <td><?= $request[0]["alunno"]["desIndirizzoRecapito"] ?></td>
+                            <td><?= $anagrafica["alunno"]["desIndirizzoRecapito"] ?></td>
                         </tr>
                         <tr>
                             <td>Telefono</td>
-                            <td><?= $request[0]["alunno"]["desTelefono"] ?></td>
+                            <td><?= $anagrafica["alunno"]["desTelefono"] ?></td>
                         </tr>
                         <tr>
                             <td>Cellulare</td>
-                            <td><?= $request[0]["alunno"]["desCellulare"] ?></td>
+                            <td><?= $anagrafica["alunno"]["desCellulare"] ?></td>
                         </tr>
                     </table>
                 </div>
